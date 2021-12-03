@@ -1,6 +1,8 @@
 > 观看廖雪峰Git教程笔记，[戳](https://www.liaoxuefeng.com/wiki/896043488029600)
 
-## 基本操作介绍
+## 基本操作
+
+### 操作介绍
 
 打开git bash在本地创建一个版本仓库，就是在合适的地方创建一个空目录，然后切入到此目录
 
@@ -49,7 +51,7 @@ Changes not staged for commit:
 no changes added to commit (use "git add" and/or "git commit -a")
 ```
 
-但是这里知识知道这个文件有被修改了，并不知道修改了什么内容，于是就可以通过这个命令来查看
+但是这里只是知道这个文件有被修改了，并不知道修改了什么内容，于是就可以通过这个命令来查看
 
 ```
 git diff readme.txt
@@ -89,7 +91,7 @@ On branch master
 nothing to commit, working tree clean
 ```
 
-于是基本操作都懂，我们每次修改提交修改提交，就会形成了不同的版本了，此时我们可以通过命令查看不同的版本
+我们每次修改提交修改提交，就会形成了不同的版本了，此时我们可以通过命令查看不同的版本
 
 ```
 git log
@@ -113,7 +115,7 @@ Date:   Sat Jun 20 16:30:12 2020 +0800
 
 ```
 
-然后还可以加上参数来减少信息的输出，这些一大串的7a4c0...是commit id（版本号），使用sha1计算出来的数字，因为Git是分布式版本管理系统，在多人协作同一个版本库里工作时用来区分版本号冲突。而其中带有HEAD就是当前的版本，HEAD^就是上个版本以此类推
+还可以加上参数来减少信息的输出，这些一大串的7a4c0...是commit id（版本号），使用sha1计算出来的数字，因为Git是分布式版本管理系统，在多人协作同一个版本库里工作时用来区分版本号冲突。而其中带有HEAD就是当前的版本，HEAD^就是上个版本以此类推
 
 ```
 git log --pretty=oneline
@@ -164,7 +166,7 @@ eb94719 HEAD@{3}: commit: add by lzyan
 d430863 HEAD@{4}: commit (initial): wrote a readme file
 ```
 
-## **总结上面提到的Git指令**
+### 总结本次提到的Git指令
 
 ```
 git init //初始化，把目录变成Git管理的仓库，生成.git文件
@@ -175,6 +177,7 @@ git diff <fileName> //查看文件修改了什么内容，是比较工作区与�
 git diff --cached是比较暂存区与版本库的区别。（扩展）
 git log //查看不同的版本信息
 git log --pretty=oneline //只查看比较重点的版本信息
+
 git reset --hard HEAD^/<commit id> //回到上一个版本和回到指定的版本
 git reflog //查看你使用过的命令
 
@@ -190,9 +193,10 @@ git reflog //查看你使用过的命令
 
 工作区隐藏了一个.git目录，这个不算工作区，而是Git的版本库。
 
-Git版本库里存放了很多东西，其中最重要的就i是stage（或者叫index）的暂存区，还有Git自动闯创建的第一个分支master，以及指向master的一个指针叫HEAD。
+Git版本库里存放了很多东西，其中最重要的就是stage（或者叫index）的暂存区，还有Git自动闯创建的第一个分支master，以及指向master的一个指针叫HEAD。
 
-![image-20200620175135934.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832916375306502144.png)
+![image-20200620175135934.png](https://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832916375306502144.png)
+
 前面讲到把文件往Git版本库里添加的时候，是分两步执行：
 
 第一步是用`git add`把文件添加进去，实际上就是把文件修改添加到暂存区；
@@ -209,15 +213,15 @@ Git版本库里存放了很多东西，其中最重要的就i是stage（或者�
 git checkout -- <fileName>
 ```
 
-命令git checkout --<fileName>的意识就是把文件在工作区的修改全部撤销，有两种情况：
+这个命令的意思就是把文件在工作区的修改全部撤销，有两种情况：
 
-一种是`readme.txt`自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态;
+一种是`readme.txt`自修改后还没有被放到暂存区，现在撤销修改就回到和版本库一模一样的状态;
 
-二种是`readme.txt`已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+二种是`readme.txt`已经添加到暂存区后，又作了修改，现在撤销修改就回到添加到暂存区后的状态。
 
 总之，就是这个文件返回到最近一次git commit 或git add的状态
 
-第二种的情况，就是git add到了缓存区了，庆幸是还没有commit，然后就可以下面的命令来把缓存区的修改撤销掉（unstage），重新放回到工作区。git reset 命令既可以回退版本，也可以把暂存区的修改退回到工作区。当使用HEAD时，表示是最新的版本。
+第二种的情况，就是git add到了缓存区了，庆幸是还没有commit，然后就可以使用下面的命令来把缓存区的修改撤销掉（unstage），重新放回到工作区。git reset 命令既可以回退版本，也可以把暂存区的修改退回到工作区。当使用HEAD时，表示是最新的版本。
 
 ```
 git reset HEAD <filename>
@@ -248,9 +252,9 @@ git commit -m"remove test.txt"
 
 ## 远程仓库
 
-1. **认识远程仓库，使用github远程仓库**
+### 1. 认识远程仓库，使用github远程仓库
 
-Git是分布式版本控制系统，同一个Git仓库，可以分不到不同的机器上。而这个做原始版本库的机器可被别的机器“克隆”这个原始版本库，但我们这学习着就不会拿一台机器从当服务器，24小时不关机，来做一个原始的版本库机器，可以自己搭但是没必要。github上面就有提供这样的一个服务，只要注册一个账号就可以获得Git远程仓库。
+Git是分布式版本控制系统，同一个Git仓库，可以分不到不同的机器上。而这个做原始版本库的机器可被别的机器“克隆”这个原始版本库，但我们这学习者就不会拿一台机器从当服务器，24小时不关机，来做一个原始的版本库机器，可以自己搭但是没必要。github上面就有提供这样的一个服务，只要注册一个账号就可以获得Git远程仓库。
 
 由于本地Git仓库和Github仓库之间的传输是通过SSH加密的，所以需要一些设置：
 
@@ -260,19 +264,19 @@ Git是分布式版本控制系统，同一个Git仓库，可以分不到不同�
 ssh-keygen -t rsa -C "youremail@example.com"
 ```
 
-你需要把邮件地址换成你自己的邮件地址，然后一路回车，使用默认值即可，由于这个Key也不是用于军事目的，所以也无需设置密码。
+你需要把邮件地址换成你自己的邮件地址，然后一路回车，使用默认值即可，由于这个Key也不作用其机密事项，所以也无需设置密码。
 
 如果一切顺利的话，可以在用户主目录里找到`.ssh`目录，里面有`id_rsa`和`id_rsa.pub`两个文件，这两个就是SSH Key的秘钥对，`id_rsa`是私钥，不能泄露出去，`id_rsa.pub`是公钥，可以放心地告诉任何人。
 
-![image-20200621170147551.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832916598988734464.png)
+![image-20200621170147551.png](https://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832916598988734464.png)
 
 登录github打开此界面设置"SSH Keys"，填上任意的title，和id_rsa.pub文件的内容
 
-![image-20200621170802545.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832916700289564672.png)
+![](https://resource.lzyan.fun/PigGo/20211202163401.png)
 
 点击Add SSH Key之后就可以看到添加成功了Key!
 
-[image-20200621171005343.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832916792207736832.png)
+![](https://resource.lzyan.fun/PigGo/20211202163317.png)
 
 为什么GitHub需要SSH Key呢？因为GitHub需要识别出你推送的提交确实是你推送的，而不是别人冒充的，而Git支持SSH协议，所以，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送。
 
@@ -282,15 +286,15 @@ ssh-keygen -t rsa -C "youremail@example.com"
 
 如果你不想让别人看到Git库，有两个办法，一个是交点保护费，让GitHub把公开的仓库变成私有的，这样别人就看不见了（不可读更不可写）。另一个办法是自己动手，搭一个Git服务器，因为是你自己的Git服务器，所以别人也是看不见的。
 
-2. **github添加远程仓库**
+### 2. github添加远程仓库
 
 在github上面打开仓库repositories然后仓库，填写名字，然后其他配置默认就可以了
 
-![image-20200621223155458.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832916902962528256.png)
+![image-20200621223155458.png](https://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832916902962528256.png)
 
 然后点击create repository创建成功，目前的仓库是空的。github告诉我们，可以从这个仓库克隆出新的仓库，也可以把一个已有的仓库与之关联，然后把本地的仓库内容推送到github仓库。
 
-![image-20200621223407747.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832916997946736640.png)
+![image-20200621223407747.png](https://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832916997946736640.png)
 
 在本地仓库下运行命令，远程库的名字就是`origin`，这是Git默认的叫法，也可以改成别的，但是`origin`这个名字一看就知道是远程库。
 
@@ -305,18 +309,19 @@ git push -u origin master
 ```
 
 于是乎可以在github上面看到跟本地仓库一摸一样的仓库。
-![image-20200621232231270.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832917131568873472.png)
+![image-20200621232231270.png](https://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832917131568873472.png)
+
 然后以后本地提交只需要以下命令就可以，把本地master分支的最新修改推送到github，现在，就拥有了真正的分布式版本库了。
 
 ```
 git push origin master
 ```
 
-3. **从远程仓库克隆**
+### 3. 从远程仓库克隆
 
 在github上面新建一个仓库gitskill，勾选Initialize this repository with a README，github会自动创建一个readme.md文件
 
-![image-20200621233859506.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832917232605462528.png)
+![image-20200621233859506.png](https://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832917232605462528.png)
 
 然后就是在本地克隆下来了，找个合适的位置
 
@@ -326,11 +331,11 @@ git clone git@github.com:YCheer/gitskill.git
 
 于是gitskill这个仓库和里面的文件就下来了
 
-![image-20200621234144340.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832917335042949120.png)
+![image-20200621234144340.png](https://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832917335042949120.png)
 
 ## 分支管理
 
-1. **先认识以下分支的道理**
+### 1. 先认识以下分支的道理
 
 分支在实际中有什么用呢？假设你准备开发一个新功能，但是需要两周才能完成，第一周你写了50%的代码，如果立刻提交，由于代码还没写完，不完整的代码库会导致别人不能干活了。如果等代码全部写完再一次提交，又存在丢失每天进度的巨大风险。
 
@@ -340,13 +345,13 @@ git clone git@github.com:YCheer/gitskill.git
 
 但Git的分支是与众不同的，无论创建、切换和删除分支，Git在1秒钟之内就能完成！无论你的版本库是1个文件还是1万个文件。
 
-有关实际项目种如何使用Git分支管理，这位博主描述得挺不错，先观摩观摩https://blog.csdn.net/ShuSheng0007/article/details/80791849
+有关实际项目中如何使用Git分支管理，这位博主描述得挺不错，先观摩观摩https://blog.csdn.net/ShuSheng0007/article/details/80791849
 
 还要明白的一个概念就是，以上面创建的仓库为例目前只有一条master分支，Git用master指向最新的提交，再用HEAD指向master，就能确定当前分支，以及当前分支的提交点
 
-![image-20200622002443580.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832917451040620544.png)
+![image-20200622002443580.png](https://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832917451040620544.png)
 
-2. **下面是实践。**
+### 2. 实践
 
 创建一个dev(develop)分支，然后切换到dev分支
 
@@ -408,7 +413,7 @@ git switch -c dev
 git switch master
 ```
 
-3. **总结本次用到的一些新命令**
+### 3. 总结本次用到的一些新命令
 
 ```
 git branch //查看分支
@@ -564,7 +569,7 @@ git log --graph --pretty=oneline --abbrev-commit
 
 所以，团队合作的分支看起来就像这样：
 
-![image-20200622102859060.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832917569391296512.png)
+![image-20200622102859060.png](https://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832917569391296512.png)
 
 ## 中途需要修改bug的时候该怎么利用分支
 

@@ -22,10 +22,9 @@ Filter 是依赖于 Servlet 容器，Filter接口就在 Servlet 包下面，属�
 
 概念：
 
-java中的拦截器是动态拦截action调用的对象。依赖于web框架，在springmvc中依赖于SpringMVC框架，在实现上基于Java的反射机制，属于AOP的一种应用，作用类似于过滤器，但是拦截器只能对Controller请求进行拦截，对其他的直接访问静态资源的请求无法拦截处理。
+Java中的拦截器是动态拦截action调用的对象。依赖于web框架，在SpringMVC中依赖于SpringMVC框架，在实现上基于Java的反射机制，属于AOP的一种应用，作用类似于过滤器，但是拦截器只能对Controller请求进行拦截，对其他的直接访问静态资源的请求无法拦截处理。
 
 使用时实现HandlerInterceptor接口
-
 
 ## 区别
 

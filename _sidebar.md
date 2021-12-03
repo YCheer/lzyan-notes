@@ -33,6 +33,7 @@
 * 杂记
   * [nuxt.js项目使用vuex实现导航栏切换](./docs/杂记/nuxt.js项目使用vuex实现导航栏切换.md)
   * [SpringBoot项目集成阿里云对象存储上传图片](./docs/杂记/SpringBoot项目集成阿里云对象存储上传图片.md)
+  * [git的基本操作](./docs/杂记/git基本操作.md)
   * [Nginx配置二级域名与ssl证书](./docs/杂记/Nginx配置二级域名与https.md)
   * [Java中过滤器和拦截器的区别](./docs/杂记/Java中过滤器和拦截器的区别.md)
   * [API鉴权和JWT](./docs/杂记/JWT_Api鉴权.md)

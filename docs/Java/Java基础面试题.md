@@ -102,6 +102,7 @@ Java语言是强类型语言，对于每一种数据都定义了明确的具体�
 - 数组([])
 
 基本数据类型图
+
 ![](https://resource.lzyan.fun/PigGo/20211201223216.png)
 
 ### Java有哪些运算符？
@@ -121,11 +122,93 @@ Java语言是强类型语言，对于每一种数据都定义了明确的具体�
 
 ![](https://resource.lzyan.fun/PigGo/20211202094253.png)
 
+### 什么是包装类？为什么需要包装类？
+
+Java中的8个基本数据类型，分别对应了8个包装类
+
+- 基本数据类型方便、简单、高效、但泛型不支持、集合元素不支持
+- 不符合面向对象思维
+- 包装类提供很多方法，方便使用如Integer类toHexString(int i)、parsenInt(String s)方法等
+
+### Integer a = 1000，Integer b = 1000，a==b 的结果是什么？那如果 a，b 都为1，结果又是什么？
+
+Integer a = 1000，Integer b = 1000，a==b 结果为false
+
+Integer a = 1，Integer b = 1，a==b 结果为true
+
+在 Java 8 中，Integer 包装类缓存池的大小默认为 -128~127,在范围内比较的是直接缓存的数据,在此之外比较的是对象
+
+### new Integer(123) 与 Integer.valueOf(123) 的区别？
+
+- new Integer(123) 每次都会新建一个对象；
+- Integer.valueOf(123) 会使用缓存池中的对象，多次调用会取得同一个对象的引用。
+
+```java
+Integer x = new Integer(123);
+Integer y = new Integer(123);
+System.out.println(x == y);    // false
+Integer z = Integer.valueOf(123);
+Integer k = Integer.valueOf(123);
+System.out.println(z == k);   // true
+```
+
+### String类是用什么数据结构来存储字符串的？String类可以被继承吗？
+
+String类是用数组的数据结构来存储字符串的，String类是被final修饰符修饰的，而被final修饰的类是不能被继承的
+
+### String为什么是不可变的？
+
+- 保存字符串的数组被final修饰且私有的，并且String类没有提供/暴露修改这个字符串的方法
+- String类被final修饰导致其不能被继承，进而避免了子类破坏String不可变
+- String不可变的关键在于底层的实现，而不是一个final
+
+### String不可变的好处？
+
+1. 可以缓存hash值
+
+因为String的hash值经常被使用，例如String用作HashMap的key，不可变的特性可以使得hash值也不可变，因此只需要进行一次计算
+
+1. String pool的需要
+
+如果一个String对象已经被创建过了，那么就会从String pool中取得引用。只有String是不可变的，才可能使用String pool
+
+3. 安全性
+
+String经常作为参数，String的不可变性可以保证参数不可变。例如在作为网络连接参数的情况下如果String是可变的，那么在网络连接的过程中String被改变，改变的一方以为现在连接的是其他的主机而实际情况却不一定是
+
+4. 线程安全
+
+String中的对象是不可变的，也就可以理解为常量，线程安全
+
+### String、StringBuffer和StringBuilder的区别，以及它们的使用场景？
+
+1. 可变性
+
+String不可变
+
+StringBuffer和StringBuilder可变
+
+2. 线程安全
+
+String不可变，因此是线程安全的
+
+StringBuilder不是线程安全的
+
+StringBuffer是线程安全，内部使用synchronized进行同步
+
+3. 性能
+
+每次对 String 类型进行改变的时候，都会生成一个新的 String 对象，然后将指针指向新的 String 对象，StringBuffer和StringBuilder类的对象能够被多次修改，并且不产生新的未使用的对象
+
+使用场景：
+
+- 如果操作少量的数据用String
+- 多线程操作字符串时缓冲区下操作大量数据，使用StringBuffer
+- 单线程操作字符串时缓冲区下操作大量数据，使用StringBuilder（相比较于StringBuffer有速度优势）
+
 ### switch是否能作用在byte上，是否能作用在long上，是否能作用在String上？
 
-在 Java 5 以前，switch(expr)中，expr 只能是 byte、short、char、int。从 Java5 开始，Java 中引入
-了枚举类型，expr 也可以是 enum 类型，从 Java 7 开始，expr 还可以是字符串（String），但是长整
-型（long）在目前所有的版 本中都是不可以的
+在 Java 5 以前，switch(expr)中，expr 只能是 byte、short、char、int。从 Java5 开始，Java 中引入了枚举类型，expr 也可以是 enum 类型，从 Java 7 开始，expr 还可以是字符串（String），但是长整型（long）在目前所有的版 本中都是不可以的
 
 ### continue、break 和 return 的区别是什么？
 
