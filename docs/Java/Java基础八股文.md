@@ -1,38 +1,38 @@
-> 该文档从各大平台搜集并学习后，根据自己的理解和需求而做的整合
+> 八股文整合，该文档从各大平台搜集学习后，根据自己的理解和需求而做的整合
 
 ## 基础概念
 
 ### Java语言的特点有哪些？
-1. 面向对象：封装，继承，多态
-2. 跨平台：Java虚拟机实现跨平台
-3. 容易实现多线程：Java是一门高级语言，高级语言会对用户屏蔽很多底层的实现细节
-4. 健壮性：Java的强类型机制、异常处理、垃圾的回收等都是健壮性的保证
-5. 容易进行网络编程和分布式项目开发：Java语言诞生本身就是为了简化网络编程设计的，Java中有net api，它提供了网络应用编程的类库
-6. 编译于解释并存：JIT编译器完成第一次编译后，其会将字节码对应的机器码保存下来，机器码的运行效率高于Java解释器的
+1. **面向对象：** 封装，继承，多态
+2. **跨平台：** Java虚拟机实现跨平台
+3. **容易实现多线程：** Java是一门高级语言，高级语言会对用户屏蔽很多底层的实现细节
+4. **健壮性：** Java的强类型机制、异常处理、垃圾的回收等都是健壮性的保证
+5. **容易进行网络编程和分布式项目开发：** Java语言诞生本身就是为了简化网络编程设计的，Java中有net api，它提供了网络应用编程的类库
+6. **编译于解释并存：** JIT编译器完成第一次编译后，其会将字节码对应的机器码保存下来，机器码的运行效率高于Java解释器的
 
 ### Java与其他语言相比，有什么优点？
-与C/C++相对比，Java语言是一种完全的面向对象语言，虽然它的底层（运行时库）是用C语言开发的，但不依赖于C。因为Java的运行是在运行时库的支持下进行的，所以运行效率比起可以更接近底层的C/C++来说会有所影响，不过Java的类库采用了很好的设计理念，比如：Java不提供指针来直接访问内存，程序内存更加安全、Java有自动内存管理垃圾回收机制(GC)，不需要程序员手动释放无用内存、C ++同时支持方法重载和操作符重载，但是Java 只支持方法重载（操作符重载增加了复杂性，这与 Java 最初的设计思想不符）。Java一度成为了业界的一种标准开发语言，它的跨平台特性更是受到了很多开发者的青睐，只需要开发一次就能在所有安装了Java运行时库的环境运行。
+与C/C++相对比，Java语言是一种**完全的面向对象**语言，虽然它的底层（运行时库）是用C语言开发的，但不依赖于C。因为Java的运行是在运行时库的支持下进行的，所以运行效率比起可以更接近底层的C/C++来说会有所影响，不过Java的类库采用了很好的设计理念，比如：**Java不提供指针来直接访问内存，程序内存更加安全、Java有自动内存管理垃圾回收机制(GC)，不需要程序员手动释放无用内存、C++同时支持方法重载和操作符重载，但是Java 只支持方法重载（操作符重载增加了复杂性，这与 Java 最初的设计思想不符）**。Java一度成为了业界的一种标准开发语言，它的跨平台特性更是受到了很多开发者的青睐，只需要开发一次就能在所有安装了Java运行时库的环境运行。
 
-与C#相比，C#是微软开发的一种编程语言，语法与Java类似，运行原理与Java也很类似，也是通过运行时库的支持运行。不过支持的平台有限，Java几乎被所有平台支持，而C#目前只被Windows和Linux支持，Windows下的支持是由微软自己开发的，而Linux下的支持则由mono支持。可实际上，mono也是把C#应用转化为Java应用，所以本质上C#仍只是被微软自己操作系统支持。应用平台的限制是它最大的缺点。
+与C#相比，C#是微软开发的一种编程语言，语法与Java类似，运行原理与Java也很类似，也是通过运行时库的支持运行。不过支持的平台有限，**Java几乎被所有平台支持**，而C#目前只被Windows和Linux支持，Windows下的支持是由微软自己开发的，而Linux下的支持则由mono支持。可实际上，mono也是把C#应用转化为Java应用，所以本质上C#仍只是被微软自己操作系统支持。应用平台的限制是它最大的缺点。
 
 ### JVM、JDK、JRE、JavaSE、JavaEE、JavaME、GC这些名词分别是什么意思？
-JVM：Java Virtual Machine的缩写，Java虚拟机，是运行Java字节码的虚拟机，是跨平台的关键。JVM有针对不同系统的特定实现（Windows，Linux，macOS），目的是使用相同的字节码，他们都会有相同的结果。JVM并不是只有一种，只要满足JVM规范，每个公司、组织或者个人都可以开发自己的专属JVM。也就是说平时接触到的HotSpot VM仅仅只是JVM规范的一种实现。Java虚拟机有自己完善的硬件架构，如处理器、堆栈、寄存器等，还具有相应的指令系统。JVM屏蔽了与具体操作系统平台相关的信息，使得Java程序只需生成在Java虚拟机上运行字节码，就可以在多种平台上不加修改就运行。
+**JVM：** Java Virtual Machine的缩写，Java虚拟机，是运行Java字节码的虚拟机，是跨平台的关键。JVM有针对不同系统的特定实现（Windows，Linux，macOS），目的是使用相同的字节码，他们都会有相同的结果。JVM并不是只有一种，只要满足JVM规范，每个公司、组织或者个人都可以开发自己的专属JVM。也就是说平时接触到的HotSpot VM仅仅只是JVM规范的一种实现。Java虚拟机有自己完善的硬件架构，如处理器、堆栈、寄存器等，还具有相应的指令系统。JVM屏蔽了与具体操作系统平台相关的信息，使得Java程序只需生成在Java虚拟机上运行字节码，就可以在多种平台上不加修改就运行。
 
-JDK：Java Development Kit的缩写，Java开发工具包，是功能齐全的Java SDK。JDK是整个Java的核心，包括了Java运行环境（JRE）所拥有的一切，还有编译器（javac）和工具（javadoc和jdb），它能够用来创建和编译程序。
+**JDK：** Java Development Kit的缩写，Java开发工具包，是功能齐全的Java SDK。JDK是整个Java的核心，包括了Java运行环境（JRE）所拥有的一切，还有编译器（javac）和工具（javadoc和jdb），它能够用来创建和编译程序。
 
-JRE：Java Runtime Environment的缩写，它是运行已经编译Java程序所需的所有内容的集合，包含JVM标准实现和JAVA核心类库，它能用来编译程序，不能用于创建新程序。所以如果只是运行Java程序的话，那么只需要安装JRE就可以了。如果是要进行一些Java编程，就需要安装JDK。但，这并不绝对。例如：如果要使用JSP部署Web程序，从技术上讲只需要应用程序程序服务器（Tomcat等）中运行Java程序，但是因为应用程序服务器会将JSP转换为Java Servlet，而Servlet需要JDK来编译，此时便是需要下载JDK的。
+**JRE：** Java Runtime Environment的缩写，它是运行已经编译Java程序所需的所有内容的集合，包含JVM标准实现和JAVA核心类库，它能用来编译程序，不能用于创建新程序。所以如果只是运行Java程序的话，那么只需要安装JRE就可以了。如果是要进行一些Java编程，就需要安装JDK。但，这并不绝对。例如：如果要使用JSP部署Web程序，从技术上讲只需要应用程序程序服务器（Tomcat等）中运行Java程序，但是因为应用程序服务器会将JSP转换为Java Servlet，而Servlet需要JDK来编译，此时便是需要下载JDK的。
 
-JavaSE：Java Standard Edition的缩写，标准版，一开始叫J2SE，是常用的一个版本，从JDK5.0开始改名为Java SE，主要应用于桌面应用软件的编程，是Java EE和Java ME的基础。
+**JavaSE：** Java Standard Edition的缩写，标准版，一开始叫J2SE，是常用的一个版本，从JDK5.0开始改名为Java SE，主要应用于桌面应用软件的编程，是Java EE和Java ME的基础。
 
-JavaEE：Java Enterprise Edition的缩写，企业版，JavaEE是J2EE的一个新的名称，是企业开发使用的一个版本，主要用于分布式的网络程序的开发。
+**JavaEE：** Java Enterprise Edition的缩写，企业版，JavaEE是J2EE的一个新的名称，是企业开发使用的一个版本，主要用于分布式的网络程序的开发。
 
-JavaME：Java Micro Edition的缩写，微型版，一般用于移动设备和嵌入式设备，如：机顶盒、移动电话和PDA等，为它们所提供Java语言平台，包括虚拟机和一系列标准化的Java API。
+**JavaME：** Java Micro Edition的缩写，微型版，一般用于移动设备和嵌入式设备，如：机顶盒、移动电话和PDA等，为它们所提供Java语言平台，包括虚拟机和一系列标准化的Java API。
 
-GC：Garbage Collection的缩写，垃圾回收，当Java虚拟机发觉内存资源紧张时，则会自动地去清理无用对象（没有被引用的对象）所占用的内存空间。
+**GC：** Garbage Collection的缩写，垃圾回收，当Java虚拟机发觉内存资源紧张时，则会自动地去清理无用对象（没有被引用的对象）所占用的内存空间。
 
 ### 什么是字节码？采用字节码的好处是什么？
 
-字节码是程序的一种低级表示，Java源代码经过编译器编译后产生的文件（即扩展为.class的文件），它不面向任何特定的处理器，只面向虚拟机。不论该字节码文件来自何方，由哪种编译器编译，甚至是手写字节码文件，只要符合Java虚拟机的规范，那么Java虚拟机就能够执行该字节码文件。
+字节码是程序的一种低级表示，Java源代码经过`编译器编译`后产生的文件（即扩展为.class的文件），它不面向任何特定的处理器`只面向虚拟机`。不论该字节码文件来自何方，由哪种编译器编译，甚至是手写字节码文件，只要符合Java虚拟机的规范，那么Java虚拟机就能够执行该字节码文件。
 
 字节码文件中，一般包含以下部分：
 - 版本号信息
@@ -122,236 +122,85 @@ Java语言是强类型语言，对于每一种数据都定义了明确的具体�
 
 ![](https://resource.lzyan.fun/PigGo/20211202094253.png)
 
-### 什么是包装类？为什么需要包装类？
-
-Java中的8个基本数据类型，分别对应了8个包装类
-
-- 基本数据类型方便、简单、高效、但泛型不支持、集合元素不支持
-- 不符合面向对象思维
-- 包装类提供很多方法，方便使用如Integer类toHexString(int i)、parsenInt(String s)方法等
-
-### Java基本类型的包装类常量池技术是什么？
-
-Java基本类型的包装类大部分都实现了常量池技术，常量池是为了避免频繁的创建和销毁对象而影响系统性能，其实现了对象的共享。
-
-Byte,Short,Integer,Long,Character,Boolean；
-
-前面 4 种包装类默认创建了数值[-128，127] 的相应类型的缓存数据，Character创建了数值在[0,127]范围的缓存数据，Boolean 直接返回True Or False。如果超出对应范围仍然会去创建新的对象，缓存的范围区间的大小只是在性能和资源之间的权衡。至于为什么是在-128~127之间，可查阅源码Integer类中有一个静态内部类IntegerCache，在IntegerCache类中有一个Integer数组，用以缓存当前数值范围-128~127时的Integer对象。其中两种浮点数类型的包装类 Float,Double 并没有实现常量池技术。
-
-```java
-Integer i1 = 66;
-Integer i2 = 66;
-System.out.println(i1 == i2);//true 在范围内比较的是直接缓存的数据
-
-Integer i3 = 128;
-Integer i4 = 128;
-System.out.println(i3 == i4);//false 在-128~127范围外，比较的是对象
-
-Float f1 = 222f;
-Float f2 = 222f;
-System.out.println(f1 == f2);//false
-
-Double d1 = 2.2;
-Double d2 = 2.2;
-System.out.println(d1 == d2);//false
-```
-需要注意一点：这是阿里Java开发手册中的一条规定
-![](https://resource.lzyan.fun/PigGo/20211206223304.png)
-
-### 什么是自动装箱拆箱？
-
-例如：
-```java
-Integer x = 2;     // 装箱 调用了 Integer.valueOf(2)
-int y = x;         // 拆箱 调用了 X.intValue()
-```
-简单来说：装箱就是自动将基本数据类型转换为包装类类型，拆箱就是自动将包装器类型转换为基本数据类型。
-
-装箱拆箱这个过程是自动执行的，所以我们需要通过反编译上面代码编译后的class文件得到对应的字节码来看它的执行过程：
-
-![](https://resource.lzyan.fun/PigGo/2021-12-06_230145.png)
-
-从字节码中可以发现，装箱其实就是调用了包装类的ValueOf()方法，拆箱就是调用了intValue()方法。
-
-因此:
-- Integer i = 10 等价于 Integer i = Integer.valueOf(10)
-- int n = i 等价于 int n = i.intValue();
-
-注意:装箱和拆箱过程需要进行大量的计算，装箱和拆箱操作会从速度和内存两个方面损伤应用程序的性能，因此应该清楚编译器会在何时自动产生执行这些操作的指令并尽量避免不必要的装拆箱操作，
-
-### new Integer(123) 与 Integer.valueOf(123) 的区别？
-
-- new Integer(123) 每次都会新建一个对象；
-- Integer.valueOf(123) 会使用缓存池中的对象，多次调用会取得同一个对象的引用。
-
-```java
-Integer x = new Integer(123);
-Integer y = new Integer(123);
-System.out.println(x == y);    // false
-Integer z = Integer.valueOf(123);
-Integer k = Integer.valueOf(123);
-System.out.println(z == k);   // true
-```
-
-### String类是用什么数据结构来存储字符串的？String类可以被继承吗？
-
-String类是用数组的数据结构来存储字符串的，String类是被final修饰符修饰的，而被final修饰的类是不能被继承的
-
-### String为什么是不可变的？
-
-- 保存字符串的数组被final修饰且私有的，并且String类没有提供/暴露修改这个字符串的方法
-- String类被final修饰导致其不能被继承，进而避免了子类破坏String不可变
-- String不可变的关键在于底层的实现，而不是一个final
-
-### String不可变的好处？
-
-1. 可以缓存hash值
-
-因为String的hash值经常被使用，例如String用作HashMap的key，不可变的特性可以使得hash值也不可变，因此只需要进行一次计算
-
-1. String pool的需要
-
-如果一个String对象已经被创建过了，那么就会从String pool中取得引用。只有String是不可变的，才可能使用String pool
-
-3. 安全性
-
-String经常作为参数，String的不可变性可以保证参数不可变。例如在作为网络连接参数的情况下如果String是可变的，那么在网络连接的过程中String被改变，改变的一方以为现在连接的是其他的主机而实际情况却不一定是
-
-4. 线程安全
-
-String中的对象是不可变的，也就可以理解为常量，线程安全
-
-### String、StringBuffer和StringBuilder的区别，以及它们的使用场景？
-
-1. 可变性
-
-String不可变
-
-StringBuffer和StringBuilder可变
-
-2. 线程安全
-
-String不可变，因此是线程安全的
-
-StringBuilder不是线程安全的
-
-StringBuffer是线程安全，内部使用synchronized进行同步
-
-3. 性能
-
-每次对 String 类型进行改变的时候，都会生成一个新的 String 对象，然后将指针指向新的 String 对象，StringBuffer和StringBuilder类的对象能够被多次修改，并且不产生新的未使用的对象
-
-使用场景：
-
-- 如果操作少量的数据用String
-- 多线程操作字符串时缓冲区下操作大量数据，使用StringBuffer
-- 单线程操作字符串时缓冲区下操作大量数据，使用StringBuilder（相比较于StringBuffer有速度优势）
-
-### Object类是什么？
-
-Object 类是一个特殊的类，是所有类的父类。java中如果一个类没有用 extends关键字 明确指出继承于某个类，那么它默认继承Object类。
-
-Object 类的通用方法：
-```java
-public native int hashCode()
-
-public boolean equals(Object obj)
-
-protected native Object clone() throws CloneNotSupportedException
-
-public String toString()
-
-public final native Class<?> getClass()
-
-protected void finalize() throws Throwable {}
-
-public final native void notify()
-
-public final native void notifyAll()
-
-public final native void wait(long timeout) throws InterruptedException
-
-public final void wait(long timeout, int nanos) throws InterruptedException
-
-public final void wait() throws InterruptedException
-```
-
-### ==和equals()的区别是什么？
-
-== 对于基本类型和引用类型的作用效果是不同的：
-
-- 对于基本数据类型来说，==比较的是值
-- 对于引用数据类型来说，==比较的是对象的内存地址
-
-equals() 作用不能用于判断基本数据类型的变量，只能用来判断两个对象是否相等。它存在于Object类中，
-equals() 方法存在两种使用情况：
-
-- 没有覆盖equals()方法：通过equals()比较该类的对象时，等价于通过“==”比较这两个对象，使用的默认是Object类equals()方法
-- 类覆盖了equals()方法：一般我们都覆盖equals()方法来比较两个对象中的属性是否相等；若它们的属性相等，则返回true（即认为这两个对象相等）
-
-关于String类中的equals()方法：
-
-- String类中的equals()方法是被重写过的，因为Object的equals()方法比较的是对象的内存地址，而String的equals()方法比较的是对象的值
-- 当创建String类型对象时，虚拟机会在常量池中查找有没有已经存在的值和要创建的值相同的对象，如果有就把它赋给当前引用。如果没有就在常量池中重新创建一个String对象
-
-```java
-String a = new String("ab"); //a为一个引用
-String b = new String("ab"); //b为另一个引用，对象内容一样
-String aa = "ab"; //放在常量池
-String bb = "ab"; //从常量池中查找
-System.out.println(aa==bb); //true
-System.out.println(a==b); //false
-System.out.println(a.equals(b)); //true 
-System.out.println(42 == 42.0);// true
-```
-
-### hashCode()方法的作用？
-
-作用：
-
-hashCode()方法的作用是获取哈希码，也称散列码；它实际上是返回一个int整数。这个哈希码的作用是确定该对象在哈希表中的索引位置。
-
-hashCode()方法定义在JDK的Object类中，这就意味着Java中的任何类都包含hashCode()函数。另外需要注意的是：Object的hashCode()方法是本地方法，也就是用C语言或C++实现的，该方法通常用来将对象的内存地址转换为整数之后返回。
-
-虽然，每个Java类都包含hashCode()函数，但是仅仅当创建某个“类的散列表”时，该类的hashCode()才有用（作用是：确定该类的每一个对象在散列表中的位置），其他情况下，例如创建类的单个对象或者创建类的对象数组，类的hashCode()没有作用
-
-上面的散列表指的是：Java集合中本质是散列表的类，如HashMap，Hashtable，HashSet。
-
-上面提到的散列码的作用：
-
-- 散列表存储的是键值对(key-value)，它的特点是：能根据“键”快速的检索出对应的“值”。这其中就利用到了散列码！
-- 散列表的本质是通过数组实现的。当我们要获取散列表中的某个“值”时，实际上是要获取数组中的某个位置的元素。而数组的位置，就是通过“键”来获取的；更进一步说，数组的位置，是通过“键”对应的散列码计算得到的。
-
-以HashSet为例，深入理解hashCode()的作用：
-
-  假设，HashSet中已经有1000个元素。当插入第1001个元素时，需要怎么处理？因为HashSet是Set集合，它允许有重复元素。
-
-  将第1001个元素逐个的和前面1000个元素进行比较？显然，这个效率是相等低下的。散列表很好的解决了这个问题，它根据元素的散列码计算出元素在散列表中的位置，然后将元素插入该位置即可。对于相同的元素，自然是只保存了一个。
-
-  由此可知，若两个元素相等，它们的散列码一定相等；但反过来却不一定。
-
-  也就是说，在散列表中：1.如果两个对象相等，那么它们的hashCode()值一定要相同；2.如果两个对象hashCode()相等，它们并不一定相等。这是在散列表中的情况，在非散列表中比一定如此
-
-### hashCode()和equals()的关系?
-
-重写equals()方法时一般需要重写hashCode()方法，这两个方法是用来协同判断两个对象是否相等的，采用这种方式的原因是可以提高程序插入和查询的速度，equals()方法默认比较是采用hashCode()值比较
-
-当重写equals()方法时，说明我们想要更改判断对象是否相等的方式，因此我们需要同时重写hashCode()，才能保证对象判断方式是我们想要的效果
-
-如果在重写equals()方法时，不重写hashCode()方法，就会导致在某些场景下，例如将两个相等的自定义对象存储在 Set 集合时，就会出现程序执行的异常，为了保证程序的正常执行，所以我们就需要在重写 equals 时，也一并重写 hashCode 方法才行
-
-### 关于Object类中的toString()方法？
-
-Object类的toString()方法默认返回该对象实现类的“类名+@+hashcode”值，而这个返回值不能实现自我描述功能，所以可以重写toString()方法来实现描述。至于要不要进行重写需要根据需要来定
-
-### 深拷贝、浅拷贝是什么？
-
-- 浅拷贝并不是真的拷贝，只是 **复制指向某个对象的指针** ，而不复制对象本身，新旧对象还是共享同一块内存。
-- 深拷贝会另外 **创造一个一模一样的对象** ，新对象跟原对象不共享内存，修改新对象不会改到原对象。
-
-### switch是否能作用在byte上，是否能作用在long上，是否能作用在String上？
+### switch是否能作用在byte、long、String上？
 
 在 Java 5 以前，switch(expr)中，expr 只能是 byte、short、char、int。从 Java5 开始，Java 中引入了枚举类型，expr 也可以是 enum 类型，从 Java 7 开始，expr 还可以是字符串（String），但是长整型（long）在目前所有的版本中都是不可以的，如果值过于复杂，那么还是用 if 比较合适
+
+### &和&&的区别
+
+&运算符有两种用法：按位与和逻辑与。
+
+&&运算符是短路与运算。
+
+逻辑与跟短路与的差别是非常巨大的，虽然二者都要 求运算符左右两端的布尔值都是true 整个表达式的值才是 true。&&之所以称为短路运算，是因为如果&&左边的表达式的值是 false，右边的表达式会被直 接短路掉，不会进行运算。
+
+注意：逻辑或运算符（|）和短路或运算符（||）的差别也是如此。
+
+### 什么是自动类型转化？
+
+`自动类型转换` 也称为`隐式类型转换`，是指不需要书写代码，由系统自动完成的类型转换。由于实际开发中这样的类型转换有很多，所以Java语言在设计时，并没有为该操作设计语法，而是由JVM完成。
+
+转换规则为：从存储范围小的类型到存储范围大的类型。
+```java
+byte->short(char)->int->long->float->double
+```
+例如:因为字面量 1 是 int 类型，它比 short 类型精度要高，因此不能隐式地将 int 类型向下转型为 short 类型。
+```java
+short s1 = 1; // 编译器在编译时帮我们自动转换成对应的short类型
+// s1 = s1 + 1; // 编译错误
+```
+但是使用 += 或者 ++ 运算符会执行隐式类型转换。
+```java
+s1 += 1;
+s1++;
+```
+上面的语句相当于将 s1 + 1 的计算结果进行了向下转型：
+```java
+s1 = (short) (s1 + 1); //强转
+```
+
+### 怎样进行强制类型转换？
+
+在Java中强制类型转换分为基本数据类型和引用数据类型两种。
+
+转换的格式：所要转换的类型 变量名 = （所要转换的类型）原类型。
+
+- 基本数据类型强制类型转换
+
+```java
+double x = 3.14;
+int y = (int) x; // 强转，损失精度 y的值为3
+```
+
+- 引用数据类型强制类型转换
+
+这种强制类型转换方式经常在多态中使用，当子类的实例被父类所引用时，只可以调用父类中的方法，如果想调用子类的所有方法，必须经过强制类型转换
+```java
+//SuperClass
+public class SuperClass {
+    public void superTest(){
+        System.out.println("super class");
+    }
+}
+//SubClass
+public class SubClass extends SuperClass{
+    @Override
+    public void superTest() {
+        System.out.println("override superTest");
+    }
+
+    public void subTest(){
+        System.out.println("sub class");
+    }
+}
+//main函数
+public static void main(String[] args) {
+    SuperClass superClass = new SubClass(); //子类的实例指向父类的引用
+    superClass.superTest(); // override superTest 只能调用父类自己的方法，当子类重写了这个方法时调用的是子类重写的方法
+    SubClass subClass = (SubClass) superClass;// 强转
+    subClass.subTest(); // sub class
+}
+```
 
 ### continue、break 和 return 的区别是什么？
 
@@ -362,107 +211,9 @@ return 用于跳出所在方法，结束该方法的运行。return 一般有两
  - return; ：直接使用 return 结束方法执行，用于没有返回值函数的方法 
  - return value; ：return 一个特定值，用于有返回值函数的方法 
 
-### 静态方法为什么不能调用非静态成员？
+### 怎么用最有效率的方法计算 2 乘以 8？
 
-这个需要结合JVM的相关知识，主要原因如下：
-
-1. 静态方法属于类的，在类加载的时候就会分配内存，可以通过类名直接访问。而非静态成员属于实例对象，只有在对象实例化之后才会存在，需要通过类的实例对象去访问
-2. 在类的非静态成员不存在的时候静态成员就已经存在了，此时调用在内存中还不存在的非静态成员，属于非法操作 
-
-### 实例变量和静态变量是什么？他们有什么区别？
-
-实例变量和静态变量都属于成员变量
-
-实例变量：定义在类中但在任何方法之外，当一个对象被实例化之后，每个实例变量的值就跟着确定，它与该实例同生共死
-
-静态变量：又称为类变量，也就是说这个变量属于类的，类所有的实例都共享静态变量，可以直接通过类名进行访问。静态变量在内存中只存在一份，在类加载的时候分配
-
-区别：
-1. 存放位置：静态变量随着类的加载存在于方法区中，实例变量随着对象的建立存在于堆内存
-2. 生命周期：静态变量的生命周期最长随着类的加载而加载消失而消失，实例变量与实例同生共死
-
-### static关键字的使用方式有哪些？
-
-1. 静态变量：static修饰的变量
-2. 静态方法：静态方法在类加载的时候就存在了，它不依赖于任何实例。所以静态方法必须有实现，不能是抽象方法。方法中不能有this和super关键字，因为这两个关键字与具体对象关联
-3. 静态语句块：在类初始化的时候运行一次
-4. 静态内部类：非静态内部类依赖于外部类的实例，也就是说需要先创建外部类实例，才能用这个实例去创建非静态内部类，而静态内部类是不需要的。静态内部类不能访问外部类的非静态的变量和方法
-5. 静态导包：使用import static用来导入某个类或者包中的静态方法或者静态变量
-
-### final的作用？
-
-1. 修饰类
-
-声明类不可以被继承
-
-2. 修饰方法
-
-声明方法不能被子类重写
-
-用private修饰的方法隐式地被指定final，如果子类中定义的方法和父类中一个用private修饰的方法的方法名相同，此时子类的方法不是重写父类的方法，而是在子类中重新定义了一个方法
-
-3. 修饰数据
-
-声明数据为常量，可以是编译时常量，也可以是运行时被初始化后不能被改变的常量
-
-```java
-public class TestFinal{
-  final int f1 = 1; // 编译时常量
-  final int f2 ; // 运行时初始化常量
-  public TestFinal(){
-      this.f2 = 1;
-  }
-}
-```
-- 对于基本类型，final使数值不变
-
-- 对于引用类型，final使引用不变，也就不能引用其他对象，但是被引用的对象本身是可以修改的
-```java
-final int x = 1;
-// x = 2;  // cannot assign value to final variable 'x'
-final A y = new A();
-y.a = 1; // 修改被引用对象本身的属性
-```
-注意：final修饰的方法参数也同样时遵循以上两点
-
-
-### Java中类的初始化顺序？
-
-一个类中包含如下的东西：
-1. 静态变量：staic开头定义的属性
-2. 静态语句块：static{}圈起来的方法块
-3. 实例变量：未带有static定义的属性
-4. 普通语句块：{}圈起来的方法块
-5. 构造函数：跟类名相同的方法
-6. 方法：普通的方法
-
-普通类的情况下，初始化顺序为：
-- 静态变量
-- 静态语句块
-- 实例变量
-- 普通语句块
-- 构造函数
-
-存在继承的情况下，初始化顺序为：
-- 父类（静态变量、静态语句块）
-- 子类（静态变量、静态语句块）
-- 父类（实例变量、普通语句块）
-- 父类（构造函数）
-- 子类（实例变量、普通语句块）
-- 子类（构造函数）
-
-包含接口、抽象类情况下（普通类继承抽象类并实现接口），初始化顺序为：
-- 接口静态变量
-- 抽象类静态变量
-- 抽象类静态语句块
-- 实现类（普通类）静态属性
-- 实现类静态语句块
-- 抽象类实例变量
-- 抽象类普通语句块
-- 抽象类构造方法
-- 实现类实例变量
-- 实现类普通语句块
-- 实现类构造函数
+2 << 3（左移 3 位相当于乘以 2 的 3 次方，右移 3 位相当于除以 2 的 3 次 方）。
 
 
 ## 面向对象
@@ -556,14 +307,14 @@ y.a = 1; // 修改被引用对象本身的属性
 
 不同点：
 
-|    参数    |                            抽象类                            |                             接口                             |
-| :--------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|    声明    |                 抽象类使用abstract关键字声明                 |                 接口使用interface关键字声明                  |
-|    实现    | 子类使用extends关键字来继承抽象类。如果子类 不是抽象类的话，它需要提供抽象类中所有声明的方法的实现 | 子类使用implements关键字来实现 接口。它需要提供接口中所有声明的 方法的实现 |
-|   构造器   |                      抽象类可以有构造器                      |                       接口不能有构造器                       |
-| 访问修饰符 |              抽象类中的方法可以是任意访问修饰符              | 接口方法默认修饰符是public。并且 不允许定义为 private 或者 protected , 从 Java 9 开始，允许将方法定义为 private，这样就能定义某些复用的代码又不会把方法暴露出去。|
-|   多继承   |                 一个类最多只能继承一个抽象类                 |                    一个类可以实现多个接口                    |
-|  字段声明  |                 抽象类的字段声明可以是任意的                 |            接口的字段默认都是 static 和 final 的             |
+|    参数    |                                               抽象类                                               |                                                                               接口                                                                                |
+| :--------: | :------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|    声明    |                                    抽象类使用abstract关键字声明                                    |                                                                    接口使用interface关键字声明                                                                    |
+|    实现    | 子类使用extends关键字来继承抽象类。如果子类 不是抽象类的话，它需要提供抽象类中所有声明的方法的实现 |                                            子类使用implements关键字来实现 接口。它需要提供接口中所有声明的 方法的实现                                             |
+|   构造器   |                                         抽象类可以有构造器                                         |                                                                         接口不能有构造器                                                                          |
+| 访问修饰符 |                                 抽象类中的方法可以是任意访问修饰符                                 | 接口方法默认修饰符是public。并且 不允许定义为 private 或者 protected , 从 Java 9 开始，允许将方法定义为 private，这样就能定义某些复用的代码又不会把方法暴露出去。 |
+|   多继承   |                                    一个类最多只能继承一个抽象类                                    |                                                                      一个类可以实现多个接口                                                                       |
+|  字段声明  |                                    抽象类的字段声明可以是任意的                                    |                                                               接口的字段默认都是 static 和 final 的                                                               |
 
 备注：在JDK1.8以前，接口(interface)没有提供任何具体的实现，在《JAVA编程思想》中是这样描述的：“interface这个关键字产生了一个完全抽象的类，它根本就没有提供任何具体的实现。它允许创建者确定方法名、参数列表和返回类型，但是没有任何方法体。接口只提供了形式，而未提供任何具体实现”。但是这一限制在JDK1.8中被打破了，JDK1.8开始，接口允许定义默认方法和静态方法，这是因为不支持默认方法的接口的维护成本太高了。在 JDK1.8 之前，如果一个接口想要添加新的方法，那么要修改所有实现了该接口的类，让它们都实现新增的方法。
 ```java
@@ -647,17 +398,252 @@ super可以理解为是指向自己父类对象的一个指针，而这个父类
 总结：
 
 | **区别点** | **重载方法** |                         **重写方法**                         |
-| :--------: | :------: | :----------------------------------------------------------: |
-|  发生范围  | 同一个类 |                             子类                             |
-|  参数列表  | 必须修改 |                         一定不能修改                         |
-|  返回类型  |  可修改  |      子类方法返回值类型应比父类方法返回值类型更小或相等      |
-|    异常    |  可修改  | 子类方法声明抛出的异常类应比父类方法声明抛出的异常更小或相等 |
-| 访问修饰符 |  可修改  |            一定不能做更严格的限制（可以降低限制）            |
-|  发生阶段  |  编译器  |                            运行期                            |
+| :--------: | :----------: | :----------------------------------------------------------: |
+|  发生范围  |   同一个类   |                             子类                             |
+|  参数列表  |   必须修改   |                         一定不能修改                         |
+|  返回类型  |    可修改    |      子类方法返回值类型应比父类方法返回值类型更小或相等      |
+|    异常    |    可修改    | 子类方法声明抛出的异常类应比父类方法声明抛出的异常更小或相等 |
+| 访问修饰符 |    可修改    |            一定不能做更严格的限制（可以降低限制）            |
+|  发生阶段  |    编译器    |                            运行期                            |
 
 综上：`重载`就是同一个类中多个同名方法根据不同的传参来执行不同的逻辑处理，`重写`就是子类对父类方法的重新改造，外部样子不能改变，内部逻辑可以改变
 
 注意：关于重写的返回值类型,如果方法的返回类型是 void 和基本数据类型，则返回值重写时不可修改。但是如果方法的返回值是引用类型，重写时是可以返回该引用类型的子类的
+
+### 类的构造方法的作用是什么？
+
+构造方法主要作用是完成类的初始化工作。如果一个类没有声明构造方法，也可以执行，因为一个类即使没有声明构造方法也会有默认的不带参数的构造方法。但是如果自己添加了类的构造方法（无论是否有参数），Java就不会再添加默认的无参构造方法这时候。如果我们重载了有参的构造方法，记得都要把无参的构造方法也写出来（无论是否用到），因为这可以帮助我们在创建对象的时候少踩坑。
+
+### 什么是内部类？
+
+在Java程序中，通常情况下，我们把不同的类组织在不同的包下面，对于一个包下面的类来说，它们是在同一层次，没有父子关系：
+```java
+java.lang
+├── Math
+├── Runnable
+├── String
+└── ...
+```
+还有一种类，它被定义在另一个类的内部，所以称为内部类（Nested Class）。内部类本身就是类的一个属性，与其他属性定义方式一致J。ava的内部类分为好几种，通常情况用得不多，但也需要了解它们是如何使用的。
+
+内部类分四种：成员内部类、局部内部类、匿名内部类和静态内部类。
+
+- 成员内部类
+
+定义在类内部，成员位置上的非静态，就是成员内部类。
+```java
+public class Outer {
+
+    private static int radius = 1;
+    private int count = 2;
+
+    class Inner {
+        public void visit() {
+            System.out.println("visit outer static variable:" + radius);
+            System.out.println("visit outer variable:" + count);
+
+        }
+    }
+}
+```
+成员内部类可以访问外部类所有的变量和方法，包括静态和非静态，私有和公有。成员内部类依赖于外部类的实例，它的创建方式：外部类实例.new 内部类()，如下：
+```java
+Outer outer = new Outer();
+Outer.Inner inner = outer.new Inner();
+inner.visit();
+```
+观察Java编译器编译后的.class文件可以发现，Outer类被编译为Outer.class，而Inner类被编译为Outer$Inner.class。
+
+- 局部内部类
+
+定义在方法中的内部类，就是局部内部类
+```java
+public class Outer {
+
+    private int out_a = 1;
+    private static int STATIC_b = 2;
+
+    public void testFunctionClass() {
+        int inner_c = 3;
+        class Inner {
+            private void fun() {
+                System.out.println(out_a);
+                System.out.println(STATIC_b);
+                System.out.println(inner_c);
+            }
+        }
+        Inner inner = new Inner();
+        inner.fun();
+    }
+
+    public static void testStaticFunctionClass() {
+        int d = 3;
+        class Inner {
+            private void fun() {
+                // System.out.println(out_a); 编译错误，定义在静态方法中的局部类不可以访问外 部类的实例变量
+                System.out.println(STATIC_b);
+                System.out.println(d);
+            }
+        }
+        Inner inner = new Inner();
+        inner.fun();
+    }
+}
+```
+定义在实例方法中的局部类可以访问外部类的所有变量和方法，定义在静态方法 中的局部类只能访问外部类的静态变量和方法。局部内部类的创建方式，在对应方法内，new 内部类()，如下：
+```java
+public static void testStaticFunctionClass(){
+  class Inner {
+  }
+  Inner inner = new Inner();
+}
+
+```
+
+- 静态内部类
+
+和成员内部类类似，但是使用static修饰
+```java
+public class Outer {
+
+    private static int radius = 1;
+
+    static class StaticInner {
+        public void visit() {
+            System.out.println("visit outer static variable:" + radius);
+        }
+    }
+}
+```
+静态内部类可以访问外部类所有的静态变量，而不可访问外部类的非静态变量； 静态内部类的创建方式，new 外部类.静态内部类()，如下：
+```java
+Outer.StaticInner inner = new Outer.StaticInner();
+inner.visit
+```
+- 匿名内部类
+
+匿名内部类就是没有名字的内部类,它不需要在外部类中明确地定义这个类，而是在方法内部，通过匿名类（Anonymous Class）来定义
+```java
+public class Outer {
+    private String name;
+
+    Outer(String name) {
+        this.name = name;
+    }
+
+    void asyncHello() {
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Hello, " + Outer.this.name);
+            }
+        };
+        new Thread(r).start();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Outer outer = new Outer("Nested");
+        outer.asyncHello();
+    }
+}
+```
+观察asyncHello()方法，我们在方法内部实例化了一个Runnable。Runnable本身是接口，接口是不能实例化的，所以这里实际上是定义了一个实现了Runnable接口的匿名类，并且通过new实例化该匿名类，然后转型为Runnable。在定义匿名类的时候就必须实例化它，定义匿名类的写法如下：
+```java
+Runnable r = new Runnable() {
+    // 实现必要的抽象方法...
+};
+```
+匿名内部类不能定义任何静态成员和静态方法。匿名类和成员内部类一样，可以访问外部类的所有字段和方法。之所以我们要定义匿名类，是因为在这里我们通常不关心类名，比直接定义内部类可以少写很多代码。
+
+观察Java编译器编译后的.class文件可以发现，Outer类被编译为Outer.class，而匿名类被编译为Outer$1.class。如果有多个匿名类，Java编译器会将每个匿名类依次命名为Outer$1、Outer$2、Outer$3……
+
+### 内部类的优点？有哪些应用场景？
+
+优点：
+1. 一个内部类对象可以访问创建它的外部类对象的内容，包括私有数据。
+2. 内部类不为同一包的其他类所见，具有很好的封装性。
+3. 内部类有效实现了“多重继承”，优化 java 单继承的缺陷。
+4. 匿名内部类可以很方便的定义回调。
+
+应用场景：
+1. 一些多算法场合
+2. 解决一些非面向对象的语句块。
+3. 适当使用内部类，使得代码更加灵活和富有扩展性。
+4. 当某个类除了它的外部类，不再被其他的类使用时。
+
+### Java中类的初始化顺序？
+
+一个类中包含如下的东西：
+1. 静态变量：staic开头定义的属性
+2. 静态语句块：static{}圈起来的方法块
+3. 实例变量：未带有static定义的属性
+4. 普通语句块：{}圈起来的方法块
+5. 构造函数：跟类名相同的方法
+6. 方法：普通的方法
+
+普通类的情况下，初始化顺序为：
+- 静态变量
+- 静态语句块
+- 实例变量
+- 普通语句块
+- 构造函数
+
+存在继承的情况下，初始化顺序为：
+- 父类（静态变量、静态语句块）
+- 子类（静态变量、静态语句块）
+- 父类（实例变量、普通语句块）
+- 父类（构造函数）
+- 子类（实例变量、普通语句块）
+- 子类（构造函数）
+
+包含接口、抽象类情况下（普通类继承抽象类并实现接口），初始化顺序为：
+- 接口静态变量
+- 抽象类静态变量
+- 抽象类静态语句块
+- 实现类（普通类）静态属性
+- 实现类静态语句块
+- 抽象类实例变量
+- 抽象类普通语句块
+- 抽象类构造方法
+- 实现类实例变量
+- 实现类普通语句块
+- 实现类构造函数
+
+### 什么是classpath和jar？
+
+- classpath：
+
+Java程序编译后生成.class文件，时JVM可直接执行的字节码文件。classpath就是告诉JVM去哪里查找要执行的class文件，时一组路径的集合，windows上用;分隔，linux上用:分隔，如：
+```
+win:
+C:\work\project1\bin;C:\shared;"D:\My Documents\project1\bin"
+linux:
+/usr/shared:/usr/local/bin:/home/liaoxuefeng/bin
+```
+classpath环境变量不是必须设置的，有两种方法可以告诉JVM class文件的地址：
+1. 可以通过设置环境变量的方法告诉JVM那里查找class文件，但是这种方式是不推荐的，这样会污染系统环境
+2. 在启动JVM时，通过`-classpath`和`-cp`参数启动。例如：java -cp D:\Java\test Test (在D:\Java\test目录下查找Test.class并运行)。如果既没有设置classpath，也没有使用`-classpath`和`-p`参数，则JVM只会在当前目录查找.class文件
+
+- jar
+
+它可以把`package`组织的目录层级，以及各个目录下的所有文件（包括.class文件和其他文件）都打成一个jar文件。jar包实际上就是一个zip格式的压缩文件，而jar包相当于目录。
+
+因为jar包的本质是一个目录结构，如果我们要执行一个jar包的class，就可以把jar包放到classpath中：
+```
+java -cp ./test.jar test.Test
+```
+jar包还可以包含一个特殊的/META-INF/MANIFEST.MF文件，MANIFEST.MF是纯文本，可以指定Main-Class和其它信息。JVM会自动读取这个MANIFEST.MF文件，如果存在Main-Class，我们就不必在命令行指定启动的类名，而是用更方便的命令：
+```
+java -jar test.jar
+```
+jar包还可以包含其它jar包，这个时候，就需要在MANIFEST.MF文件里配置classpath了。
+
+创建jar包的方式：
+
+1. 直接在资源管理器中，找到正确的目录，点击右键，在弹出的快捷菜单中选择“发送到”，“压缩(zipped)文件夹”，就制作了一个zip文件。然后，把后缀从.zip改为.jar，一个jar包就创建成功。
+2. 使用工具创建jar包。例如Maven，可以非常方便地创建jar包。
 
 ### 成员变量与局部变量的区别？
 
@@ -696,3 +682,995 @@ super可以理解为是指向自己父类对象的一个指针，而这个父类
 - 使用原则
 
 在使用变量时需要遵循的原则为：就近原则首先在局部范围找，有就使用；接着在成员位置找。
+
+### 实例变量和静态变量是什么？他们有什么区别？
+
+实例变量和静态变量都属于成员变量
+
+实例变量：定义在类中但在任何方法之外，当一个对象被实例化之后，每个实例变量的值就跟着确定，它与该实例同生共死
+
+静态变量：又称为类变量，也就是说这个变量属于类的，类所有的实例都共享静态变量，可以直接通过类名进行访问。静态变量在内存中只存在一份，在类加载的时候分配
+
+区别：
+1. 存放位置：静态变量随着类的加载存在于方法区中，实例变量随着对象的建立存在于堆内存
+2. 生命周期：静态变量的生命周期最长随着类的加载而加载消失而消失，实例变量与实例同生共死
+
+### 静态方法为什么不能调用非静态成员？
+
+这个需要结合JVM的相关知识，主要原因如下：
+
+1. 静态方法属于类的，在类加载的时候就会分配内存，可以通过类名直接访问。而非静态成员属于实例对象，只有在对象实例化之后才会存在，需要通过类的实例对象去访问
+2. 在类的非静态成员不存在的时候静态成员就已经存在了，此时调用在内存中还不存在的非静态成员，属于非法操作 
+
+### static关键字的使用方式有哪些？
+
+1. 静态变量：static修饰的变量
+2. 静态方法：静态方法在类加载的时候就存在了，它不依赖于任何实例。所以静态方法必须有实现，不能是抽象方法。方法中不能有this和super关键字，因为这两个关键字与具体对象关联
+3. 静态语句块：在类初始化的时候运行一次
+4. 静态内部类：非静态内部类依赖于外部类的实例，也就是说需要先创建外部类实例，才能用这个实例去创建非静态内部类，而静态内部类是不需要的。静态内部类不能访问外部类的非静态的变量和方法
+5. 静态导包：使用import static用来导入某个类或者包中的静态方法或者静态变量
+
+### final的作用？
+
+1. 修饰类
+
+声明类不可以被继承
+
+2. 修饰方法
+
+声明方法不能被子类重写
+
+用private修饰的方法隐式地被指定final，如果子类中定义的方法和父类中一个用private修饰的方法的方法名相同，此时子类的方法不是重写父类的方法，而是在子类中重新定义了一个方法
+
+3. 修饰数据
+
+声明数据为常量，可以是编译时常量，也可以是运行时被初始化后不能被改变的常量
+
+```java
+public class TestFinal{
+  final int f1 = 1; // 编译时常量
+  final int f2 ; // 运行时初始化常量
+  public TestFinal(){
+      this.f2 = 1;
+  }
+}
+```
+- 对于基本类型，final使数值不变
+
+- 对于引用类型，final使引用不变，也就不能引用其他对象，但是被引用的对象本身是可以修改的
+```java
+final int x = 1;
+// x = 2;  // cannot assign value to final variable 'x'
+final A y = new A();
+y.a = 1; // 修改被引用对象本身的属性
+```
+注意：final修饰的方法参数也同样时遵循以上两点
+
+### Object类是什么？
+
+Object 类是一个特殊的类，是所有类的父类。java中如果一个类没有用 extends关键字 明确指出继承于某个类，那么它默认继承Object类。
+
+Object 类的通用方法：
+```java
+public native int hashCode()
+
+public boolean equals(Object obj)
+
+protected native Object clone() throws CloneNotSupportedException
+
+public String toString()
+
+public final native Class<?> getClass()
+
+protected void finalize() throws Throwable {}
+
+public final native void notify()
+
+public final native void notifyAll()
+
+public final native void wait(long timeout) throws InterruptedException
+
+public final void wait(long timeout, int nanos) throws InterruptedException
+
+public final void wait() throws InterruptedException
+```
+
+### ==和equals()的区别是什么？
+
+== 对于基本类型和引用类型的作用效果是不同的：
+
+- 对于基本数据类型来说，==比较的是值
+- 对于引用数据类型来说，==比较的是对象的内存地址
+
+equals() 作用不能用于判断基本数据类型的变量，只能用来判断两个对象是否相等。它存在于Object类中，
+equals() 方法存在两种使用情况：
+
+- 没有覆盖equals()方法：通过equals()比较该类的对象时，等价于通过“==”比较这两个对象，使用的默认是Object类equals()方法
+- 类覆盖了equals()方法：一般我们都覆盖equals()方法来比较两个对象中的属性是否相等；若它们的属性相等，则返回true（即认为这两个对象相等）
+
+关于String类中的equals()方法：
+
+- String类中的equals()方法是被重写过的，因为Object的equals()方法比较的是对象的内存地址，而String的equals()方法比较的是对象的值
+- 当创建String类型对象时，虚拟机会在常量池中查找有没有已经存在的值和要创建的值相同的对象，如果有就把它赋给当前引用。如果没有就在常量池中重新创建一个String对象
+
+```java
+String a = new String("ab"); //a为一个引用
+String b = new String("ab"); //b为另一个引用，对象内容一样
+String aa = "ab"; //放在常量池
+String bb = "ab"; //从常量池中查找
+System.out.println(aa==bb); //true
+System.out.println(a==b); //false
+System.out.println(a.equals(b)); //true 
+System.out.println(42 == 42.0);// true
+```
+
+### hashCode()方法的作用？
+
+作用：
+
+hashCode()方法的作用是获取哈希码，也称散列码；它实际上是返回一个int整数。这个哈希码的作用是确定该对象在哈希表中的索引位置。
+
+hashCode()方法定义在JDK的Object类中，这就意味着Java中的任何类都包含hashCode()函数。另外需要注意的是：Object的hashCode()方法是本地方法，也就是用C语言或C++实现的，该方法通常用来将对象的内存地址转换为整数之后返回。
+
+虽然，每个Java类都包含hashCode()函数，但是仅仅当创建某个“类的散列表”时，该类的hashCode()才有用（作用是：确定该类的每一个对象在散列表中的位置），其他情况下，例如创建类的单个对象或者创建类的对象数组，类的hashCode()没有作用
+
+上面的散列表指的是：Java集合中本质是散列表的类，如HashMap，Hashtable，HashSet。
+
+上面提到的散列码的作用：
+
+- 散列表存储的是键值对(key-value)，它的特点是：能根据“键”快速的检索出对应的“值”。这其中就利用到了散列码。
+- 散列表的本质是通过数组实现的。当我们要获取散列表中的某个“值”时，实际上是要获取数组中的某个位置的元素。而数组的位置，就是通过“键”来获取的；更进一步说，数组的位置，是通过“键”对应的散列码计算得到的。
+
+以HashSet为例，深入理解hashCode()的作用：
+
+  假设，HashSet中已经有1000个元素。当插入第1001个元素时，需要怎么处理？因为HashSet是Set集合，它允许有重复元素。
+
+  将第1001个元素逐个的和前面1000个元素进行比较？显然，这个效率是相等低下的。散列表很好的解决了这个问题，它根据元素的散列码计算出元素在散列表中的位置，然后将元素插入该位置即可。对于相同的元素，自然是只保存了一个。
+
+  由此可知，若两个元素相等，它们的散列码一定相等；但反过来却不一定。
+
+  也就是说，在散列表中：1.如果两个对象相等，那么它们的hashCode()值一定要相同；2.如果两个对象hashCode()相等，它们并不一定相等。这是在散列表中的情况，在非散列表中比一定如此。
+
+### hashCode()和equals()的关系?
+
+重写equals()方法时一般需要重写hashCode()方法，这两个方法是用来协同判断两个对象是否相等的，采用这种方式的原因是可以提高程序插入和查询的速度，equals()方法默认比较是采用hashCode()值比较。
+
+当重写equals()方法时，说明我们想要更改判断对象是否相等的方式，因此我们需要同时重写hashCode()，才能保证对象判断方式是我们想要的效果。
+
+如果在重写equals()方法时，不重写hashCode()方法，就会导致在某些场景下，例如将两个相等的自定义对象存储在 Set 集合时，就会出现程序执行的异常，为了保证程序的正常执行，所以我们就需要在重写 equals 时，也一并重写 hashCode 方法才行。
+
+### 关于Object类中的toString()方法？
+
+Object类的toString()方法默认返回该对象实现类的“类名+@+hashcode”值，而这个返回值不能实现自我描述功能，所以可以重写toString()方法来实现描述。至于要不要进行重写需要根据需要来定。
+
+### 深拷贝、浅拷贝是什么？
+
+- 浅拷贝
+
+浅拷贝并不是真的拷贝，只是 **复制指向某个对象的指针** ，而不复制对象本身，新旧对象还是共享同一块内存。
+
+- 深拷贝
+
+会另外 **创造一个一模一样的对象** ，新对象跟原对象不共享内存，修改新对象不会改到原对象。
+
+
+### 什么是包装类？为什么需要包装类？
+
+Java中的8个基本数据类型，分别对应了8个包装类
+
+- 基本数据类型方便、简单、高效、但泛型不支持、集合元素不支持
+- 不符合面向对象思维
+- 包装类提供很多方法，方便使用如Integer类toHexString(int i)、parsenInt(String s)方法等
+
+### Java基本类型的包装类常量池技术是什么？
+
+Java基本类型的包装类大部分都实现了常量池技术，常量池是为了避免频繁的创建和销毁对象而影响系统性能，其实现了对象的共享。
+
+Byte,Short,Integer,Long,Character,Boolean；
+
+前面 4 种包装类默认创建了数值[-128，127] 的相应类型的缓存数据，Character创建了数值在[0,127]范围的缓存数据，Boolean 直接返回True Or False。如果超出对应范围仍然会去创建新的对象，缓存的范围区间的大小只是在性能和资源之间的权衡。至于为什么是在-128~127之间，可查阅源码Integer类中有一个静态内部类IntegerCache，在IntegerCache类中有一个Integer数组，用以缓存当前数值范围-128~127时的Integer对象。其中两种浮点数类型的包装类 Float,Double 并没有实现常量池技术。
+
+```java
+Integer i1 = 66;
+Integer i2 = 66;
+System.out.println(i1 == i2);//true 在范围内比较的是直接缓存的数据
+
+Integer i3 = 128;
+Integer i4 = 128;
+System.out.println(i3 == i4);//false 在-128~127范围外，比较的是对象
+
+Float f1 = 222f;
+Float f2 = 222f;
+System.out.println(f1 == f2);//false
+
+Double d1 = 2.2;
+Double d2 = 2.2;
+System.out.println(d1 == d2);//false
+```
+需要注意一点：这是阿里Java开发手册中的一条规定
+![](https://resource.lzyan.fun/PigGo/20211206223304.png)
+
+### 什么是自动装箱拆箱？
+
+例如：
+```java
+Integer x = 2;     // 装箱 调用了 Integer.valueOf(2)
+int y = x;         // 拆箱 调用了 X.intValue()
+```
+简单来说：装箱就是自动将基本数据类型转换为包装类类型，拆箱就是自动将包装器类型转换为基本数据类型。
+
+装箱拆箱这个过程是自动执行的，所以我们需要通过反编译上面代码编译后的class文件得到对应的字节码来看它的执行过程：
+
+![](https://resource.lzyan.fun/PigGo/2021-12-06_230145.png)
+
+从字节码中可以发现，装箱其实就是调用了包装类的ValueOf()方法，拆箱就是调用了intValue()方法。
+
+因此:
+- Integer i = 10 等价于 Integer i = Integer.valueOf(10)
+- int n = i 等价于 int n = i.intValue();
+
+注意:装箱和拆箱过程需要进行大量的计算，装箱和拆箱操作会从速度和内存两个方面损伤应用程序的性能，因此应该清楚编译器会在何时自动产生执行这些操作的指令并尽量避免不必要的装拆箱操作，
+
+### new Integer(123) 与 Integer.valueOf(123) 的区别？
+
+- new Integer(123) 每次都会新建一个对象；
+- Integer.valueOf(123) 会使用缓存池中的对象，多次调用会取得同一个对象的引用。
+
+```java
+Integer x = new Integer(123);
+Integer y = new Integer(123);
+System.out.println(x == y);    // false
+Integer z = Integer.valueOf(123);
+Integer k = Integer.valueOf(123);
+System.out.println(z == k);   // true
+```
+
+### String类是用什么数据结构来存储字符串的？String类可以被继承吗？
+
+String类是用数组的数据结构来存储字符串的，String类是被final修饰符修饰的，而被final修饰的类是不能被继承的
+
+### String为什么是不可变的？不可变的好处？
+
+不可变的原因：
+
+- 保存字符串的数组被final修饰且私有的，并且String类没有提供/暴露修改这个字符串的方法
+- String类被final修饰导致其不能被继承，进而避免了子类破坏String不可变
+- String不可变的关键在于底层的实现，而不是一个final
+
+不可变的好处:
+
+1. 可以缓存hash值
+
+因为String的hash值经常被使用，例如String用作HashMap的key，不可变的特性可以使得hash值也不可变，因此只需要进行一次计算
+
+1. String pool的需要
+
+如果一个String对象已经被创建过了，那么就会从String pool中取得引用。只有String是不可变的，才可能使用String pool
+
+3. 安全性
+
+String经常作为参数，String的不可变性可以保证参数不可变。例如在作为网络连接参数的情况下如果String是可变的，那么在网络连接的过程中String被改变，改变的一方以为现在连接的是其他的主机而实际情况却不一定是
+
+4. 线程安全
+
+String中的对象是不可变的，也就可以理解为常量，线程安全
+
+### String、StringBuffer和StringBuilder的区别，以及它们的使用场景？
+
+1. 可变性
+
+String不可变
+
+StringBuffer和StringBuilder可变
+
+2. 线程安全
+
+String不可变，因此是线程安全的
+
+StringBuilder不是线程安全的
+
+StringBuffer是线程安全，内部使用synchronized进行同步
+
+3. 性能
+
+每次对 String 类型进行改变的时候，都会生成一个新的 String 对象，然后将指针指向新的 String 对象，StringBuffer和StringBuilder类的对象能够被多次修改，并且不产生新的未使用的对象
+
+使用场景：
+
+- 如果操作少量的数据用String
+- 多线程操作字符串时缓冲区下操作大量数据，使用StringBuffer
+- 单线程操作字符串时缓冲区下操作大量数据，使用StringBuilder（相比较于StringBuffer有速度优势）
+
+### instanceof关键字的作用？
+
+instanceof是Java中的一个**双目运算符**，用作判断一个引用类型变量所指向的对象是否是某个类（接口、抽象类、父类）的实例，返回boolean类型的数据。
+```java
+boolean result = obj instanceof Class
+```
+`obj`为一个对象的引用，`Class`则表示一个类或者接口，当`obj`为这个`Class`的对象实例，或者是其直接或间接子类，再或者是其接口的实现类，result的结果都是true，否则false。
+```java
+// obj 必须为引用类型，不能是基本类型
+int i = 1;
+i instanceof Object //编译不通过
+
+// 在JavaSE规范中对instanceof运算符的规定是：如果obj为null，那将返回false
+null instanceof Object // false
+
+// obj为Class类的实例对象
+Integer i = new Integer(1);
+i instanceof Integer // true
+
+// obj为Class接口的实现类
+ArrayList arrayList = new ArrayList();
+arrayList instanceof List // true
+//or
+List list = new ArrayList();
+list instanceof ArrayList //true
+
+// obj为Class类的直接或间接子类
+public class Animal{
+}
+public class Dog extends Animal{
+}
+//测试
+Animal a1 = new Animal();
+Animal a2 = new Dog();
+Dog dog = new Dog();
+a1 instanceof Dog // false
+a2 instanceof Dog // true
+dog instanceof Dog // true
+```
+实现原理理解：
+```java
+// 伪代码
+boolean result;
+if (obj ==null){
+    return false;
+} else {
+    try{
+        T temp = (T) obj;
+        result = true;
+    } catch (ClassCastException e){
+        result = false;
+    }
+}
+```
+1. `obj==null`，返回false。
+2. 如果`obj`强制转换为T时发生编译错误，返回false。
+3. 运行时，如果 `T != null`，并且`(T)obj` 不引发`ClassCastException`，返回true。
+4. 如果 `obj != null` 并且` (T) obj `不引发` ClassCastException `，返回 true ，否则值为 false 。
+
+总结：编译器会检查 `obj` 是否能转换成`T`类型(右边Class类型)，如果不能转换则直接报错，如果不能确定类型，则通过编译，具体看运行时定。
+
+## 异常处理
+
+### Java异常类的层次结构？
+
+Java标准库内置了一些通用的异常类，所有的异常都有一个共同的祖先 java.lang 包中的 Throwable 类。Throwable 类有两个重要的子类 Exception（异常）和 Error（错误）。Exception 能被程序本身处理(try-catch)， Error 是无法处理的(只能尽量避免)。
+
+![](https://resource.lzyan.fun/PigGo/20211211114318.png)
+
+Throwable可以用来表示任何可以作为异常抛出的类，Throwable又派生出Error类和Exception类
+
+Exception:程序本身可以处理的异常，可以通过 catch 来进行捕获。Exception 又可以分为 受检查异常(必须处理) 和 不受检查异常(可以不处理)。
+
+Error：Error类以及它的子类实例，用来表示JVM无法处理的错误，我们没办法通过 catch 来进行捕获，例如，Java 虚拟机运行错误（Virtual MachineError）、虚拟机内存不够错误(OutOfMemoryError)、类定义错误（NoClassDefFoundError）等 。这些异常发生时，Java 虚拟机（JVM）一般会选择线程终止。因此，程序员应该关注Exception为父类的分支下的各种异常
+
+- 受检查异常
+
+在正确的程序运行过程中，很容易出现的、情理可容的异常状况，在一定程度上这种异常的发生是可以预测的，并且一旦发生该种异常，就必须采取某种方式进行处理。除了RuntimeException及其子类以外，其他的Exception类及其子类都属于检查异常，当程序中可能出现这类异常，要么使用try-catch语句进行捕获，要么用throws子句抛出，否则编译无法通过。
+
+- 不受检查异常
+
+Java 代码在编译过程中 ，我们即使不处理不受检查异常也可以正常通过编译。RuntimeException 及其子类都统称为非受检查异常，例如：NullPointerException、NumberFormatException（字符串转换为数字）、ArrayIndexOutOfBoundsException（数组越界）、ClassCastException（类型转换错误）、ArithmeticException（算术错误）等。
+
+区别：**不受检查异常**为编译器不要求强制处理的异常，**受检查异常**则是编译器要求必须处置的异常。
+
+### Java中异常处理的关键字？
+
+Java异常处理涉及到五个关键字，分别是：try、catch、finally、throw、throws。
+
+- `try`  用于监听。将要被监听的代码(可能抛出异常的代码)放在try语句块之内，当try语句块内发生异常时，异常就被抛出。
+- `catch`  用于捕获异常。catch用来捕获try语句块中发生的异常。
+- `finally`   无论是否捕获或处理异常，finally 块里的语句都会被执行。它主要用于回收在try块里打开的物力资源(如数据库连接、网络连接和磁盘文件)。只有finally块，执行完成之后，才会回来执行try块或catch块遇到return或者throw语句。当 try 语句和 finally 语句中都有 return 语句时，在方法返回之前，finally 语句的内容将被执行，并且 finally 语句的返回值将会覆盖原始的返回值。
+- `throw`  用于抛出异常。
+- `throws` 用在方法签名中，用于声明该方法可能抛出的异常。如果一个方法可以导致一个异常但不处理它，它必须指定这种行为以使方法的调用者可以保护它们自己而不发生异常。
+
+### Java中常见的异常有哪些？
+
+- NullPointerException 空指针异常
+- ArrayIndexOutOfBoundsException 索引越界异常
+- InputFormatException 输入类型不匹配
+- SQLException SQL异常
+- IllegalArgumentException 非法参数异常
+- NumberFormatException 类型转换异常
+- ···
+
+### 什么是自定义异常、自定义异常怎么使用？
+
+使用Java内置的异常类可以描述在编程时出现的大部分异常情况。除此之外，用户还可以自定义异常，用户自定义异常需要从一个适合的`Exception`派生
+
+自定义异常的使用大体分为以下步骤：
+
+1. 创建自定义异常类，继承合适的Exception
+2. 在方法中通过throw关键字抛出异常对象。
+3. 如果在当前抛出异常的方法中处理异常，可以使用try-catch语句捕获并处理；否则在方法的声明处通过throws关键字指明要抛出给方法调用者的异常，继续进行下一步操作。
+4. 在出现异常方法的调用者中捕获并处理异常
+
+**栗子**
+
+```java
+public class MyException extends Exception {
+    private int detail;
+    MyException(int a){
+        detail = a;
+    }
+    public String toString(){
+        return "MyException ["+ detail + "]";
+    }
+}
+public class TestMyException{
+    public static void compute(int a) throws MyException{
+        System.out.println("Called compute(" + a + ")");
+        if(a > 10){
+            throw new MyException(a);
+        }
+        System.out.println("Normal exit!");
+    }
+    public static void main(String [] args){
+        try{
+            compute(1);
+            compute(20);
+        }catch(MyException me){
+            System.out.println("Caught " + me);
+        }
+    }
+}
+
+// 输出
+Called compute(1)
+
+Normal exit!
+
+Called compute(20)
+
+Caught MyException [20]
+```
+
+### 为什么推荐使用try-with-resources代替try-finally?
+
+《Effecitve Java》中明确指出:
+
+> 面对必须要关闭的资源，我们总是应该优先使用 try-with-resources 而不是try-finally。随之产生的代码更简短，更清晰，产生的异常对我们也更有用。try-with-resources语句让我们更容易编写必须要关闭的资源的代码，若采用try-finally则几乎做不到这点。
+
+`finally`关闭资源不会立即关闭，取决与网络和系统，所以，最好不要使用它作为业务流程的控制。
+
+`try-with-resources`的使用是Java 7增加的新特性，只要实现了`java.lang.AutoCloseable` 或 `java.io.Closeable`的对象，在try代码块结束之前，会自动关闭资源。其中字节输入流（InputStream），字节输出流（OutputStream），字符输入流（Reader），字符输出流（Writer）,Scanner 等均实现了这接口。
+
+用`try-catch-finally`语句来实现的方式：
+```java
+//读取文本文件的内容
+Scanner scanner = null;
+try {
+    scanner = new Scanner(new File("D://read.txt"));
+    while (scanner.hasNext()) {
+        System.out.println(scanner.nextLine());
+    }
+} catch (FileNotFoundException e) {
+    e.printStackTrace();
+} finally {
+    if (scanner != null) {
+        scanner.close();
+    }
+}
+```
+使用 Java 7 之后的 `try-with-resources` 语句改造上面的代码:
+```java
+try (Scanner scanner = new Scanner(new File("test.txt"))) {
+    while (scanner.hasNext()) {
+        System.out.println(scanner.nextLine());
+    }
+} catch (FileNotFoundException fnfe) {
+    fnfe.printStackTrace();
+}
+```
+当多个资源需要关闭的时候，通过使用分号 `;` 来进行分隔:
+```java
+try (
+    BufferedInputStream bin = new BufferedInputStream(new FileInputStream(new File("test.txt")));
+    BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(new File("out.txt")))
+    ) 
+    {
+        int b;
+        while ((b = bin.read()) != -1) {
+            bout.write(b);
+        }
+    }
+    catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+## 反射
+
+### 什么是反射？
+
+通过反射，我们可以在运行时获得程序或程序集中每一个类型的成员和成员的信息。程序中一般的对象的类型都是在编译期就确定下来的，而 Java 反射机制可以动态地创建对象并调用其属性，这样的对象的类型在编译期是未知的。所以我们可以通过反射机制直接创建对象，即使这个对象的类型在编译期是未知的。
+
+反射的核心是 JVM 在运行时才动态加载类或调用方法/访问属性，它不需要事先（写代码的时候或编译期）知道运行对象是谁。
+
+Java 反射主要提供以下功能：
+- 在运行时判断任意一个对象所属的类。
+- 在运行时构造任意一个类的对象。
+- 在运行时判断任意一个类所具有的成员变量和方法（通过反射甚至可以调用private方法）。
+- 在运行时调用任意一个对象的方法。
+
+反射机制优缺点：
+
+- 优点：可以让我们的代码更加灵活、为各种框架提供开箱即用的功能提供了便利。
+- 缺点：让我们在运行时有了分析操作类的能力，这同样也增加了安全问题。比如可以无视泛型参数的安全检查（泛型参数的安全检查发生在编译时）。另外，反射的性能也要稍差点，不过，对于框架来说实际是影响不大的。
+
+理解反射重点就在于理解什么是运行时，为什么我们要在 **运行时获取** 类的信息。
+
+通过一个简单的例子说明：
+
+正常情况下，如果我们需要调用一个对象的方法，或者访问一个对象的字段，通常会传入对象的实例：
+```java
+// Main.java
+import com.lzyan.Person;
+
+public class Main{
+    String getFullName(Person p){
+        return p.getFirstName()+" "+p.getLastName();
+    }
+}
+```
+但是，如果不能获得`Person`类，只有一个Object实例，比如这样:
+```java
+String getFullName(Object obj){
+    return ???
+}
+```
+怎么办？有童鞋会说：强制转型啊！
+```java
+String getFullName(Object obj){
+    Person p = (Person) obj;
+    return p.getFirstName()+" "+p.getLastName();
+}
+```
+强制转换类型的时候，你会发现一个问题：编译上面代码，仍然需要引用Person类。所以，反射是为了解决在运行期，对某个实例一无所知的情况下，如何调用其方法。
+
+### 反射机制相关的类有哪些？有什么作用？
+
+反射其实就是围绕`Class`对象和`java.lang.reflect`类库学习，学习它的各种API：
+
+| 类名          | 用途                                             |
+| ------------- | ------------------------------------------------ |
+| Class类       | 代表类的实体，在运行的Java应用程序中表示类和接口 |
+| Field类       | 代表类的成员变量（成员变量也称为类的属性）       |
+| Method类      | 代表类的方法                                     |
+| Constructor类 | 代表类的构造方法                                 |
+
+- **Class类**
+
+    `class`（包括`interface`）的本质是数据类型（`Type`）。无继承关系的数据类型无法赋值：
+    ```java
+    Number n = new Double(123.456); // OK
+    String s = new Double(123.456); // compile error!
+    ```
+    而`class`是由JVM在执行过程中动态加载的。JVM在第一次读取到一种`class`类型时，将其加载进内存。每种`class`，JVM就为其创建一个`Class`类型的实例，并且关联起来。
+
+    以`String`类为例，当JVM加载`String`类的时，它首先读取`String.class`文件到内存，然后为`String`类创建一个`Class`实例并关联起来：
+    ```java
+    Class cls = new Class(String);
+    ```
+    这个`Class`实例是`JVM`内部创建的，如果我们查看JDK源码，可以发现`Class`类的构造方法是`private`，只有`JVM`能创建`Class`实例，我们自己的Java程序是无法创建`Class`实例的。
+
+    ![](https://resource.lzyan.fun/PigGo/20211212110553.png)
+
+    所以JVM持有的每个`class`实例都指向一个数据类型（`class`或者`interface`）
+
+    ![](https://resource.lzyan.fun/PigGo/20211212110849.png)
+
+    一个`Class`实例包含了该`class`的所有完整信息：
+
+    ![](https://resource.lzyan.fun/PigGo/20211212110924.png)
+
+    由于JVM为每个加载的`class`创建了对应的`Class`实例，并在实例中保存了该`class`的所有信息，包括类名、包名、父类、实现的接口、所有方法、字段等，因此，如果获取了某个`Class`实例，我们就可以通过这个`Class`实例获取到该实例对应的`class`的所有信息。
+
+    如何获取一个`class`的`Class`实例？有三个方法：
+    ```java
+    1. 直接通过一个class的静态变量class获取：
+    Class cls = String.class;
+
+    2. 如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取：
+    String s = "Hello";
+    Class cls = s.getClass();
+
+    3. 如果知道一个class的完整类名，可以通过静态方法Class.forName()获取：
+    Class cls = Class.forName("java.lang.String");
+    ```
+
+    因为`Class`实例在`JVM`中是唯一的，所以，上述方法获取的`Class`实例是同一个实例。可以用`==`比较两个`Class`实例：
+    ```java
+    Class cls1 = String.class;
+
+    String s = "Hello";
+    Class cls2 = s.getClass();
+
+    boolean sameClass = cls1 == cls2; // true
+    ```
+
+    要从`Class`实例获取获取的基本信息，参考下面的代码：
+    ```java
+    public class Main {
+        public static void main(String[] args) {
+            printClassInfo("".getClass());
+            printClassInfo(Runnable.class);
+            printClassInfo(java.time.Month.class);
+            printClassInfo(String[].class);
+            printClassInfo(int.class);
+        }
+
+        static void printClassInfo(Class cls) {
+            System.out.println("Class name: " + cls.getName());
+            System.out.println("Simple name: " + cls.getSimpleName());
+            if (cls.getPackage() != null) {
+                System.out.println("Package name: " + cls.getPackage().getName());
+            }
+            System.out.println("is interface: " + cls.isInterface());
+            System.out.println("is enum: " + cls.isEnum());
+            System.out.println("is array: " + cls.isArray());
+            System.out.println("is primitive: " + cls.isPrimitive());
+        }
+    }
+    // 注意到数组（例如String[]）也是一种Class，而且不同于String.class，它的类名是[Ljava.lang.String。
+    // 此外，JVM为每一种基本类型如int也创建了Class，通过int.class访问。
+    ```
+    如果获取到了一个`Class`实例，我们就可以通过该`Class`实例来创建对应类型的实例：
+    ```java
+    // 获取String的Class实例:
+    Class cls = String.class;
+    // 创建一个String实例:
+    String s = (String) cls.newInstance();
+    // 上述代码相当于new String()。
+    // 通过Class.newInstance()可以创建类实例，它的局限是：只能调用public的无参数构造方法。
+    // 带参数的构造方法，或者非public的构造方法都无法通过Class.newInstance()被调用。
+    ```
+
+    JVM的动态加载：
+
+    JVM在执行Java程序的时候，并不是一次性把所有用到的class全部加载到内存，而是第一次需要用到class时才加载。例如：
+    ```java
+    // Main.java
+    public class Main {
+        public static void main(String[] args) {
+            if (args.length > 0) {
+                create(args[0]);
+            }
+        }
+
+        static void create(String name) {
+            Person p = new Person(name);
+        }
+    }
+    ```
+    当执行`Main.java`时，由于用到了`Main`，因此，`JVM`首先会把`Main.class`加载到内存。然而，并不会加载`Person.class`，除非程序执行到`create()`方法，`JVM`发现需要加载`Person`类时，才会首次加载`Person.class`。如果没有执行`create()`方法，那么`Person.class`根本就不会被加载。
+
+    `JVM`动态加载`class`的特性对于Java程序非常重要。利用`JVM动态加载class`的特性，我们才能在运行期根据条件加载不同的实现类。
+
+- **Field类**
+
+    `Field`类提供类或接口中单独字段的信息，以及对`单独字段`的`动态访问`。
+
+    对任意的一个`Object`实例，只要我们获取了它的`Class`，就可以获取它的一切信息。
+
+    获取`Field`类对象，一共有四种方法，全部都在`Class`类中：
+    ```java
+    1. Field getField(name)：根据字段名获取某个public的field（包括父类）
+    2. Field getDeclaredField(name)：根据字段名获取当前类的某个field（不包括父类）
+    3. Field[] getFields()：获取所有public的field（包括父类）
+    4. Field[] getDeclaredFields()：获取当前类的所有field（不包括父类）
+    ```
+    一个`Field`对象包含一个字段的所有信息：
+    ```java
+    1. getName()：返回字段名称，例如，"name"；
+    2. getType()：返回字段类型，也是一个Class实例，例如，String.class；
+    3. getModifiers()：返回字段的修饰符，它是一个int，不同的bit表示不同的含义。
+    ```
+
+    `Field`类中常用的方法:
+
+    获取类中字段的值、修改字段的值
+
+    ```java
+    public class Main {
+
+        public static void main(String[] args) throws Exception {
+            //获取字段值
+            Object p1 = new Person("Xiao Ming");
+            Class c1 = p1.getClass();
+            Field f1 = c1.getDeclaredField("name");
+            f1.setAccessible(true);// 因为这个字段的值是private的所以需要通过这个方法修改权限，别管这个字段是不是public，一律允许访问。
+            Object value = f1.get(p1);
+            System.out.println(value); // "Xiao Ming"
+
+            //修改字段值
+            Person p2 = new Person("Xiao Ming");
+            System.out.println(p2.getName()); // "Xiao Ming"
+            Class c2 = p2.getClass();
+            Field f2 = c2.getDeclaredField("name");
+            f2.setAccessible(true);// 因为这个字段的值是private的所以需要通过这个方法修改权限，别管这个字段是不是public，一律允许访问。
+            f2.set(p2, "Xiao Hong");
+            System.out.println(p2.getName()); // "Xiao Hong"
+        }
+    }
+
+    class Person {
+        private String name;
+
+        public Person(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+    }
+    ```
+    如果使用反射可以获取`private`字段的值，那么类的封装还有什么意义？
+
+    答案是正常情况下，我们总是通过`p.name`来访问`Person`的`name`字段，编译器会根据`public`、`protected`和`private`决定是否允许访问字段，这样就达到了数据封装的目的。
+
+    而反射是一种非常规的用法，使用反射，首先代码非常繁琐，其次，它更多地是给工具或者底层框架来使用，目的是在不知道目标实例任何信息的情况下，获取特定字段的值。
+
+    此外，`setAccessible(true)`可能会失败。如果`JVM`运行期存在`SecurityManager`，那么它会根据规则进行检查，有可能阻止`setAccessible(true)`。例如，某个`SecurityManager`可能不允许对`java`和`javax`开头的`package`的类调用`setAccessible(true)`，这样可以保证`JVM`核心库的安全。
+
+- **Method类**
+
+    类提供有关类或接口上单个方法的信息和访问权限。反映的方法可以是类方法或实例方法(包括抽象方法)。
+
+    跟`Field`一样，获取`Method`类对象，一共有四种方法，全部都在`Class`类中：
+    ```java
+    1. Method getMethod(name, Class...)：获取某个public的Method（包括父类）
+    2. Method getDeclaredMethod(name, Class...)：获取当前类的某个Method（不包括父类）
+    3. Method[] getMethods()：获取所有public的Method（包括父类）
+    4. Method[] getDeclaredMethods()：获取当前类的所有Method（不包括父类）
+    ```
+
+    一个Method对象包含一个方法的所有信息：
+    ```java
+    1. getName()：返回方法名称，例如："getScore"；
+    2. getReturnType()：返回方法返回值类型，也是一个Class实例，例如：String.class；
+    3. getParameterTypes()：返回方法的参数类型，是一个Class数组，例如：{String.class, int.class}；
+    4. getModifiers()：返回方法的修饰符，它是一个int，不同的bit表示不同的含义
+    ```
+
+    `Method`类中常用的方法:
+
+    1. 调用普通方法:
+
+    当我们获取到一个`Method`对象时，就可以对它进行调用。我们以下面的代码为例：
+    ```java
+    tring s = "Hello world";
+    String r = s.substring(6); // "world"
+    ```
+    用反射来调用substring方法：
+    ```java
+    public class Main {
+        public static void main(String[] args) throws Exception {
+            // String对象:
+            String s = "Hello world";
+            // 获取String substring(int)方法，参数为int:
+            Method m = String.class.getMethod("substring", int.class);
+            // 在s对象上调用该方法并获取结果:
+            String r = (String) m.invoke(s, 6);
+            // 打印调用结果: World
+            System.out.println(r); 
+        }
+    }
+    ```
+    注意到`substring()`有两个重载方法，我们获取的是S`tring substring(int)`这个方法。思考一下如何获取`String substring(int, int)`方法。
+
+    对`Method`实例调用`invoke`就相当于调用该方法，`invoke`的第一个参数是对象实例，即在哪个实例上调用该方法，后面的可变参数要与方法参数一致，否则将报错。
+
+    1. 调用静态方法:
+
+    如果获取到的`Method`表示一个静态方法，调用静态方法时，由于无需指定实例对象，所以`invoke`方法传入的第一个参数永远为`null`。我们以`Integer.parseInt(String)`为例：
+    ```java
+    public class Main {
+        public static void main(String[] args) throws Exception {
+            // 获取Integer.parseInt(String)方法，参数为String:
+            Method m = Integer.class.getMethod("parseInt", String.class);
+            // 调用该静态方法并获取结果:
+            Integer n = (Integer) m.invoke(null, "12345");
+            // 打印调用结果: 12345
+            System.out.println(n);
+        }
+    }
+    ```
+    1. 调用非public方法:
+
+    和`Field`类似，对于`非public`方法，我们虽然可以通过`Class.getDeclaredMethod()`获取该方法实例，但直接对其调用将得到一个`IllegalAccessException`。为了调用`非public`方法，我们通过`Method.setAccessible(true)`允许其调用：
+    ```java
+    public class Main {
+        public static void main(String[] args) throws Exception {
+            Person p = new Person();
+            Method m = p.getClass().getDeclaredMethod("setName", String.class);
+            m.setAccessible(true);
+            m.invoke(p, "Bob");
+            System.out.println(p.name);
+        }
+    }
+    class Person {
+        String name;
+        private void setName(String name) {
+            this.name = name;
+        }
+    }
+    ```
+    此外，`setAccessible(true)`可能会失败。如果`JVM`运行期存在`SecurityManager`，那么它会根据规则进行检查，有可能阻止`setAccessible(true)`。例如，某个`SecurityManager`可能不允许对java和javax开头的`package`的类调用`setAccessible(true)`，这样可以保证JVM核心库的安全
+
+    1. 多态（继承父类重写方法）
+
+    一个`Person`类定义了`hello()`方法，并且它的子类`Student`也覆写了`hello(`)方法，那么，从`Person.class`获取的`Method`，作用于`Student`实例时，使用反射调用方法时，仍然遵循多态原则：即总是调用实际类型的覆写方法（如果存在）。
+    ```java
+    public class Main {
+        public static void main(String[] args) throws Exception {
+            // 获取Person的hello方法:
+            Method h = Person.class.getMethod("hello");
+            // 对Student实例调用hello方法 打印出: Student:hello 
+            h.invoke(new Student());
+
+            // 上面两行代码实际相当于以下的调用方式
+            // Person p = new Student();
+            // p.hello();
+        }
+    }
+    class Person {
+        public void hello() {
+            System.out.println("Person:hello");
+        }
+    }
+    class Student extends Person {
+        public void hello() {
+            System.out.println("Student:hello");
+        }
+    }
+    ```
+
+- **Constructor类**
+
+    Constructor类提供了访问构造器的信息，以及利用构造器创建对象的一系列方法。当使用Constructor创建对象时，参数列表支持自动宽化（比如需要int而传入short），不支持自动窄化（比如需要int而传入long）。
+
+    我们通常使用`new`操作符创建新的实例：`Person p = new Person();`。
+
+    如果通过反射来创建新的实例，可以调用`Class`提供的`newInstance()`方法：`Person p = Person.class.newInstance();`。而调用`Class.newInstance()`的局限是，它只能调用该类的`public`无参数构造方法。如果构造方法带有参数，或者不是`public`，就无法直接通过`Class.newInstance()`来调用。
+
+    为了调用任意的构造方法，Java的反射API提供了`Constructor`对象，它包含一个构造方法的所有信息，可以创建一个实例。`Constructor`对象和`Method`非常类似，不同之处仅在于它是一个构造方法，并且，调用结果总是返回实例：
+    ```java
+    public class Main {
+        public static void main(String[] args) throws Exception {
+            // 获取构造方法Integer(int): 
+            Constructor cons1 = Integer.class.getConstructor(int.class);
+            // 调用构造方法:
+            Integer n1 = (Integer) cons1.newInstance(123);
+            System.out.println(n1); // 123
+
+            // 获取构造方法Integer(String)
+            Constructor cons2 = Integer.class.getConstructor(String.class);
+            Integer n2 = (Integer) cons2.newInstance("456");
+            System.out.println(n2);// 456
+        }
+    }
+    ```
+
+    通过`Class`实例获取`Constructor`的方法如下：
+    ```java
+    1. getConstructor(Class...)：获取某个public的Constructor；
+    2. getDeclaredConstructor(Class...)：获取某个Constructor；
+    3. getConstructors()：获取所有public的Constructor；
+    4. getDeclaredConstructors()：获取所有Constructor。
+    ```
+    注意`Constructor`总是当前类定义的构造方法，和父类无关，因此不存在多态的问题。
+
+    调用`非public`的`Constructor`时，必须首先通过`setAccessible(true)`设置允许访问。`setAccessible(true)`可能会失败。
+
+### 怎么理解Java ClassLoader？
+
+`ClassLoader`（类装载器）是Java反射中一个非常重要的类，普通Java开发者对其应用不多，对于某些框架开发者来说那就是必须要会的。理解`ClassLoader`的加载机制，可以有利于我们编码写出更高效的代码。
+
+`ClassLoader`的具体作用是将`class`文件加载到`JVM`去，但是`jvm`启动的时候，并不会一次性加载所有的`class`文件，而是根据需要来动态加载。加载完成后就会将`Class`对象存在`ClassLoader`里面，下次就不需要重新加载了。
+
+`ClassLoader`使用的是双亲委托模型来搜索和加载类，`ClassLoader`的类继承图如下：
+
+![](https://resource.lzyan.fun/PigGo/20211212152642.png)
+
+JVM 运行实例中会存在多个`ClassLoader`，不同的`ClassLoader`会从不同的地方加载字节码文件。它可以从不同的文件目录加载，也可以从不同的 jar 文件中加载，也可以从网络上不同的服务地址来加载(以下AppClassLoader就是图中的ApplicationClassLoader)：
+
+`BootstrapClassLoader` 负责加载 JVM 运行时核心类，这些类位于 JAVA_HOME/lib/rt.jar 文件中，我们常用内置库 java.xxx.* 都在里面，比如 java.util.*、java.io.*、java.nio.*、java.lang.* 等等。这个 ClassLoader 比较特殊，它是由 C 代码实现的，我们将它称之为「根加载器」。
+
+`ExtensionClassLoader` 负责加载 JVM 扩展类，比如 swing 系列、内置的 js 引擎、xml 解析器 等等，这些库名通常以 javax 开头，它们的 jar 包位于 JAVA_HOME/lib/ext/*.jar 中，有很多 jar 包。
+
+`AppClassLoader` 才是直接面向我们用户的加载器，它会加载 Classpath 环境变量里定义的路径中的 jar 包和目录。我们自己编写的代码以及使用的第三方 jar 包通常都是由它来加载的
+
+那些位于网络上静态文件服务器提供的`jar`包和`class`文件，`jdk`内置了一个 `URLClassLoader`，用户只需要传递规范的网络路径给构造器，就可以使用`URLClassLoader`来加载远程类库了。
+
+`URLClassLoader`不但可以加载远程类库，还可以加载本地路径的类库，取决于构造器中不同的地址形式。`ExtensionClassLoader`和`AppClassLoader`都是`URLClassLoader`的子类，它们都是从本地文件系统里加载类库。
+
+[老大难的 Java ClassLoader 再不理解就老了](https://zhuanlan.zhihu.com/p/51374915)
+
+[深入理解Java类加载器(ClassLoader) ](https://www.cnblogs.com/cl-rr/p/9081817.html)
+
+### 什么是动态代理？
+
+动态代理其实就是代理模式的一种，代理模式是设计模式之一。代理模型有静态代理和动态代理。
+
+静态代理需要自己写代理类，实现对应的接口，比较麻烦。在Java中，动态代理常见的又有两种实现方式：`JDK动态代理`和`CGLIB代理`。
+
+`JDK动态代理`其实就是运用了反射的机制，而`CGLIB代理`则用的是利用ASM框架（Java字节码操控框架），通过修改其`字节码`生成子类来处理。JDK动态代理会帮我们实现接口的方法，通过invokeHandler对所需要的方法进行增强。
+
+简单地说：如果程序运行前就在Java代码中定义好代理类(Proxy)，那么这种代理方式就叫做静态代理；若代理类在程序运行时创建就叫做动态代理
+
+- 如果为特定类的特定方法生成固定的代理，当然使用静态代理就能很好满足需求。
+- 如果要为大量不同类的不同方法生成代理，使用静态代理的话就需要编写大量的代理类，且大量代码冗余，此时动态代理就应该闪亮登场了。
+
+[一文读懂Java中的动态代理](https://www.cnblogs.com/bytesfly/p/dynamic-proxy-in-java.html)
+
+### 说一说反射有哪些应用场景？
+
+1. 我们在使用JDBC连接数据库时使用Class.forName()通过反射加载数据库的驱动程序
+
+    ```java
+    Class.forName("com.mysql.jdbc.Driver");
+    //获取与数据库连接的对象
+    connection = DriverManager.getConnection("jdbc:mysql//localhost:3306/myblog","root","password");
+    //获取执行sql语句的statement对象
+    statement = connection.createStatement();
+    //执行sql语句
+    statement.executeQuery("SELECT * FORM users");
+    ```
+
+    后来过渡到以配置的方式，也都是使用了反射机制来实现
+    ```java
+    //获取配置文件的读入流
+    InputStream inputStream = 
+    UtilsDemo.class.getClassLoader().getResourceAsStream("db.properties");
+    Properties properties = new Properties();
+    properties.load(inputStream);
+    //获取配置文件的信息
+    driver = properties.getProperty("driver");
+    url = properties.getProperty("url");
+    username = properties.getProperty("username");
+    password = properties.getProperty("password");
+    //加载这个驱动类
+    Class.forName(driver);
+    ```
+
+2. Servlet和Spring MVC中，Servlet是通过getParameter()来填充值的，而Spring MVC中却是通过约定好的JavaBean的字段名来把值填充进去的，
+
+    Servlet:
+
+    ```java
+    //通过html的name属性获取值
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
+    String gender = request.getParameter("gender");
+    //获取到文本域的值
+    String description = request.getParameter("textarea");
+    ```
+
+    Spring MVC:
+
+    ```java
+    @RequestMapping("/save")
+    @ResponseBody
+    public String taskSave(PushConfig pushConfig){
+        String name = pushConfig.getName();
+    }
+    ```
+    Spring MVC这种简单的写法其实就是使用反射来实现的。在编写JavaBean的时候，保持字段名和参数名相同，就能自动装配而得到对应的值。**屏蔽掉实现的细节，让使用者更加方便好用**
+
+3. Mybatis可以让我们只写接口，不写实现类，就可以执行SQL。类上加上@Component注解，Spring就帮你创建对象，等等。这些统统都有反射的身影：约定大于配置，配置大于硬编码。
+
+

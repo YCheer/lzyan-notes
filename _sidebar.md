@@ -1,8 +1,8 @@
 
   
-* Java
-  * [Java基础](./docs/Java/java反射.md)
-  * [Java基础面试题](./doc/../docs/Java/Java基础八股文.md)
+* Java八股文
+  * [基础](./docs/Java/Java基础八股文.md)
+  * [反射](./docs/Java/java反射.md)
 
 * MySQL
   * [MySQL基础](./docs/Mysql/MySQL基础.md)
