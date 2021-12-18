@@ -746,6 +746,58 @@ y.a = 1; // 修改被引用对象本身的属性
 ```
 注意：final修饰的方法参数也同样时遵循以上两点
 
+### 什么是枚举类？
+
+枚举类型它是一种特殊的数据类型，之所以特殊是因为它既是一种类(class)类型却又比类（class）类型多了些特殊的约束，但是这些约束的存在也造就了枚举类型的简洁性、安全性以及便捷性。
+
+枚举`enum`的全称为 enumeration， 是 JDK5 中引入的特性。
+
+枚举的特性，归结起来就是一句话：除了不能继承，基本上可以将 enum 看做一个常规的类。
+
+在 Java 中，被 enum 关键字修饰的类型就是枚举类型。形式如下：
+
+```java
+enum ColorEn { RED, GREEN, BLUE }
+```
+**枚举的好处：** 可以将常量组织起来，统一进行管理。
+
+**枚举的典型应用场景：** 错误码、状态等。
+
+本质：所有Java语言枚举类型的公共基类`java.lang.Enum`
+```java
+public abstract class Enum<E extends Enum<E>>
+        implements Comparable<E>, Serializable { ... }
+```
+新建一个`TestEnum.java`文件，内容如下：
+```java
+public enum TestEnum{
+	RED,YELLOW,BLUE
+}
+```
+执行`javac TestEnum.java`命令，生成`TestEnum.class`文件。
+
+![](https://resource.lzyan.fun/PigGo/20211213135115.png)
+
+用`javap TestEnum.class`命令，反解析出当前类对应的汇编指令
+```java
+Compiled from "TestEnum.java"
+public final class TestEnum extends java.lang.Enum<TestEnum> {
+  public static final TestEnum RED;
+  public static final TestEnum YELLOW;
+  public static final TestEnum BLUE;
+  public static TestEnum[] values();
+  public static TestEnum valueOf(java.lang.String);
+  static {};
+}
+```
+由此可以看出枚举的本质就是`java.lang.Enum`的子类。
+
+尽管 `enum` 看起来像是一种新的数据类型，事实上，`enum` 是一种受限制的类，并且具有自己的方法。枚举这种特殊的类因为被修饰为 `final`，所以不能继承其他类。
+
+定义的枚举值，会被默认修饰为 `public static final` ，从修饰关键字，即可看出枚举值本质上是静态常量。
+
+枚举的更多应用：[深入理解Java枚举](https://dunwu.github.io/javacore/basics/java-enum.html#_1-%E7%AE%80%E4%BB%8B)
+
 ### Object类是什么？
 
 Object 类是一个特殊的类，是所有类的父类。java中如果一个类没有用 extends关键字 明确指出继承于某个类，那么它默认继承Object类。
@@ -1041,6 +1093,99 @@ if (obj ==null){
 4. 如果 `obj != null` 并且` (T) obj `不引发` ClassCastException `，返回 true ，否则值为 false 。
 
 总结：编译器会检查 `obj` 是否能转换成`T`类型(右边Class类型)，如果不能转换则直接报错，如果不能确定类型，则通过编译，具体看运行时定。
+
+### Java语法糖有哪些?
+
+**语法糖**（Syntactic Sugar），也称糖衣语法，是英国科学家发明的一个术语，指在计算机语言中添加的某种语法，这种语法对语言本身的功能来说没有什么影响，只是为了方便程序员进行开发，提高开发效率，使用这种语法写出来的程序可读性也更高。
+
+说白了，语法糖就是对现有语法的一个再封装。
+
+Java虚拟机是并不支持语法糖的，语法糖在程序编译阶段就会被还原成简单的基础语法结构，这个过程就是解语法糖。所以在Java中真正支持语法糖的是Java编译器。
+
+而Java中的语法糖有很多，主要有以下常用的语法糖：
+- switch-case对String和枚举类的支持
+- 泛型
+- 包装类自动装箱与拆箱
+- 方法变长参数
+- 枚举
+- 内部类
+- 条件编译
+- 断言
+- 数值字面量
+- 增强for循环
+- try-with-resource语法
+- Lambda表达式
+- 字符串+号语法
+
+### 什么是变长参数?
+从 `Java5` 开始，Java 支持定义可变长参数，所谓可变长参数就是允许在调用方法时传入不定长度的参数。变长参数是 Java 的一个语法糖，一个方法只能有一个可变长参数，且这个可变长参数必须是该方法的最后一个参数，java 不允许存在一个方法具备多个变长参数或者变长参数不是方法的最后位置的情况。
+
+变长参数本质上还是基于数组实现的：
+```java
+public class VariableLengthArgument {
+
+    public static void printVariable(String... args) {
+        String[] var1 = args;
+        int var2 = args.length;
+
+        for(int var3 = 0; var3 < var2; ++var3) {
+            String s = var1[var3];
+            System.out.println(s);
+        }
+
+    }
+    // ......
+}
+```
+当方法重载的情况会优先匹配固定参数的方法：
+```java
+public class VariableLengthArgument {
+
+    public static void printVariable(String... args) {
+        for (String s : args) {
+            System.out.println(s);
+        }
+    }
+
+    public static void printVariable(String arg1, String arg2) {
+        System.out.println(arg1 + arg2);
+    }
+
+    public static void main(String[] args) {
+        printVariable("a", "b");
+        printVariable("a", "b", "c", "d");
+    }
+}
+//输出
+ab
+a
+b
+c
+d
+```
+
+### 下面变长参数的实现函数有什么问题？
+```java
+class Base {
+    void print(String... args) {
+        System.out.println("Base print.");
+    }
+}
+class Sub extends Base {
+    @Override
+    void print(String[] args) {
+        System.out.println("SUb print.");
+    }
+}
+Base base = new Sub();
+base.print("hello");//1
+Sub sub = new Sub();
+sub.print("hello");//2
+```
+注释 1 能编译通过且打印为 Sub print.，因为 base 对象把子类对象 sub 做了向上转型，形参列表是由父类决定的，当然能通过。
+
+注释 2 编译报错为传递的参数 String 类型与方法需要的 String[] 类型不匹配，因为这时编译器看到子类覆写了父类的 print 方法，所以会使用子类重新定义的 print 方法，尽管参数列表不匹配也不会再去父类匹配（因为找到了就不再找了），故有了类型不匹配的编译错误。
+
 
 ## 异常处理
 
@@ -1673,4 +1818,301 @@ JVM 运行实例中会存在多个`ClassLoader`，不同的`ClassLoader`会从�
 
 3. Mybatis可以让我们只写接口，不写实现类，就可以执行SQL。类上加上@Component注解，Spring就帮你创建对象，等等。这些统统都有反射的身影：约定大于配置，配置大于硬编码。
 
+## 注解
 
+### 什么是Java注解，有什么作用？
+
+`注解（Annontation）`是Java5开始引入的新特性，Java注解是附加在代码中的一些元信息，可以在`编译`、`类加载`、`运行时`被读取，并执行相对应的处理，起到`说明`、`配置`的功能。注解不会也不能影响代码的实际逻辑，仅仅起到辅助性的作用。
+
+注解的作用：
+
+- **提供信息给编译器：** 编译器可利用注解来探测错误和警告信息。
+- **编译阶段：** 软件工具可以利用注解信息来生成代码、html 文档或做其它相应处理。
+- **运行阶段：** 程序运行时可利用注解提取代码
+
+注解是通过反射获取的，可以通过`Class`对象的`isAnnotationPresent()`方法判断它是否应用了某个注解，再通过`getAnnotation()`方法获取`Annotation`对象
+
+### 说说你对Java注解的理解？
+
+注解的本质是一个继承了Annoation的特殊接口，其具体实现类是Java运行时生成的动态代理类。而我们通过反射获取注解时，返回的是Java运行时生成的动态代理对象。如果没有用来读取注解的方法和工作，那么注解也就不会比注释更有用处了。
+
+解析一个注解往往有两种形式：
+- **编译期直接的扫描**
+    编译器的扫描指的是编译器在对 java 代码编译字节码的过程中会检测到某个类或者方法被一些注解修饰，这时它就会对于这些注解进行某些处理。这种情况只适用于JDK内置的注解类。
+- **运行期的反射**
+    如果要自定义注解，Java 编译器无法识别并处理这个注解，它只能根据该注解的作用范围来选择是否编译进字节码文件。如果要处理注解，必须利用反射技术，识别该注解以及它所携带的信息，然后做相应的处理。
+
+Java原生注解有：`@Override`、`@Deprecated`、`@SuppressWarnnings`、`@SafeVarargs（JDK7 引入）`、`@FunctionalInterface（JDK8 引入）`。
+
+原生Java虽然内置了几个注解，但这远远不能满足开发过程中千变万化的需求，除了这些提供基本注解之外，还有一种叫做`元注解`，**元注解的作用就是用于定义其它的注解**。
+
+Java中提供了的元注解类型：`@Retention`、`@Target`、`@Documented`、`@Inherited（JDK8 引入）`、`@Repeatable（JDK8 引入）`
+
+元注解的作用：
+  1. `@Retention` 说明注解的存活时间，取值有 RetentionPolicy.SOURCE 注解只在源码阶段保留，在编译器进行编译时被丢弃；RetentionPolicy.CLASS 注解只保留到编译进行的时候（class文件中有效），并不会被加载到 JVM 中（JVM忽略）。RetentionPolicy.RUNTIME 标记的注解在运行时有效。
+  2. `@Documented` 注解中的元素包含到 javadoc 中去。
+  3. `@Target` 限定注解的应用场景，ElementType.FIELD 给属性进行注解；ElementType.LOCAL_VARIABLE 可以给局部变量进行注解；ElementType.METHOD 可以给方法进行注解；ElementType.PACKAGE 可以给一个包进行注解 ElementType.TYPE 可以给一个类型进行注解，如类、接口、枚举。
+  4. `@Inherited` 表示自动继承注解类型。 如果注解类型声明中存在 @Inherited 元注解，则注解所修饰类的所有子类都将会继承此注解；
+  5. `@Repeatable` 表示注解可以重复使用。
+
+其中理解`@Retention`这块得了解从.java文件到class文件再到class被jvm加载的过程，如下图：
+
+![](https://resource.lzyan.fun/PigGo/20211218131323.png)
+
+从上面的图可以发现有个`注解抽象语法树`，这里其实就会去解析注解，然后做处理的逻辑。
+
+如果你想要在编译期间处理注解相关的逻辑，你需要继承`AbstractProcessor`并实现`process`方法。比如可以看到`lombok`就用`AnnotationProcessor`继承了`AbstractProcessor`。
+
+一般来说，只要自定义的注解中`@Retention`注解设置为`SOURCE`和`CLASS`这俩个级别，那么就需要继承并实现（因为SOURCE和CLASS这俩个级别等加载到jvm的时候，注解就被抹除了），lombok的实现原理就是在这（为什么使用了个@Data这样的注解就能有set/get等方法了，就是在这里加上去的）
+
+### 如何自定义注解？
+
+使用`@interface`自定义注解，自动继承了`java.lang.Annotation`接口，由编译程序自动完成其他细节。自定义注解类编写的一些规则：
+1. 在定义注解时，不能继承其他的注解或接口。
+2. `@interface`用来声明一个注解，其中每一个方法实际上是声明了一个配置参数。
+3. 方法的名称，返回值类型就是参数的类型（返回值类型只能是基本类型、Clas、String、enum）。
+4. 可以通过`default`来声明参数的默认值
+5. 要获取类方法和字段的注解信息，必须通过Java的反射技术来获取 Annotation 对象，因为你除此之外没有别的获取注解对象的方法
+6. 注解也可以没有定义成员，不过这样注解就没啥用了
+7. 自定义注解需要使用元注解
+
+自定义注解示例：[自定义正则校验注解](https://dunwu.github.io/javacore/basics/java-annotation.html#_4-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3)
+
+
+### 自定义注解的场景及实现？
+
+利用自定义注解，结合SpringAOP可以完成
+1. 权限控制。
+2. 日志记录。
+3. 统一异常处理。
+4. 数字签名。
+5. 数据加解密等功能。
+
+实现场景（API接口数据加解密）
+
+1. 自定义一个注解，在需要加解密的方法上添加该注解
+2. 配置SringAOP环绕通知
+3. 截获方法入参并进行解密
+4. 截获方法返回值并进行加密
+
+## 泛型
+
+### 泛型是什么、为什么需要泛型？
+
+`Java泛型（generics）`是JDK5中引入的一个新特性，泛型提供了`编译时`类型安全检测机制，该机制允许程序员在编译时检测到非法的类型。简单来说就是，把`明确类型`的工作推迟到`创建对象`或`调用方法`的时候才去明确的特殊的类型。
+
+为什么需要泛型？可以看这个示例:
+```java
+public class NoGenericsDemo {
+    public static void main(String[] args) {
+        List list = new ArrayList<>();
+        list.add("abc");
+        list.add(18);
+        list.add(new double[] {1.0, 2.0});
+        Object obj1 = list.get(0);
+        Object obj2 = list.get(1);
+        Object obj3 = list.get(2);
+        System.out.println("obj1 = [" + obj1 + "]");
+        System.out.println("obj2 = [" + obj2 + "]");
+        System.out.println("obj3 = [" + obj3 + "]");
+
+        int num1 = (int)list.get(0);
+        int num2 = (int)list.get(1);
+        int num3 = (int)list.get(2);
+        System.out.println("num1 = [" + num1 + "]");
+        System.out.println("num2 = [" + num2 + "]");
+        System.out.println("num3 = [" + num3 + "]");
+    }
+}
+// Output:
+// obj1 = [abc]
+// obj2 = [18]
+// obj3 = [[D@47089e5f]
+// Exception in thread "main" java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Integer
+// at io.github.dunwu.javacore.generics.NoGenericsDemo.main(NoGenericsDemo.java:23)
+```
+> 示例说明：
+> 
+> `List` 容器没有指定存储数据类型，这种情况下，可以向 `List` 添加任意类型数据，编译器不会做类型检查，而是默默的将所有数据都转为 `Object`。
+假设，最初我们希望向 `List` 存储的是整形数据，假设，某个家伙不小心存入了其他数据类型。当你试图从容器中取整形数据时，由于 `List` 当成 `Object` 类型来存储，你不得不使用类型强制转换。在运行时，才会发现 `List` 中数据不存储一致的问题，这就为程序运行带来了很大的风险（无形伤害最为致命）。
+
+优点：
+- 编译时的强类型检查
+
+泛型要求在声明时指定实际数据类型，Java 编译器在编译时会对泛型代码做强类型检查，并在代码违反类型安全时发出告警。早发现，早治理，把隐患扼杀于摇篮，在编译时发现并修复错误所付出的代价远比在运行时小。
+
+- 泛型编程可以实现通用算法
+
+通过使用泛型，程序员可以实现通用算法，这些算法可以处理不同类型的集合，可以自定义，并且类型安全且易于阅读。
+
+- 避免了类型转换
+
+如上述示例
+
+### 泛型的实现原理是什么？
+
+Java泛型是在Java1.5 以后出现的，实现方式不太优雅，是为保持对以前版本的兼容，使用了类型擦除的方法实现泛型。**所谓擦除法是指，虚拟机对泛型其实一无所知，所有的工作都是编译器做的**。
+
+类型擦除做了什么工作？
+
+- 把泛型中的所有类型参数替换为 `Object`，如果指定类型边界，则使用类型边界来替换。因此，生成的字节码仅包含普通的类，接口和方法。
+- 擦除出现的类型声明，即去掉` <> `的内容。比如 `T get() `方法声明就变成了 `Object get()` ；`List<String>` 就变成了 `List`。如有必要，插入类型转换以保持类型安全。
+- 生成桥接方法以保留扩展泛型类型中的多态性。类型擦除确保不为参数化类型创建新类；因此，泛型不会产生运行时开销。
+
+示例，编写一个泛型类`Pair<T>`，这是编译器看到的代码：
+```java
+public class Pair<T> {
+    private T first;
+    private T last;
+    public Pair(T first, T last) {
+        this.first = first;
+        this.last = last;
+    }
+    public T getFirst() {
+        return first;
+    }
+    public T getLast() {
+        return last;
+    }
+}
+```
+而虚拟机根本不知道泛型。这是虚拟机执行的代码：
+```java
+public class Pair {
+    private Object first;
+    private Object last;
+    public Pair(Object first, Object last) {
+        this.first = first;
+        this.last = last;
+    }
+    public Object getFirst() {
+        return first;
+    }
+    public Object getLast() {
+        return last;
+    }
+}
+```
+因此，Java使用擦除法实现泛型导致了：编译器把类型`<T>`视为`Object`；编译器根据`<T>`实现安全的类型强转
+
+而在使用泛型的时候，编写的代码也是编译器看到的代码，而虚拟机执行的代码并没有泛型：
+```java
+// 我们编写的代码
+Pair<String> p = new Pair<>("Hello", "world");
+String first = p.getFirst();
+String last = p.getLast();
+
+// 虚拟机执行的代码
+Pair p = new Pair("Hello", "world");
+String first = (String) p.getFirst();
+String last = (String) p.getLast();
+```
+所以，Java的泛型是由编译器在编译时实行的，编译器内部永远把所有类型`T`视为`Object`处理，但是，在需要转型的时候，编译器会根据`T`的类型自动为我们实行安全地强制转型。
+
+擦除法决定了泛型`<T>`：
+- 不能是基本类型，例如：int；
+- 不能获取带泛型类型的Class，例如：Pair<String>.class；
+- 不能判断带泛型类型的类型，例如：x instanceof Pair<String>；
+- 不能实例化T类型，例如：new T()。
+
+### 泛型的使用方式有哪些？
+
+泛型一般有三种使用方式: `泛型类`、`泛型接口`、`泛型方法`。
+
+- 泛型类
+
+```java
+//此处T可以随便写为任意标识，常见的如T、E、K、V等形式的参数常用于表示泛型
+//在实例化泛型类时，必须指定T的具体类型
+public class Generic<T> {
+    private T key;
+    public Generic(T key) {
+        this.key = key;
+    }
+    public T getKey() {
+        return key;
+    }
+}
+```
+实例化泛型类：
+```java
+Generic<Integer> genericInteger = new Generic<Integer>(123456);
+```
+
+- 泛型接口
+
+```java
+public interface Generator<T> {
+    public T method();
+}
+```
+实现泛型接口，不指定类型：
+```java
+class GeneratorImpl<T> implements Generator<T>{
+    @Override
+    public T method() {
+        return null;
+    }
+}
+```
+实现泛型接口，指定类型：
+```java
+class GeneratorImpl implements Generator<String>{
+    @Override
+    public String method() {
+        return "hello";
+    }
+}
+```
+
+- 泛型方法
+
+```java
+public static <E> void printArray(E[] inputArray) {
+    for (E element : inputArray) {
+        System.out.printf("%s ", element);
+    }
+    System.out.println();
+}
+```
+使用：
+```java
+// 创建不同类型数组： Integer, Double 和 Character
+Integer[] intArray = { 1, 2, 3 };
+String[] stringArray = { "Hello", "World" };
+printArray(intArray);
+printArray(stringArray);
+```
+
+### List<? extends T>、List <? super T>、List<?\> 之间有什么区别 ?
+
+`List<? extends T>`这种泛型形式表示具有`上界通配符`，可以接受任何继承自T的类型的List。
+
+`List<? super T>`这种泛型形式表示具有`下界通配符`，可以接受任何T的父类构成的List。
+
+`List<?>`这种泛型形式表示具有`无界通配符`，可以理解为想要使用泛型列表，但是不确定具体的类型，用`?`标识任意类型都可以。由于是泛型，所以列表中的元素的类型理应一致。而跟直接定义`List`对比，List可以理解为持有任意Object类型的原始列表。
+
+### 可以把List<String\>传递给一个接受List<Object\>参数的方法吗？
+
+对任何一个不太熟悉泛型的人来说，这个Java泛型题目看起来令人疑惑，因为乍看起来String是一种Object，所以`List<String>`应当可以用在需要`List<Object>`的地方，但是事实并非如此。
+
+真这样做的话会导致编译错误。如果你再深一步考虑，你会发现Java这样做是有意义的，因为`List<Object>`可以存储任何类型的对象包括String, Integer等等，而`List<String>`却只能用来存储Strings。
+
+### 泛型在实践中的有哪些技巧？
+
+泛型一些约定俗成的命名：
+
+- E - Element
+- K - Key
+- N - Number
+- T - Type
+- V - Value
+- S,U,V etc. - 2nd, 3rd, 4th types
+
+使用泛型的建议：
+- 消除类型检查告警
+- List 优先于数组：因为List可以提供编译期的类型安全保证，而Array却不能
+- 优先考虑使用泛型来提高代码通用性
+- 优先考虑泛型方法来限定泛型的范围
+- 利用有限制通配符来提升 API 的灵活性
+- 优先考虑类型安全的异构容器
