@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://resource.lzyan.fun/PigGo/Task-bro.png" width="200" height="200"/>
+<img src="https://resource.lzyan.fun/PigGo/Task-bro-blue.png" width="200" height="200"/>
 </p>
 <h1 align="center">lzyan-notes</h1>
 
