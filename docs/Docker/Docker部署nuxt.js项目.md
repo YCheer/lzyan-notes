@@ -1,14 +1,14 @@
 ## 1、上传代码
 
-**首先把准备好源码通过ftp上传到服务器目录**
+首先把准备好源码通过ftp上传到服务器目录
 
 ![image-20200518154722655.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832919149826015232.png)
 
-**创建Dockerfile文件：touch Dockerfile**
+创建 `Dockerfile` 文件：`touch Dockerfile`
 
 ![image-20200518154843246.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832919333989515264.png)
 
-**Dockerfile文件内容**
+`Dockerfile` 文件内容
 
 ```
 #基于镜像node，这个版本号最好是与开发坏境的保持一致，防止带来不必要的麻烦
@@ -41,7 +41,7 @@ CMD ["npm","start"]
 
 ## 2、构建镜像
 
-**这里注意要在Dockerfile文件的目录下面执行**
+这里注意要在 `Dockerfile` 文件的目录下面执行
 
 ```
 docker build -t lzyan-taobao-union .
@@ -49,7 +49,7 @@ docker build -t lzyan-taobao-union .
 
 ![image-20200518155206184.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832919476985921536.png)
 
-长途跋涉，共12步构建完成，查看一下当前的镜像
+长途跋涉，共 `12` 步构建完成，查看一下当前的镜像
 
 
 ![image-20200518155647412.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832919588562796544.png)
@@ -61,8 +61,8 @@ docker run --name=lzyan-taobao-union -p 8088:3000 -dt lzyan-taobao-union
 
 ![image-20200518160903778.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832919670318170112.png)
 
-到这里就已经成功啦，这里的8088是宿主机的端口号，我是用的是阿里云的服务器，所以这里需要在阿里云的控制台安全组上面进行端口开放。
+到这里就已经成功啦，这里的 `8088` 是宿主机的端口号，我是用的是阿里云的服务器，所以这里需要在阿里云的控制台安全组上面进行端口开放。
 
-最后通过域名指定8088端口访问成功
+最后通过域名指定 `8088` 端口访问成功
 
-![image-20200518161225363.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832919759363244032.png)
+![](https://resource.lzyan.fun/PigGo/20211225235549.png)

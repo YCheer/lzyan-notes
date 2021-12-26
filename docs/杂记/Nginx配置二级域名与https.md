@@ -1,17 +1,17 @@
 ## 当前环境
-当前环境是基于Docker部署Nginx下的ssl证书配置
+当前环境是基于 `Docker` 部署 `Nginx` 下的 `ssl` 证书配置
 
 ## 在nginx上面配置二级域名
 
-docker上创建Nginx请参考上一篇文章，首先在DNS解析上添加一条记录
+`Docker`上创建 `Nginx` 请参考 `Docker部署Nginx` 这篇文章，首先在 `DNS` 解析上添加一条记录
 
 ![image-20200527151221885.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832922811960918016.png)
 
-在配置文件中添加多一个server节点就行
+在配置文件中添加多一个 `server` 节点就行
 
 ![image-20200527151604933.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832922887378698240.png)
 
-还有多一个upstream
+还有多一个 `upstream`
 
 ![image-20200527151627170.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832922976889339904.png)
 
@@ -23,21 +23,21 @@ docker上创建Nginx请参考上一篇文章，首先在DNS解析上添加一条
 
 ![image-20200527155420328.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832923042756689920.png)
 
-然后用ftp传到服务器上面
+然后用 `ftp` 传到服务器上面
 
 ![image-20200527155547327.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832923116593217536.png)
 
-上面我已经创建与运行了这个容器，现在需要把证书重新挂载到nginx中，所以需要先停止运行以及删除了这个nginx容器，先docker stop containerName再docker rm containerName
+上面我已经创建与运行了这个容器，现在需要把证书重新挂载到 `nginx` 中，所以需要先停止运行以及删除了这个 `nginx` 容器，先 `docker stop containerName` 再 `docker rm containerName`
 
 ![image-20200527155903996.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832923193806159872.png)
 
-然后就是构建容器并且挂载目录了，这里注意要多开一个端口443，还有就是我的服务器是阿里云的所以得在后台添加安全组开启443的端口
+然后就是构建容器并且挂载目录了，这里注意要多开一个端口 `443` ，还有就是我的服务器是阿里云的所以得在后台添加安全组开启 `443` 的端口
 
-```
+```shell
 docker run -d --name=my-nginx -p 80:80 -p 443:443 -v/home/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v/home/docker/nginx/ssl:/etc/nginx/ssl -v/home/docker/nginx/wwwroot:/usr/share/nginx/html -v/home/docker/nginx/logs/error.log:/var/log/nginx/error.log nginx:latest
 ```
 
-然后就是修改配置文件了，我修改的内容如下，也就是在原来的基础上再添加一个server节点
+然后就是修改配置文件了，我修改的内容如下，也就是在原来的基础上再添加一个 `server` 节点
 
 ```
 user  nginx;

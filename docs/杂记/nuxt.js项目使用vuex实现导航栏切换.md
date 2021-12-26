@@ -1,6 +1,3 @@
-## Vuex是什么
-
-有关Vuex用法和详情可以去nuxt官网https://zh.nuxtjs.org/guide/vuex-store/，或者vue官网https://vuex.vuejs.org/zh/详细阅读。
 
 ## 记录使用
 
@@ -32,4 +29,6 @@ export const mutations = {
 
 ![image-20200829105240544.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832924416760348672.png)
 
-完成
+## Vuex
+
+有关Vuex用法和详情可以去 [nuxt官网](https://zh.nuxtjs.org/guide/vuex-store/)，或者[vue官网](https://vuex.vuejs.org/zh/) 详细阅读。

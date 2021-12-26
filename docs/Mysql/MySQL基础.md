@@ -1,14 +1,14 @@
 ## 1. sql、DB、DBMS分别是什么，他们之间的关系是什么
 
-- DB：
+- **DB：**
 
   database（数据库，数据库实际上就是在硬盘上以文件的形式存在）
 
-- DBMS：
+- **DBMS：**
 
   Database Management System（数据库管理系统，常见的有：MySQL Oracle DB2 Sybase SqlServer..)
 
-- SQL：
+- **SQL：**
 
   结构化查询语言，是一门标准通用的语言。标准的sql适合于所有的数据库产品。
 
@@ -16,29 +16,31 @@
 
   SQL语句在执行的时候，实际上内部也会进行编译，然后再执行sql。（sql语句的编译由DBMS完成）
 
-DBMS复制执行sql语句，通过执行sql语句来操作DB当中的数据
 
+`DBMS` 负责执行 `sql` 语句，通过执行 `sql` 语句来操作 `DB` 当中的数据
+
+```
 DBMS-（执行）->SQL-（操作)->DB
+```
 
 ## 2. 什么是表
 
-表：table是数据库的基本组成单位，所有的数据都以表格的形式组织，目的是可读性强。
+**表（table）是数据库的基本组成单位，所有的数据都以表格的形式组织，目的是使可读性强。**
 
 一个表包括行和列：
 
 - 行：被成为数据/记录（data）
 - 列：被称为字段（column）
 
- 每一个字段应该包括哪些属性？字段名、数据类型、相关的约束。
+每一个字段应该包括哪些属性？字段名、数据类型、相关的约束。
 
 ## 3. 学习MySQL主要还是学习通用的SQL语句，那么SQL语句包括增删改查，SQL语句怎么分类
 
-- DQL（数据查询语言）：查询语句，凡是select语句都是DQL
-- DML（数据操作语言）：insert delete update，对表当中的数据进行增删改
-- DDL（数据定义语言）：create drop alter，对表结构的增删改  
-- TCL（事务控制语言）：commit提交事务，rollback回滚事务
-
-- DCL（数据控制语言）：grant授权，revoke撤销权限等
+- **DQL（数据查询语言）：** 查询语句，凡是 select 语句都是 DQL
+- **DML（数据操作语言）：** insert delete update，对表当中的数据进行增删改
+- **DDL（数据定义语言）：** create drop alter，对表结构的增删改  
+- **TCL（事务控制语言）：** commit 提交事务，rollback 回滚事务
+- **DCL（数据控制语言）：** grant 授权，revoke 撤销权限等
 
 ## 4. MySQL的常用命令
 
@@ -57,22 +59,24 @@ DBMS-（执行）->SQL-（操作)->DB
 
 ## 5. 对SQL脚本的理解
 
-当一个文件的扩展名是.sql，并且该文件中编写了大量的sql语句，我们称这样的文件为sql脚本
+当一个文件的扩展名是 `.sql`，并且该文件中编写了大量的 `sql` 语句，我们称这样的文件为 `sql` 脚本。
 
-注意：直接使用source命令可以直接执行sql脚本
+直接使用 `source` 命令可以直接执行 `sql` 脚本。
 
 ## 6. SQL语句的应用
 
-1. 任何一条sql语句都以";"结尾。
-2. sql语句不区分大小写。
-3. 标准sql语句中要求字符串使用单引号括起来，虽然mysql支持双引号但是尽量不用，因为不通用。
-4. 在数据库中NULL不是一个值，代表什么也没有，为空，空不是一个值不能用等号衡量，必须使用is null或者is not null
-5. 在数据库中只要有数学表达式出现null，最后的结果都是null
-6. mysql与oracle数据库相比，oracle数据库的语法会相对严谨一点，比如查询一个数据时表中的数据是大写的varchar类型的此时你的SQL语句中的查询条件就必须要是大写的否则查询不出来，而在msyql中无论小写大写都可以查询出来
+注意：
+
+1. 任何一条 `sql` 语句都以 `;` 结尾。
+2. `sql` 语句不区分大小写。
+3. 标准 `sql` 语句中要求字符串使用单引号括起来，虽然 `mysql` 支持双引号但是尽量不用，因为不通用。
+4. 在数据库中 `NULL` 不是一个值，代表什么也没有，为空，空不是一个值不能用等号衡量，必须使用 `is null` 或者 `is not null`
+5. 在数据库中只要有数学表达式出现 `null`，最后的结果都是 `null`
+6. `mysql` 与 `oracle` 数据库相比，`oracle` 数据库的语法会相对严谨一点，比如查询一个数据时表中的数据是大写的 `varchar` 类型的此时你的 `SQL` 语句中的查询条件就必须要是大写的否则查询不出来，而在 `msyql` 中无论小写大写都可以查询出来
 
 ### DQL
 
-  执行bjpowernode.sql脚本导入数据
+执行 `bjpowernode.sql` 脚本导入数据
   ```sql
 DROP TABLE IF EXISTS EMP;
 DROP TABLE IF EXISTS DEPT;
@@ -181,29 +185,25 @@ INSERT INTO SALGRADE ( GRADE, LOSAL, HISAL ) VALUES (
 INSERT INTO SALGRADE ( GRADE, LOSAL, HISAL ) VALUES ( 
 5, 3001, 9999); 
 commit;
-  ```
-  
-  - #### 简单查询：
+```
 
-  ```sql
-  select 字段名1,字段名2,字段名3,...from 表名;（查询全部字段换成*，实际开发中不建议使用，效率很低）
-  ```
+- #### 简单查询：
+```sql
+select 字段名1,字段名2,字段名3,...from 表名;（查询全部字段换成*，实际开发中不建议使用，效率很低）
+```
 
-  - #### 数学运算：
+- #### 数学运算：
+```sql
+select 字段名*12 from 表名;
+```
 
-  ```sql
-  select 字段名*12 from 表名;
-  ```
+- #### 查询结果的列重命名：
+```sql
+select 字段名 as 重命名 from 表名; （带中文的加''，as关键字可以省略)
+```
 
-  - #### 查询结果的列重命名：
-
-  ```sql
-  select 字段名 as 重命名 from 表名; （带中文的加''，as关键字可以省略)
-  ```
-
-  - #### 条件查询：
-
-  ```sql
+- #### 条件查询：
+```sql
   #执行顺序：先from，然后where，最后select
   1.单条件：select 字段 from 表名 where 条件;
   2.多条件：select 字段 from 表名 where 条件 and 条件;
@@ -216,389 +216,298 @@ commit;
   	(1)select 字段 from 表名 where 字段='lzyan' or 字段='lzy';
       (2)select 字段 from 表名 where 字段 in('lzyan','lzy');
   7.模糊查询like：%代表任意多个字符，_代表任意一个字符。注意：查询_和%这种关键字符的时候需要加转义符"\"
-  ```
+```
 
-  - #### 排序查询：
+- #### 排序查询：
+```sql
+select 字段 from 表名 order by 字段;（默认为升序，asc表示升序，desc表示降序）
+select 字段 from 表名 order by 字段 asc;
+select 字段 from 表名 order by 字段 desc;
+select 字段 from 表名 order by 字段 desc, 字段 asc;（多字段排序，越靠前的字段起的主导作用越大,只有当前面的字段相等的时候，后面的字段才会使用。或者说，只有当前面的字段无法完成排序的时候，才会启用后面的字段）
+select 字段 from 表名 order by 1;（以数字的形式，1表示按第一列的升序排序，这是一种不健壮的方式，该写死）
+select * from 表名 where 条件 order by ...（这条语句的执行顺序：from->where->select->order by）
+语句执行排序的验证方式：
+select 字段名 as 别名 from 表名 order by 别名;（可以看出，是按照别名这一列来排序的，先从表中查到这个字段然后再来起别名，最后再按别名来排序）
+例子：select ename,sal as salary from emp order by salary;
+```
+
+- #### 分组函数：
+
+  1. count 计数 2.sum 求和 3.avg 平均值 4.max 最大值 5.min 最小值
+  2. 分组函数都是对”某一组“数据进行操作的
+  3. 分组函数的另外一个名字：**多行处理函数**
+  4. 多行处理函数的特点：输入多行，最终输出的结果是一行
+  5. 分组函数自动忽略null
+  6. SQL语句中有一个语法规则，分组函数不可直接使用在where子句当中
+  7. 分组函数也能组合起来使用
+
 
   ```sql
-  select 字段 from 表名 order by 字段;（默认为升序，asc表示升序，desc表示降序）
-  select 字段 from 表名 order by 字段 asc;
-  select 字段 from 表名 order by 字段 desc;
-  select 字段 from 表名 order by 字段 desc, 字段 asc;（多字段排序，越靠前的字段起的主导作用越大,只有当前面的字段相等的时候，后面的字段才会使用。或者说，只有当前面的字段无法完成排序的时候，才会启用后面的字段）
-  select 字段 from 表名 order by 1;（以数字的形式，1表示按第一列的升序排序，这是一种不健壮的方式，该写死）
-  select * from 表名 where 条件 order by ...（这条语句的执行顺序：from->where->select->order by）
-  语句执行排序的验证方式：
-  select 字段名 as 别名 from 表名 order by 别名;（可以看出，是按照别名这一列来排序的，先从表中查到这个字段然后再来起别名，最后再按别名来排序）
-  例子：select ename,sal as salary from emp order by salary;
+  select count(字段) from 表名; （计算所填字段的记录总数，输出的是一行，自动忽略null）
+  select count(*) from 表名; （计算总记录条数，输出的是一行，和某个字段无关）
+  select sum(字段) from 表名; 
+  select avg(字段) from 表名;
+  select max(字段) from 表名;
+  select min(字段) from 表名;
+  select sum(字段) from 表名 where 字段 is not null;（这是错误的，不需要额外添加这个过滤条件，sum函数自动忽略null） 
+  select count(*),min(字段),sum(字段),avg(字段),max(字段) from 表名;
   ```
-  
-  - #### 分组函数：
-  
-    1. count 计数 2.sum 求和 3.avg 平均值 4.max 最大值 5.min 最小值
-    2. 分组函数都是对”某一组“数据进行操作的
-    3. 分组函数的另外一个名字：**多行处理函数**
-    4. 多行处理函数的特点：输入多行，最终输出的结果是一行
-    5. 分组函数自动忽略null
-    6. SQL语句中有一个语法规则，分组函数不可直接使用在where子句当中
-    7. 分组函数也能组合起来使用
-  
-  
-    ```sql
-    select count(字段) from 表名; （计算所填字段的记录总数，输出的是一行，自动忽略null）
-    select count(*) from 表名; （计算总记录条数，输出的是一行，和某个字段无关）
-    select sum(字段) from 表名; 
-    select avg(字段) from 表名;
-    select max(字段) from 表名;
-    select min(字段) from 表名;
-    select sum(字段) from 表名 where 字段 is not null;（这是错误的，不需要额外添加这个过滤条件，sum函数自动忽略null） 
-    select count(*),min(字段),sum(字段),avg(字段),max(字段) from 表名;
-    ```
-  
-  - #### 单行处理函数：
-  
-      1. 输入一行，输出一行，进去多少行出来多少行
-      2. 所有数据库都是这样规定，只要有null参与运算的结果一定是null
-    3. ifnull() 空处理函数（可能为null的数据，被当做什么处理），属于单行处理函数
-  
-  ```sql
-    select ifnull(字段,0) from 表名;
-  ```
-  
-  - #### group by 和 having：
-  
-      1. group by：按照某个字段或者某些字段进行分组
-      2. having：对分组之后的数据进行再次过滤
-      3. 分组函数一般会和group by联合使用，这也是为什么它叫分组函数的原因，并且任何一个分组函数都是在group by语句执行结束之后才会执行，当一条sql语句没有group by的话，整张表的数据会自成一组
-      4. sql语句当中有一个语法规则，分组函数不可以直接使用where子句中，是因为group by这个语句是在where执行之后才会执行的
-      5. 有分组函数的sql语句后面有个缺省的group by
-      6. 当一条语句中，有group by的话，select后面只能跟分组函数和参与分组的字段（例：select sum(count),name from user group by name;)
-      7. 多个字段可联合起来一块分组
-      8. having只是在对分完组后的数据进行过滤，但能够使用where过滤的尽量使用where过滤，使用having效率比较低
-      9. having是group by的搭档，只有使用了group by才能使用having ，即having就是为了过滤分组后的数据而存在的，不可以单独出现
-  
-  关于查询结果的去重：
-  
-   distinct只能出现在所有字段的最前面，表示的是后面的字段联合起来去重
-  
-  ```sql
-  select distinct 字段 from 表名
-  例子：select distinct deptno,job from emp;后面的字段联合起来去重，不是仅仅去deptno这个字段
-  与分组函数联用
-  select count(distinct 字段) from 表名
-  统计岗位的数量：select count(distinct job) from emp;
-  ```
-  
-  - #### 总结一个完整的DQL语句怎么写：
-  
-  ```sql
-    select .. from .. where .. group by .. having .. order by ..
-    顺序:5       1       2         3           4           6
-    1.选择哪一张表
-    2.先执行where语句过滤原始数据
-    3.执行group by进行分组
-    4.执行having对分组数据进行操作
-    5.执行select选出数据
-    6.执行order by排序
-    原则：能在where中过滤的数据，尽量在where中过滤，效率较高。having的过滤就是专门对分组之后的数据及进行过滤的
-  ```
-  
-  - #### 连接查询：
-  
-    1. 在实际开发中，大部分得情况下都不是从单表中查询数据，一般都是多张表联合查询取出最终的结果
-  
-    2. 在实际开发中，一般一个业务都会对应多张表，比如：学生和班级，起码两张表
-  
-    3. 连接查询的分类：
-  
-       根据语法出现的年代来划分的话，包括： SQL92（一些比较老的DBA可能还在使用这种语法，DBA:DataBase Administrator，数据库管理员）、SQL99（比较新的语法）
-  
-       根据表的连接方式来划分，包括：
-  
-       内连接：等值连接、非等值连接、自连接
-  
-       外连接：左外连接、右外连接
-  
-       全连接（这个很少用）
-  
-  在表的连接查询方面有一种现象被称为：笛卡尔现象（笛卡尔乘积现象），笛卡尔现象：当两张表进行连接查询的时候，没有任何条件进行限制，最终的查询结果条数是两张表记录数的乘积
-  
-  关于表的别名：
-  
-  ```sql
-  select e.ename,d.dname from emp e,dept d;
-  ```
-  
-  表的别名有什么好处：
-  
-  ​	第一：执行效率高
-  
-  ​	第二：可读性好
-  
-  怎么避免笛卡尔现象？加条件进行过滤
-  
-  思考：避免了笛卡尔现象，会减少记录的匹配次数吗？
-  
-  ​			不会，底层照样还是这么多次，只不过显示的是有效记录
-  
-  案例：找出每一个员工的部门名称，要求显示员工名和部门名
-  
-  ```sql
-  select e.ename,d.dname from emp e,dept d where e.deptno = d.deptno;//SQL92
-  ```
-  
-   1. 内连接之等值连接：最大特点是-条件是等量关系
 
-     案例：查询每个员工的部门名称，要求显示员工名和部门名
+- #### 单行处理函数：
 
-     ```sql
-     sql92：
-     select e.ename,d.dname from emp e dept d where e.deptno = d.deptno;
-     sql99（常用）:
-     select e.ename,d.dname from emp e join dept d on e.deptno = d.deptno;
-     sql99语法结构更清晰一些：表的连接条件和后来的where条件分离了
-     ```
+    1. 输入一行，输出一行，进去多少行出来多少行
+    2. 所有数据库都是这样规定，只要有null参与运算的结果一定是null
+  3. ifnull() 空处理函数（可能为null的数据，被当做什么处理），属于单行处理函数
 
-   2. 内连接之非等值连接：最大特点是-连接条件中的关系是非等量关系
+```sql
+  select ifnull(字段,0) from 表名;
+```
 
-     案例：找出每个员工的工资等级，要求显示员工名、工资、工资等级
+- #### group by 和 having：
 
-     ```sql
-     select e.ename,e.sal,s.grade from emp e join salgrade s on e.sal between s.losal and s.hisal;
-     ```
+    1. group by：按照某个字段或者某些字段进行分组
+    2. having：对分组之后的数据进行再次过滤
+    3. 分组函数一般会和group by联合使用，这也是为什么它叫分组函数的原因，并且任何一个分组函数都是在group by语句执行结束之后才会执行，当一条sql语句没有group by的话，整张表的数据会自成一组
+    4. sql语句当中有一个语法规则，分组函数不可以直接使用where子句中，是因为group by这个语句是在where执行之后才会执行的
+    5. 有分组函数的sql语句后面有个缺省的group by
+    6. 当一条语句中，有group by的话，select后面只能跟分组函数和参与分组的字段（例：select sum(count),name from user group by name;)
+    7. 多个字段可联合起来一块分组
+    8. having只是在对分完组后的数据进行过滤，但能够使用where过滤的尽量使用where过滤，使用having效率比较低
+    9. having是group by的搭档，只有使用了group by才能使用having ，即having就是为了过滤分组后的数据而存在的，不可以单独出现
 
-   3. 内连接之自连接：最大的特点是-一张表看作两张表，自己连接自己
+关于查询结果的去重：
 
-     案例：找出每个员工的上级领导，要求显示员工名和对应的领导名
-
-     ```sql
-     员工的领导编号=领导的员工编号
-     select a.ename as '员工名',b.ename as '领导名' from emp a inner join emp b on a.mgr = b.empno;
-     ```
-
-   4. 外连接：
-
-     什么是外连接，和内连接有什么区别？
-
-     内连接：假设A和B表进行连接，使用内连接的话，凡是A表和B表能够匹配上的记录查询出来，这就是内连接。
-
-     外连接：假设A和B表进行连接，使用外连接的话，AB两张表中有一张表是主表，一张表是副表，主要查询主表中的数据，捎带着查询副表，当副表中的数据没有和主表中的数据匹配上，副表自动模拟出NULL与之匹配
-
-     外连接的分类：
-
-     ​	左外连接（左连接）：表示左边的这张表是主表
-
-     ​	右外连接（右连接）：表示右边的这张表是主表
-
-     ​	左连接有右连接的写法，右连接也会有对应的左连接的写法
-
-     案例：找出每个员工的上级领导（所有员工必须查询出来）
-
-     ```sql
-     内连接：
-     inner可以省略
-     select a.ename '员工名',b.ename '领导名' from emp a inner join emp b on a.mgr = b.empno;
-     外连接:
-     左连接
-     select a.ename '员工名',b.ename '领导名' from emp a left join emp b on a.mgr = b.empno;
-     outer可以省略
-     select a.ename '员工名',b.ename '领导名' from emp a left outer join emp b on a.mgr = b.empno;
-     右连接
-     select a.ename '员工名',b.ename '领导名' from emp b right join emp a on a.mgr = b.empno;
-     
-     为什么inner、outer可以省略？
-     因为区分内连接和外连接不是依靠这两个单词
-     ```
-
-     外连接最重要的特点是：主表的数据无条件的全部查询出来
-
-     案例：找出哪个部门没有员工
-
-     ```sql
-     select d.* from emp e right join dept d on e.deptno = d.deptno where e.empno is null;
-     ```
-
-   5. 三张表怎么连接查询
-
-     案例：找出每个员工的部门名称以及工资等级
-
-     ```sql
-     A join B join C on 
-     表示：A表和B表进行表连接，连接之后A表继续和C表进行连接
-     select e.ename,d.dname,s.grade from emp e join dept d on e.deptno = d.deptno join salgrade s on e.sal between s.losal and s.hisal;
-     ```
-
-     案例：找出每一个员工的部门名称、工资等级、以及上级领导
-
-     ```sql
-     select e.ename,d.dname,s.grade,e1.ename from emp e join dept d on e.deptno = d.deptno join salgrade s on e.sal between s.losal and s.hisal left join emp e1 on e.mgr = e1.empno;
-     ```
-
-  - #### 子查询：
-
-     什么是子查询？子查询都可以出现在哪里
-
-     select语句当中嵌套select语句，被嵌套的select语句是子查询
-
-     select
-
-     ​	...(select)
-
-     from
-
-     ​	...(select)
-
-     where 
-
-     ​	...(select)
-
-     where子句中使用子查询
-
-     案例：找出高于平均薪资的员工信息
-
-     ```sql
-     select * from emp where sal> avg(sal);//错误写法，where后面不能直接使用分组函数
-     第一步：找出平均薪资
-     select avg(sal) from emp;
-     第二步：where过滤
-     select * from emp where sal >2073.214286
-     第一步和第二部合并：
-     select * from emp where sal> (select avg(sal) from emp);
-     ```
-
-     from后面嵌套子查询
-     案例：找出每个部门平均薪水的薪资等级
-
-     ```sql
-     第一步：找出每个部门平均薪水（按照部门编号分组，求sal的平均值）
-     select deptno,avg(sal) as avgsal from emp group by deptno;
-     第二步：将以上的查询结果当做临时表t，让t表和salgrade s表连接，条件是：t.avgsal between s.losal and s.hisal 
-     select t.*,s.grade from (select deptno,avg(sal) as avgsal from emp group by deptno) t 
-     join salgrade s on t.avgsal between s.losal and s.hisal;
-     ```
-
-     案例：找出每个部门平均的薪水等级
-
-     ```sql
-     第一步：找出每个员工的薪水等级
-     select e.ename,e.sal,e.deptno,s.grade from emp e join salgrade s on e.sal between s.losal and s.hisal;
-     第二步：基于以上结果，继续按照deptno分组，求grade平均值
-     select e.deptno,avg(s.grade) from emp e join salgrade s on e.sal between s.losal and s.hisal group by e.deptno;
-     ```
-
-     select 后面嵌套子查询
-
-     案例：找出每个员工所在的部门名称，要求显示员工名和部门名
-
-     ```sql
-     select e.ename,d.dname from emp e join dept d on e.deptno = d.deptno;
-     select e.ename,(select d.dname from dept d where e.deptno = d.deptno) as dname from emp e;
-     ```
-
-  - #### union(可以将查询结果集相加)
-
-     案例：找出工作岗位是SALESMAN和MANAGER的员工
-
-     ```sql
-     第一种：
-     select ename,job from emp where job = 'MANAGER' or job = 'SALSMAN'；
-     第二种：
-     select ename,job from emp where job in('MANAGER','SALESMAN');
-     第三种
-     select ename,job from emp where job = 'MANAGER' union select ename,job from emp where job = 'SALESMAN';
-     ```
-
-     两张不相干的表中的数据拼接在一起显示
-
-     ```sql
-     select ename from emp union select dname from dept;
-     ```
-
-  - #### limit（重点中的重点，分页查询）:
-
-     1. limit是mysql特有的，其他数据库没有，不通用。（Oracle中有一个相同的机制，叫做rownum）
-
-     2. limit取结果集中的部分数据，这是它的作用
-
-     3. 语法机制：startIndex，length
-
-        ​				  startIndex表示起始位置
-
-        ​				  length表示取几个
-
-        案例：取出工资前5名的员工（思路：降序取前5个）
-
-        ```sql
-        select ename,sal from emp order by sal desc;
-        取前5个：
-        select ename,sal from emp order by sal desc limit 0,5;
-        select ename,sal from emp order by sal desc limit 5;
-        ```
-
-     4. limit是sql语句最后执行的一个环节
-
-        select 		5
-
-        ​	...
-
-        from		1
-
-        ​	...
-
-        where		2
-
-        ​	...
-
-        group by	3
-
-        ​	...
-
-        having		4
-
-        ​	...
-
-        order by	6
-
-        ​	...
-
-        limit			7
-
-        ​	...
-
-        案例：找出工资排名在第4到第9名的员工
-
-        ```sql
-        select ename,sal from emp order by sal desc limit 3,6;
-        ```
-
-     5. 通用的标准分页sql
-
-        每页显示3条记录：
-
-        第1页：0，3
-
-        第2页：3，3
-
-        第3页：6，3
-
-        第4页：9，3
-
-        第5页：12，3
-
-        每页显示pageSize条记录：
-
-        第pageNo页：(pageNo-1) * pageSize,pageSize
-
-        pageSize是什么？是每页显示多少条几率
-
-        pageNo是什么？显示第几页
-
-        Java代码（
-
-        ​	int pageNo = 2; //页码是2
-
-        ​	int pageSize = 10; // 每页显示10条
-
-        ）
+ distinct只能出现在所有字段的最前面，表示的是后面的字段联合起来去重
+
+```sql
+select distinct 字段 from 表名
+例子：select distinct deptno,job from emp;后面的字段联合起来去重，不是仅仅去deptno这个字段
+与分组函数联用
+select count(distinct 字段) from 表名
+统计岗位的数量：select count(distinct job) from emp;
+```
+
+- #### 总结一个完整的DQL语句怎么写：
+
+```sql
+  select .. from .. where .. group by .. having .. order by ..
+  顺序:5       1       2         3           4           6
+  1.选择哪一张表
+  2.先执行where语句过滤原始数据
+  3.执行group by进行分组
+  4.执行having对分组数据进行操作
+  5.执行select选出数据
+  6.执行order by排序
+  原则：能在where中过滤的数据，尽量在where中过滤，效率较高。having的过滤就是专门对分组之后的数据及进行过滤的
+```
+
+- #### 连接查询：
+
+  1. 在实际开发中，大部分得情况下都不是从单表中查询数据，一般都是多张表联合查询取出最终的结果
+
+  2. 在实际开发中，一般一个业务都会对应多张表，比如：学生和班级，起码两张表
+
+  3. 连接查询的分类：
+
+     根据语法出现的年代来划分的话，包括： SQL92（一些比较老的DBA可能还在使用这种语法，DBA:DataBase Administrator，数据库管理员）、SQL99（比较新的语法）
+
+     根据表的连接方式来划分，包括：
+
+     内连接：等值连接、非等值连接、自连接
+
+     外连接：左外连接、右外连接
+
+     全连接（这个很少用）
+
+在表的连接查询方面有一种现象被称为：笛卡尔现象（笛卡尔乘积现象），笛卡尔现象：当两张表进行连接查询的时候，没有任何条件进行限制，最终的查询结果条数是两张表记录数的乘积
+
+关于表的别名：
+
+```sql
+select e.ename,d.dname from emp e,dept d;
+```
+
+表的别名有什么好处：
+
+​	第一：执行效率高
+
+​	第二：可读性好
+
+怎么避免笛卡尔现象？加条件进行过滤
+
+思考：避免了笛卡尔现象，会减少记录的匹配次数吗？
+
+​			不会，底层照样还是这么多次，只不过显示的是有效记录
+
+案例：找出每一个员工的部门名称，要求显示员工名和部门名
+
+```sql
+select e.ename,d.dname from emp e,dept d where e.deptno = d.deptno;//SQL92
+```
+
+ 1. 内连接之等值连接：最大特点是-条件是等量关系
+   案例：查询每个员工的部门名称，要求显示员工名和部门名
+   ```sql
+   sql92：
+   select e.ename,d.dname from emp e dept d where e.deptno = d.deptno;
+   sql99（常用）:
+   select e.ename,d.dname from emp e join dept d on e.deptno = d.deptno;
+   sql99语法结构更清晰一些：表的连接条件和后来的where条件分离了
+   ```
+ 2. 内连接之非等值连接：最大特点是-连接条件中的关系是非等量关系
+   案例：找出每个员工的工资等级，要求显示员工名、工资、工资等级
+   ```sql
+   select e.ename,e.sal,s.grade from emp e join salgrade s on e.sal between s.losal and s.hisal;
+   ```
+ 3. 内连接之自连接：最大的特点是-一张表看作两张表，自己连接自己
+   案例：找出每个员工的上级领导，要求显示员工名和对应的领导名
+   ```sql
+   员工的领导编号=领导的员工编号
+   select a.ename as '员工名',b.ename as '领导名' from emp a inner join emp b on a.mgr = b.empno;
+   ```
+ 4. 外连接：
+   什么是外连接，和内连接有什么区别？
+   内连接：假设A和B表进行连接，使用内连接的话，凡是A表和B表能够匹配上的记录查询出来，这就是内连接。
+   外连接：假设A和B表进行连接，使用外连接的话，AB两张表中有一张表是主表，一张表是副表，主要查询主表中的数据，捎带着查询副表，当副表中的数据没有和主表中的数据匹配上，副表自动模拟出NULL与之匹配
+   外连接的分类：
+   ​	左外连接（左连接）：表示左边的这张表是主表
+   ​	右外连接（右连接）：表示右边的这张表是主表
+   ​	左连接有右连接的写法，右连接也会有对应的左连接的写法
+   案例：找出每个员工的上级领导（所有员工必须查询出来）
+   ```sql
+   内连接：
+   inner可以省略
+   select a.ename '员工名',b.ename '领导名' from emp a inner join emp b on a.mgr = b.empno;
+   外连接:
+   左连接
+   select a.ename '员工名',b.ename '领导名' from emp a left join emp b on a.mgr = b.empno;
+   outer可以省略
+   select a.ename '员工名',b.ename '领导名' from emp a left outer join emp b on a.mgr = b.empno;
+   右连接
+   select a.ename '员工名',b.ename '领导名' from emp b right join emp a on a.mgr = b.empno;
+   
+   为什么inner、outer可以省略？
+   因为区分内连接和外连接不是依靠这两个单词
+   ```
+   外连接最重要的特点是：主表的数据无条件的全部查询出来
+   案例：找出哪个部门没有员工
+   ```sql
+   select d.* from emp e right join dept d on e.deptno = d.deptno where e.empno is null;
+   ```
+ 5. 三张表怎么连接查询
+   案例：找出每个员工的部门名称以及工资等级
+   ```sql
+   A join B join C on 
+   表示：A表和B表进行表连接，连接之后A表继续和C表进行连接
+   select e.ename,d.dname,s.grade from emp e join dept d on e.deptno = d.deptno join salgrade s on e.sal between s.losal and s.hisal;
+   ```
+   案例：找出每一个员工的部门名称、工资等级、以及上级领导
+   ```sql
+   select e.ename,d.dname,s.grade,e1.ename from emp e join dept d on e.deptno = d.deptno join salgrade s on e.sal between s.losal and s.hisal left join emp e1 on e.mgr = e1.empno;
+   ```
+- #### 子查询：
+   什么是子查询？子查询都可以出现在哪里
+   select语句当中嵌套select语句，被嵌套的select语句是子查询
+   select
+   ​	...(select)
+   from
+   ​	...(select)
+   where 
+   ​	...(select)
+   where子句中使用子查询
+   案例：找出高于平均薪资的员工信息
+   ```sql
+   select * from emp where sal> avg(sal);//错误写法，where后面不能直接使用分组函数
+   第一步：找出平均薪资
+   select avg(sal) from emp;
+   第二步：where过滤
+   select * from emp where sal >2073.214286
+   第一步和第二部合并：
+   select * from emp where sal> (select avg(sal) from emp);
+   ```
+   from后面嵌套子查询
+   案例：找出每个部门平均薪水的薪资等级
+   ```sql
+   第一步：找出每个部门平均薪水（按照部门编号分组，求sal的平均值）
+   select deptno,avg(sal) as avgsal from emp group by deptno;
+   第二步：将以上的查询结果当做临时表t，让t表和salgrade s表连接，条件是：t.avgsal between s.losal and s.hisal 
+   select t.*,s.grade from (select deptno,avg(sal) as avgsal from emp group by deptno) t 
+   join salgrade s on t.avgsal between s.losal and s.hisal;
+   ```
+   案例：找出每个部门平均的薪水等级
+   ```sql
+   第一步：找出每个员工的薪水等级
+   select e.ename,e.sal,e.deptno,s.grade from emp e join salgrade s on e.sal between s.losal and s.hisal;
+   第二步：基于以上结果，继续按照deptno分组，求grade平均值
+   select e.deptno,avg(s.grade) from emp e join salgrade s on e.sal between s.losal and s.hisal group by e.deptno;
+   ```
+   select 后面嵌套子查询
+   案例：找出每个员工所在的部门名称，要求显示员工名和部门名
+   ```sql
+   select e.ename,d.dname from emp e join dept d on e.deptno = d.deptno;
+   select e.ename,(select d.dname from dept d where e.deptno = d.deptno) as dname from emp e;
+   ```
+- #### union(可以将查询结果集相加)
+   案例：找出工作岗位是SALESMAN和MANAGER的员工
+   ```sql
+   第一种：
+   select ename,job from emp where job = 'MANAGER' or job = 'SALSMAN'；
+   第二种：
+   select ename,job from emp where job in('MANAGER','SALESMAN');
+   第三种
+   select ename,job from emp where job = 'MANAGER' union select ename,job from emp where job = 'SALESMAN';
+   ```
+   两张不相干的表中的数据拼接在一起显示
+   ```sql
+   select ename from emp union select dname from dept;
+   ```
+- #### limit（重点中的重点，分页查询）:
+   1. limit是mysql特有的，其他数据库没有，不通用。（Oracle中有一个相同的机制，叫做rownum）
+   2. limit取结果集中的部分数据，这是它的作用
+   3. 语法机制：startIndex，length
+      ​				  startIndex表示起始位置
+      ​				  length表示取几个
+      案例：取出工资前5名的员工（思路：降序取前5个）
+      ```sql
+      select ename,sal from emp order by sal desc;
+      取前5个：
+      select ename,sal from emp order by sal desc limit 0,5;
+      select ename,sal from emp order by sal desc limit 5;
+      ```
+   4. limit是sql语句最后执行的一个环节
+      select 		5
+      ​	...
+      from		1
+      ​	...
+      where		2
+      ​	...
+      group by	3
+      ​	...
+      having		4
+      ​	...
+      order by	6
+      ​	...
+      limit			7
+      ​	...
+      案例：找出工资排名在第4到第9名的员工
+      ```sql
+      select ename,sal from emp order by sal desc limit 3,6;
+      ```
+   5. 通用的标准分页sql
+      每页显示3条记录：
+      第1页：0，3
+      第2页：3，3
+      第3页：6，3
+      第4页：9，3
+      第5页：12，3
+      每页显示pageSize条记录：
+      第pageNo页：(pageNo-1) * pageSize,pageSize
+      pageSize是什么？是每页显示多少条几率
+      pageNo是什么？显示第几页
+      Java代码（
+      ​	int pageNo = 2; //页码是2
+      ​	int pageSize = 10; // 每页显示10条
+      ）
 
 ### DDL和DML
 

@@ -125,11 +125,10 @@ public class AliyunOssUtils {
 
 ## 遇到的问题
 
-在创建 `Bucket` 的时候记得把权限私有改为公共读，不然上传上去的图片文件访问时URL后面会携带了个签名的。
+在创建 `Bucket` 的时候记得把权限私有改为公共读，不然上传上去的图片文件访问时 `URL` 后面会携带了个签名的。
 
 ## 域名配置ssl证书
-申请证书
 
-可以申请20个，这里先前申请过一个是别的域名的证书，所以点击创建证书再申请一个为resource.lzyan.fun域名的证书，申请之后就可以点击部署，在部署里面就可以选择已经绑定了这个域名的Bucket
+证书申请，可以申请20个，这里先前申请过一个是别的域名的证书，所以点击创建证书再申请一个为 `resource.lzyan.fun` 域名的证书，申请之后就可以点击部署，在部署里面就可以选择已经绑定了这个域名的 `Bucket`
 ![](https://resource.lzyan.fun/PigGo/2.png)
 ![](https://resource.lzyan.fun/PigGo/3.png)

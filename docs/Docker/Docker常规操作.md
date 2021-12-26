@@ -1,8 +1,6 @@
-## Centos上docker的安装
+## Centos安装docker
 
-Docker 运行在CentOS 7 上，要求系统为64位、系统内核版本为 3.10 以上。
-
-Docker 运行在 CentOS-6.5 或更高的版本的 CentOS 上，要求系统为64位、系统内核版本为 2.6.32-431 或者更高版本。
+注意： `Docker` 运行在 `CentOS-6.5` 或更高的版本的 `CentOS` 上，要求系统为 `64位` 、系统内核版本为 `2.6.32-431` 或者更高版本。
 
 - 查看当前内核的版本
 
@@ -10,20 +8,20 @@ Docker 运行在 CentOS-6.5 或更高的版本的 CentOS 上，要求系统为64
 uname -r
 ```
 
-- 下载docker
+- 下载 `docker`
 
 ```
 yum install docker
 ```
 
-- 安装完成，启动docker服务，并且设置开机启动
+- 安装完成，启动 `docker` 服务，并且设置开机启动
 
 ```
 systemctl start docker.service
 systemctl enable docker.service
 ```
 
-- 配置使用加速器，因为安装的Docker默认是取Docker Hub找想要的镜像的，国外的肯定没有国内快，所以一般会配置一个加速器
+- 配置使用加速器，因为安装的 `Docker` 默认是取 `Docker Hub` 找想要的镜像的，国外的肯定没有国内快，所以一般会配置一个加速器
 
 ```
 vi /etc/docker/daemon.json
@@ -34,7 +32,7 @@ vi /etc/docker/daemon.json
 }
 ```
 
-- 然后重启docker
+- 然后重启 `docker`
 
 ```
 systemctl restart docker
@@ -48,13 +46,13 @@ docker version
 
 ## 基础操作
 
-- 在docker hub上查看nginx镜像
+- 在 `docker hub` 上查看 `nginx` 镜像
 
 ```linux
 docker search nginx
 ```
 
-- 在doncker hub上面拉取nginx镜像，默认为latest版本可以不写
+- 在 `doncker hub` 上面拉取 `nginx` 镜像，默认为 `latest` 版本可以不写
 
 ```
 docker pull nginx:latest
@@ -114,7 +112,7 @@ docker rmi imagesName
 docker export containerName>路径以及tar包名，直接写自定义的包名就保存在当前目录
 ```
 
-- 导入容器，导入的容器要run的话，后面需要加command，可用docker ps -a查看所导出的容器的command
+- 导入容器，导入的容器要run的话，后面需要加 `command` ，可用 `docker ps -a` 查看所导出的容器的 `command`
 
 ```
 docker import tar包路径 customImagesName:version(default latest)
@@ -138,7 +136,7 @@ docker load >路径tar包名
 docker logs containerName
 ```
 
-- 用Dockerfile构建镜像, . 就是说Dockerfile在当前目录下面
+- 用 `Dockerfile` 构建镜像, `.`就是 `Dockerfile` 在当前目录下面
 
 ```
 docker build -t customImageName .
