@@ -3,6 +3,9 @@
 * 🍵 Java八股文
   * [基础](./docs/Java/Java基础八股文.md)
   * [容器](./docs/Java/Java容器八股文.md)
+  * [并发](./docs/Java/Java并发八股文.md)
+  * [I/O](./docs/Java/JavaIO八股文.md)
+  * [JVM](./docs/Java/JavaJvm八股文.md)
 
 * ⚙️ MySQL
   * [MySQL基础](./docs/Mysql/MySQL基础.md)

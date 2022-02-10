@@ -45,13 +45,23 @@ Java 集合框架主要的继承派生关系：
 
 ### Collection 和 Collections 的区别？
 
-`Collection` 是一个接口，它是Set、List等容器的父接口；`Collections` 是一个工具类，提供了一系列的静态方法来辅助容器操作，这些方法包括对容器的搜索、排序、线程安全化等
+`Collection` 是一个接口，它是 `Set`、`List` 等容器的父接口；`Collections` 是一个工具类，提供了一系列的静态方法来辅助容器操作，这些方法包括对容器的搜索、排序、线程安全化等。
+
+其中线程安全化中需要特别注意，`HashSet`，`TreeSet`，`ArrayList`,`LinkedList`,`HashMap`,`TreeMap` 都是线程不安全的, `Collections` 提供了多个静态方法可以把他们包装成线程同步的集合。方法如下：
+```java
+synchronizedCollection(Collection<T>  c) //返回指定 collection 支持的同步（线程安全的）collection。
+synchronizedList(List<T> list)//返回指定列表支持的同步（线程安全的）List。
+synchronizedMap(Map<K,V> m) //返回由指定映射支持的同步（线程安全的）Map。
+synchronizedSet(Set<T> s) //返回指定 set 支持的同步（线程安全的）set。
+```
+但是最好不要这些方法，效率非常低，需要线程安全的集合类型时请考虑使用 `JUC` 包下的并发集合。
+
 
 ### 无序性和不可重复性的含义是什么?
 
 无序性不等于随机性，无序性是指存储的数据在底层数组中并非按照数组索引的顺序添加，而是根据数据的哈希值决定的。
 
-不可重复性是指添加的元素按照equals()判断时，返回false,需要同时重写equals()方法和HashCode()方法。
+不可重复性是指添加的元素按照 `equals()` 判断时，返回 `false` ,需要同时重写 `equals()` 方法和`HashCode()` 方法。
 
 ### fail-fast 和 fail-safe 是什么？
 
@@ -180,7 +190,7 @@ public class FailFastDemo {
 
 - `LinkedList` 实现了 `Cloneable` 接口，默认为浅拷贝。
 
-- `LinkedList· 实现了 `Serializable` 接口，支持序列化。
+- `LinkedList` 实现了 `Serializable` 接口，支持序列化。
 
 - `LinkedList` 是非线程安全的。
 
@@ -242,4 +252,138 @@ System.out.println(list2); // [1, 4, 3]
 
 ### HashSet、LinkedHashSet 和 TreeSet 三者的异同？
 
+- `HashSet` 、`LinkedHashSet` 和 `TreeSet` 都是 `Set` 接口的实现类，都能保证元素唯一，并且都不是线程安全的。
 
+- `HashSet` 的底层数据结构是哈希表（基于 `HashMap` 实现）。`LinkedHashSet` 的底层数据结构是链表和哈希表，元素的插入和取出顺序满足 `FIFO` (先进先出) 。`TreeSet` 底层数据结构是红黑树，元素是有序的，排序的方式有自然排序和定制排序。
+
+- 底层数据结构不同又导致这三者的应用场景不同。`HashSet` 用于不需要保证元素插入和取出顺序的场景，`LinkedHashSet` 用于保证元素的插入和取出顺序满足 `FIFO` 的场景，`TreeSet` 用于支持对元素自定义排序规则的场景。
+
+### HashSet 的要点？
+
+- `HashSet` 实际上是通过 `HashMap` 实现的。`HashSet` 中维护了一个 `HashMap` 对象 `map`，`HashSet` 的重要方法，如 `add`、`remove`、`iterator`、`clear`、`size` 等都是围绕这个 `map` 实现的。
+
+- `HashSet` 中存储的元素是无序的、散列的。
+
+- `HashSet` 通过继承 `AbstractSet` 实现了 `Set` 接口中的骨干方法。
+
+- `HashSet` 实现了 `Cloneable`，所以支持克隆、实现了 `Serializable`，所以支持序列化。
+
+- `HashSet` 允许 `null` 值的元素，但只能拥有一个 `null` 值，即不允许存储相同的元素, 且不是线程安全的。
+
+比较关键的就是 `add()` 方法。它是将存放的对象当作 `HashMap` 的键，`value` 都是相同的 `PRESENT` 虚值，如源码所示
+```java
+public boolean add(E e) {
+    return map.put(e, PRESENT)==null;// 调用HashMap的put方法,PRESENT是一个至始至终都相同的虚值
+}
+```
+由于 `HashMap` 的 `key` 是不能重复的，所以每当重复的值写入到 `HashSet` 时，`value` 会被覆盖，但 `key`不会受到影响，这样就保证了 `HashSet` 中只能存放不重复的元素。
+
+### LinkedHashSet 的要点？
+
+- `LinkedHashSet` 通过继承 `HashSet` 实现 `Set` 接口中的骨干方法。
+
+- `LinkedHashSet` 实现了 `Cloneable` ，所以支持克隆。
+
+- `LinkedHashSet` 实现了 `Serializable` ，所以支持序列化。
+
+- `LinkedHashSet` 不是线程安全的。
+
+- `LinkedHashSet` 维护了一个双链表。由双链表的特性可以知道，它是按照元素的插入顺序保存的。所以，这就是 `LinkedHashSet` 中存储的元素是按照插入顺序保存的原理。
+
+### TreeSet 的要点？
+
+- `TreeSet` 实际上是通过 `TreeMap` 实现的。`TreeSet` 中的元素是有序的，它是按自然排序或者用户指定比较器（Comparator）中提供的顺序规则排序的 `Set`。
+
+- `TreeSet` 通过继承 `AbstractSet` 实现了 `NavigableSet` 接口中的骨干方法。
+
+- `TreeSet` 实现了 `Cloneable`，所以支持克隆。
+
+- `TreeSet` 实现了 `Serializable`，所以支持序列化。
+
+- `TreeSet` 不是线程安全的。
+
+## Map
+
+### HashMap 和 Hashtable 的区别？
+
+`HashMap` 是非线程安全的，`Hashtable` 是线程安全的,因为 `Hashtable` 内部的方法基本都经过`synchronized` 修饰。因为线程安全的问题，`HashMap` 要比 `Hashtable` 效率高一点。另外，`Hashtable` 基本被淘汰，不要在代码中使用它。
+
+`HashMap` 可以存储 `null` 的 `key` 和 `value`，但 `null` 作为键只能有一个，`null` 作为值可以有多个；`Hashtable` 不允许有 `null` 键和 `null` 值，否则会抛出 `NullPointerException`。
+
+`Hashtable` 创建时如果不指定容量初始值， 默认的初始大小为 `11`，之后每次扩充，容量变为原来的 `2n+1`。`HashMap` 默认的初始化大小为 `16`。之后每次扩充，容量变为原来的 `2` 倍。创建时如果给定了容量初始值，那么 `Hashtable` 会直接使用你给定的大小，而 `HashMap` 会将其扩充为 2 的幂次方大小，具体实现在 `tableSizeFor()` 方法中。 `HashMap` 总是使用 2 的幂作为哈希表的大小。
+
+`HashMap` 底层数据结构是数组+链表/红黑树，当数组的大小大于 `64` 且链表的大小大于 `8` 的时候才会将链表改为红黑树，当红黑树大小为 `6` 时，会退化为链表，这里转红黑树退化为链表的操作主要出于查询和插入时对性能的考量。链表查询时间复杂度 `O(N)`，插入时间复杂度 `O(1)` ，红黑树查询和插入时间复杂度 `O(logN)`。
+`Hashtable` 底层数据结构和 `HashMap` 一样，但没有这样的机制。
+
+### HashMap 和 TreeMap 的区别？
+
+`TreeMap` 基于红黑树实现。`TreeMap` 是有序的，但不是线程安全的。
+
+`TreeMap` 和 `HashMap` 都继承自 `AbstractMap` ，但是需要注意的是 `TreeMap` 它还实现了 `NavigableMap` 接口和 `SortedMap` 接口。
+
+实现 `NavigableMap` 接口让 `TreeMap` 有了对集合内元素的搜索的能力。实现 `SortedMap` 接口让 `TreeMap` 有了对集合中的元素根据键排序的能力或使用提供的比较器（Comparator）的自定义比较顺序。
+
+相比于 `HashMap` 来说 `TreeMap` 主要多了对集合中的元素根据键排序的能力以及对集合内元素的搜索的能力。
+
+### HashMap 和 HashSet 的区别？
+
+|            HashMap             |                           HashSet                            |
+| :----------------------------: | :----------------------------------------------------------: |
+|          实现Map接口           |                         实现Set接口                          |
+|           存储键值对           |                          仅存储对象                          |
+|    调用put()向map中添加元素    |                 调用add()方法向Set中添加元素                 |
+| HashMap使用键(Key)计算Hashcode | HashSet使用成员对象来计算hashcode值，对于两个对象来说hashcode可能相同，所以还需要用equals()方法用来判断对象的相等性，如果两个对象不同的话返回的是false |
+
+### HashMap 在JDK 1.7 和 JDK 1.8 中的区别？
+
+`JDK1.8` 主要解决或优化了一下问题：
+1. `resize` 扩容优化
+2. 引入了红黑树，目的是避免单条链表过长而影响查询效率。
+3. 解决了多线程死循环问题，但仍是非线程安全的，多线程时可能会造成数据丢失问题。
+
+|     不同点     |          JDK1.7 HashMap          |          JDK1.8 HashMap          |
+| :------------: | :----------------------------: | :----------------------------: |
+|    数据结构    |           数组+链表            |        数组+链表+红黑树        |
+|  插入数据方式  |             头插法             |             尾插法             |
+| hash值计算方式 | 9次扰动处理(4次位运算+5次异或) | 2次扰动处理(1次位运算+1次异或) |
+|    扩容策略    |           插入前扩容           |           插入后扩容           |
+
+### HashMap 的实现原理？
+
+ `HashMap` 是基于哈希表的 `Map` 接口的非同步实现。此实现提供所有可选的映射操作，并允许使用 `null` 值和 `null` 键。此类不保证映射的顺序，特别是它不保证该顺序恒久不变。在Java中，保存数据有两种比较简单的数据结构：数组和链表。数组的特点是：**寻址容易，插入和删除困难**；链表的特点是：**寻址困难，但插入和删除容易**；所以我们将**数组和链表结合在一起**，发挥两者各自的优势，使用一种叫做拉链法的方式可以解决哈希冲突。
+
+JDK1.8之前采用的是拉链法。拉链法：将链表和数组相结合。也就是说创建一个链表数组，数组中每一
+格就是一个链表。若遇到哈希冲突，则将冲突的值加到链表中即可。
+
+JDK1.8之后相比于之前的版本，jdk1.8在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为8）时，将
+链表转化为红黑树，以减少搜索时间。至于大于某一阈值才转化是由于，红黑树需要进行左旋，右旋，变色这些操作来保持平衡，而单链表不需要。当元素小于 `8` 个的时候，此时做查询操作，链表结构已经能保证查询性能。当元素大于 `8` 个的时候， 红黑树搜索时间复杂度是 `O(logn)`，而链表是 `O(n)`，此时需要红黑树来加快查询速度，但是新增节点的效率变慢了。
+
+### HashMap 默认加载因子为什么是 0.75？
+
+默认负载因子 `0.75`,在时间和空间成本上提供了很好的折衷。较高的值会降低空间开销，但提高查找成本（体现在大多数的HashMap类的操作，包括get和put）。一般不推荐修改，除非在时间和空间比较特殊的情况下：
+
+如果内存空间很多而又对时间效率要求很高，可以降低负载因子 `loadfactor` 的值 。
+
+相反，如果内存空间紧张而对时间效率要求不高，可以增加负载因子 `loadFactor` 的值，这个值可以大于1。
+
+### HashMap 的长度为什么是 2 的幂次方？
+
+为了加快哈希计算以及减少哈希冲突，换句话说就是存取高效，尽量较少碰撞，尽量把数据分配均匀。
+
+`Hash` 值的取值范围 `-2147483648` 到 `2147483647`，总共有  `40+` 亿个映射空间，只要哈希函数映射的比较均匀，一般应用很难出现碰撞，但是内存肯定不能一次加载这么长的数组，所以这个散列值是不能拿来直接用的，我们只能创建合理长度的数组作为哈希表，在插入数据之前做取模运算，得到的余数就是将要存放的数据在哈希表中对应的下标。在 `HashMap` 中这个下标的取值算法是：`(n - 1) & hash`; `n` 是哈希表的长度。
+
+取模运算中如果除数是2的幂次方则等价于 其与除数减一的&操作，就是：`hash % length == hash & (length - 1)`
+采用二进制位操作 `&` 相对于 `%` 能够提高运算效率，这也就解释了为啥 `HashMap` 的长度需要为 `2` 的幂次方
+
+### 为什么HashMap中String、Integer这样的包装类适合作为Key？
+
+`String` 、`Integer` 等包装类的特性能够保证 `Hash` 值的不可更改性和计算准确性，能够有效的减少
+`Hash` 碰撞的几率。
+
+都是 `final` 类型，即不可变性，保证 `key` 的不可更改性，不会存在获取 `hash` 值不同的情况。
+
+内部已重写了 `equals()`、`hashCode()` 等方法，遵守了 `HashMap` 内部的规范，不容易出现 `Hash` 值计算错误的情况。
+
+### HashMap 常用的遍历方式以及性能问题？
+
+[HashMap 的 7 种遍历方式与性能分析！](https://mp.weixin.qq.com/s/zQBN3UvJDhRTKP6SzcZFKw)

@@ -86,9 +86,18 @@
     .markdown-section strong {
       /* color: rgb(17, 13, 13); */
     }
+
     /*  文字风格 */
     #main p {}
 
+
+    /* 标注重点词的颜色 */
+    .markdown-section code {
+      color: #000000;
+      font-weight: 1000;
+      /* 这里有个bug，有些加了标注的这个属性无效，所以这里直接important覆盖了 */
+      background-color: #f8f8f8 !important;
+    }
 
     /* 标题颜色 */
     #main h2 span {
