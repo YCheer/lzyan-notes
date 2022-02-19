@@ -7,25 +7,26 @@
   * [I/O](./docs/Java/JavaIO八股文.md)
   * [JVM](./docs/Java/JavaJvm八股文.md)
 
-* ⚙️ MySQL
-  * [MySQL基础](./docs/Mysql/MySQL基础.md)
-  * [MySQL面试题](./docs/Mysql/MySQL概论面试题.md)
+* ⚙️ 数据库
+  * MySQL
+    * [MySQL基础](./docs/Mysql/MySQL基础.md)
+    * [MySQL面试题](./docs/Mysql/MySQL概论面试题.md)
+  * Redis
 
-* 🔥 Spring Boot
-  * [SpringBoot整合Docker](./docs/SpringBoot/SpringBoot整合Docker.md)
-  * [SpringBoot整合MyBatis-Plus](./docs/SpringBoot/SpringBoot整合MyBatis-Plus.md)
-  * [SpringBoot整合Quartz](./docs/SpringBoot/SpringBoot整合Quartz.md)
-  * [SpringBoot处理跨域请求](./docs/SpringBoot/SpringBoot处理跨域请求.md)
-
-* ☁️ Spring Cloud
-  * [SpringCloud的总体架构](./docs/SpringCloud/SpringCloud总体架构.md)
-  * [SpringCloud Eureka：服务注册与发现](./docs/SpringCloud/SpringCloud_Eureka：服务注册与发现.md)
-  
+* 🔥 Spring
+  * Spring
+  * Spring Boot
+    * [SpringBoot整合Docker](./docs/SpringBoot/SpringBoot整合Docker.md)
+    * [SpringBoot整合MyBatis-Plus](./docs/SpringBoot/SpringBoot整合MyBatis-Plus.md)
+    * [SpringBoot整合Quartz](./docs/SpringBoot/SpringBoot整合Quartz.md)
+    * [SpringBoot处理跨域请求](./docs/SpringBoot/SpringBoot处理跨域请求.md)
+  * Spring Cloud
+    * [SpringCloud的总体架构](./docs/SpringCloud/SpringCloud总体架构.md)
+    * [SpringCloud Eureka：服务注册与发现](./docs/SpringCloud/SpringCloud_Eureka：服务注册与发现.md)
+    
 * 🧲 中间件
   * [为什么使用消息队列](./docs/中间件/为什么使用消息队列.md)
   * [SpringBoot与RocketMQ实战](./docs/中间件/SpringBoot与RocketMQ实战.md)
-
-* 🔧 Redis
 
 * ⛏️ Docker
   * [Docker是什么](./docs/Docker/什么是Docker.md)
