@@ -1,6 +1,8 @@
-> 八股文整合，该系列文档搜集于各大平台，据理解和需求整合
+# 参考
+> Java八股文整合系列文档搜集于各大平台，据理解和需求整合的笔记。
 > 
-> 参考资料平台：javaGuide、java3y、cs-notes、廖雪峰的Java教程、javacore
+> 平台：[javaGuide](https://javaguide.cn/)、[java3y](http://javainterview.gitee.io/)、[cs-notes](http://www.cyc2018.xyz/)、廖雪峰的Java教程、javacore
+
 
 ## 基础概念
 
