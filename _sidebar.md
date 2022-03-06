@@ -12,9 +12,11 @@
     * [MySQL基础](./docs/Mysql/MySQL基础.md)
     * [MySQL面试题](./docs/Mysql/MySQL概论面试题.md)
   * Redis
+    * [Redis常见问题总结](./doc/../docs/Redis/Redis常见问题总结.md)
 
 * 🔥 Spring
   * Spring
+    * [Spring常见问题总结](./docs/Spring/Spring常见问题总结.md)
   * Spring Boot
     * [SpringBoot整合Docker](./docs/SpringBoot/SpringBoot整合Docker.md)
     * [SpringBoot整合MyBatis-Plus](./docs/SpringBoot/SpringBoot整合MyBatis-Plus.md)
@@ -35,6 +37,8 @@
   * [Docker部署nuxt.js项目](docs/Docker/Docker部署nuxt.js项目.md)
 
 * 🤡 杂记
+  <!-- * 消息推送平台 austin
+    * [环境搭建](./docs/杂记/austin项目学习/环境搭建.md) -->
   * [记录nuxt使用vuex实现导航栏切换](./docs/杂记/nuxt.js项目使用vuex实现导航栏切换.md)
   * [SpringBoot项目集成阿里云对象存储上传图片](./docs/杂记/SpringBoot项目集成阿里云对象存储上传图片.md)
   * [git的基本操作](./docs/杂记/git基本操作.md)
