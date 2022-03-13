@@ -302,4 +302,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 ```
 
 
-参考：[SpringBoot：处理跨域请求](https://www.cnblogs.com/VanFan/p/11408422.html)
+## 参考
+
+- [SpringBoot：处理跨域请求](https://www.cnblogs.com/VanFan/p/11408422.html)
