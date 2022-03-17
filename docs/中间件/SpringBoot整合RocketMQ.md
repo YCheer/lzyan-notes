@@ -144,11 +144,15 @@ java -jar rocketmq-console-ng-2.0.0.jar --server.port=8080 --rocketmq.config.nam
 ### 实战内容
 
 实现生产者（producer）写入消息和消费者（consumer）消费消息
+
 ![image-20200731121737118.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832927480900747264.png)
+
 ### 创建两个项目，对应生产者和消费者
 
 项目1：rocketmq-producer，项目2：consumer-producer，都只添加一个web依赖就可以了
+
 ![image-20200731173042866.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832927544507367424.png)
+
 ### 为两个项目添加坐标导入jar包
 
 ```xml
