@@ -28,6 +28,7 @@
     
 * 🧲 中间件
   * [消息队列常见问题总结](./docs/中间件/消息队列常见问题总结.md)
+  * [kafka 基础](./docs/中间件/Kafka基础.md)
   * [SpringBoot整合RocketMQ](./docs/中间件/SpringBoot整合RocketMQ.md)
 
 * ⛏️ Docker

@@ -1,7 +1,7 @@
 # 参考
 > Java八股文整合系列文档搜集于各大平台，据理解和需求整合的笔记。
 > 
-> 平台：[javaGuide](https://javaguide.cn/)、[java3y](http://javainterview.gitee.io/)、[cs-notes](http://www.cyc2018.xyz/)、廖雪峰的Java教程、javacore
+> 平台：[javaGuide](https://javaguide.cn/)、[java3y](http://javainterview.gitee.io/)、[cs-notes](http://www.cyc2018.xyz/)、[廖雪峰的Java教程](https://www.liaoxuefeng.com/wiki/1252599548343744)、[javacore](https://dunwu.github.io/javacore/)
 
 
 ## 基础概念
