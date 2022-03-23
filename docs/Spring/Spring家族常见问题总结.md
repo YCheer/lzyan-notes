@@ -548,6 +548,10 @@ Spring 解决循环依赖的问题使用了三级缓存。所谓三级缓存定�
 
 参考：[Spring 是如何解决循环依赖的？](https://www.zhihu.com/question/438247718/answer/2231407456)
 
+### Spring/SpringBoot常用注解
+
+巨详细说明：[Spring/Spring Boot 常用注解总结](https://javaguide.cn/system-design/framework/spring/spring-common-annotations.html#_1-springbootapplication)
+
 ## MVC
 
 ### 对 Spring MVC 的理解？
@@ -633,8 +637,10 @@ Spring MVC 的工作流程可以用一幅图来说明：
 
 [Spring事务总结](https://javaguide.cn/system-design/framework/spring/spring-transaction/#_3-2-spring-%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E6%8E%A5%E5%8F%A3%E4%BB%8B%E7%BB%8D)
 
+## Boot
 
-#### 未完待续...
+
+
 
 ## 参考
 

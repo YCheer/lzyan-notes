@@ -1,4 +1,4 @@
-## 1、上传代码
+## 上传代码
 
 首先把准备好源码通过ftp上传到服务器目录
 
@@ -39,7 +39,7 @@ CMD ["npm","start"]
 ```
 
 
-## 2、构建镜像
+## 构建镜像
 
 这里注意要在 `Dockerfile` 文件的目录下面执行
 
@@ -54,7 +54,7 @@ docker build -t lzyan-taobao-union .
 
 ![image-20200518155647412.png](http://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832919588562796544.png)
 
-## 3、启动镜像
+## 启动镜像
 ```
 docker run --name=lzyan-taobao-union -p 8088:3000 -dt lzyan-taobao-union
 ```

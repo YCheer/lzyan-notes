@@ -4,7 +4,7 @@
 <h1 align="center">lzyan-notes</h1>
 
 [个人博客](https://www.lzyan.fun/)
-[GitHub](https://##)
+[GitHub](https://github.com/YCheer/lzyan-notes)
 [开始阅读](README.md)
 
 
