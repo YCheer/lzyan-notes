@@ -359,7 +359,7 @@ public Person personPrototype() {
 
 ### bean 的生命周期？
 
-Spring 使用 BeanDefinition 来装载着给 Bean 定义的元数据，实例化 Bean 的时候实际上就是遍历 BeanDefinitionMap，Spring 的 Bean 实例化和属性赋值时分开两步来做的，在 Spring Bean 的生命周期，Spring 预留了很多的 hook 可以给我们去扩展。实际过程简要如下：
+Spring 使用 `BeanDefinition` 来装载着给 Bean 定义的元数据，实例化 Bean 的时候实际上就是遍历 `BeanDefinitionMap`，Spring 的 Bean 实例化和属性赋值时分开两步来做的，在 Spring Bean 的生命周期，Spring 预留了很多的 hook 可以给我们去扩展。实际过程简要如下：
 
 1. Bean 容器找到配置文件中 Spring Bean 的定义。
 2. Bean 容器利用 Java Reflection API 创建一个 Bean 的实例。
@@ -375,6 +375,13 @@ Spring 使用 BeanDefinition 来装载着给 Bean 定义的元数据，实例化
 12. 如果 Bean 实现了 DispostbleBean 接口，Spring 将调用它的 destory 方法，作用与在配置文件中对 Bean 使用 destory-method 属性的作用一样，都是在 Bean 实例销毁前执行的方法。
 
 ![](https://resource.lzyan.fun/PigGo/20220304133159.png)
+
+更详细的图解，出自 [如何叙述Spring Bean 的生命周期，让面试官眼前一亮！](https://www.bilibili.com/video/BV12a411r75X?spm_id_from=333.880.my_history.page.click)
+
+![](https://resource.lzyan.fun/PigGo/springbean2.png)
+
+![](https://resource.lzyan.fun/PigGo/springbean1.png)
+
 
 ### Spring 中配置 bean 的方式有哪些？
 
@@ -402,7 +409,9 @@ Spring 使用 BeanDefinition 来装载着给 Bean 定义的元数据，实例化
 
 3. **基于 Java API 配置**
 
-Spring 的 Java 配置是通过使用 `@Bean` 和 `@Configuration` 来实现。`Spring3.0` 以后，提供了 Java 配置的能力，`Spring4.x` 和 SpringBoot 都推荐使用 Java 配置。
+Spring 的 Java 配置是通过使用 `@Bean` 和 `@Configuration` 来实现。`Spring3.0` 以后，提供了 Java 配置的能力，也就是 `JavaConfig` ，`Spring4.x` 和 SpringBoot 都推荐使用 Java 配置。
+
+> JavaConfig 是Spring 社区的产品，他提供了配置Spring IOC容器的纯Java方法
 
 - `@Bean` : 注解扮演与 `<bean />` 元素相同的角色。表示实例化一个 bean，等同于在 xml 里面添加一个 bean 被 @Bean 修饰的方法名就是该 bean 的 name。
 - `@Configuration` ：表示修饰的类可以作为bean的来源（通过注解来获取bean）
@@ -639,7 +648,484 @@ Spring MVC 的工作流程可以用一幅图来说明：
 
 ## Boot
 
+### SpringBoot 自动装配实现原理简要
 
+自动装配的思想，一般会和 SpringBoot 联系在一起。但是，实际上 Spring Framework3.x 的 `@Enable` 注解已经有这个雏形。SpringBoot 只是在其基础上，通过 `SPI` 的方式，做了进一步优化。
+
+> SPI ，全称为 Service Provider Interface，是JDK内置一种服务发现机制。它通过在 classpath 路径下的 META-INF/services 文件夹查找文件，自动加载文件里所定义的类。这一机制为很多框架的扩展提供了可能，比如Dubbo、JDBC中都是用了SPI机制。
+
+什么是自动装配，简单来说，当在 SpringBoot 中需要引入一个第三方的组件，此时只要直接引入一个 `starter` 即可，然后通过一些简单的配置，自动装配就可以自动去把第三方组件的 Bean ，装载到 `IOC` 容器里面，不需要开发人员去写 Bean 的相关配置。
+
+在 SpringBoot 应用中只需要在启动类上面加上` @SpringBootApplication` 注解就可以实现自动装配了。而这个 `@SpringBootApplication` 注解是一个复合的注解，其中真正去实现自动装配的是 `@EnableAutoConfiguration` 这个注解。
+
+```java
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@SpringBootConfiguration
+@EnableAutoConfiguration
+@ComponentScan(
+    excludeFilters = {@Filter(
+    type = FilterType.CUSTOM,
+    classes = {TypeExcludeFilter.class}
+), @Filter(
+    type = FilterType.CUSTOM,
+    classes = {AutoConfigurationExcludeFilter.class}
+)}
+)
+public @interface SpringBootApplication {
+    // 略
+}
+```
+
+除了元注解外，后面三个注解的作用为：
+
+- **@EnableAutoConfiguration**：启用 SpringBoot 的自动配置机制
+
+- **@SpringBootApplication**：点开源码看实际上它就是一个 @Configuration 注解，允许在上下文中注册额外的 bean 或导入其他配置类。这样子是为了语义化一点？
+
+- **@ComponentScan**：扫描被 @Component (@Service,@Controller) 注解的 bean，注解默认会扫描启动类所在的包下所有的类 ，可以自定义不扫描某些 bean。 如代码所示容器中将排除 TypeExcludeFilter 和 AutoConfigurationExcludeFilter 这两个
+
+    - TypeExcludeFilter：SpringBoot 对外提供的扩展类， 可以供我们去按照我们的方式进行排除
+    - AutoConfigurationExcludeFilter：排除所有配置类并且是自动配置类中里面的其中一个
+
+从 `@EnableAutoConfiguration` 这个注解去入手，发现它也只是一个简单的注解
+
+```java
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+@AutoConfigurationPackage // 将当前配置类所在包保存在BasePackages的Bean中。供Spring内部使用
+@Import({AutoConfigurationImportSelector.class})  //
+public @interface EnableAutoConfiguration {
+  // 略
+}
+```
+
+所以其自动装配核心功能的实现实际是通过 `@Import` 这个注解中的 `AutoConfigurationImportSelector.class` 。`AutoConfigurationImportSelector` 实现了 `DeferredImportSelector` 这个接口也就是实现了 `ImportSelector` 接口（DeferredImportSelector extends ImportSelector），并且实现了接口中的 `selectImports` 方法。该方法主要用于获取所有符合条件的类的全限定类名，这些类需要被加载到 IoC 容器中。
+
+![](https://resource.lzyan.fun/PigGo/20220326165751.png)
+
+`Spring` 内部在解析 `@Import` 注解时会调用 `getAutoConfigurationEntry` 方法，这块属于Spring的源码，先不管它是怎么调用的。`getAutoConfigurationEntry` 这个方法主要负责加载自动配置类。下面是 2.3.5.RELEASE 实现源码：
+
+```java
+protected AutoConfigurationEntry getAutoConfigurationEntry(AnnotationMetadata annotationMetadata) {
+    // 判断自动装配开关是否打开。默认 spring.boot.enableautoconfiguration=true，可在 application.properties 或 application.yml 中设置
+   if (!isEnabled(annotationMetadata)) {
+      return EMPTY_ENTRY;
+   }
+   // 用于获取EnableAutoConfiguration注解中的 exclude 和 excludeName
+   AnnotationAttributes attributes = getAttributes(annotationMetadata);
+   // 从 META-INF/spring.factories 中获得候选的自动配置类
+   List<String> configurations = getCandidateConfigurations(annotationMetadata, attributes);
+   // 排重
+   configurations = removeDuplicates(configurations);
+   //根据 EnableAutoConfiguration 注解中属性，获取不需要自动装配的类名单
+   Set<String> exclusions = getExclusions(annotationMetadata, attributes); 
+   // 根据:@EnableAutoConfiguration.exclude
+   // @EnableAutoConfiguration.excludeName
+   // spring.autoconfigure.exclude  进行排除
+   checkExcludedClasses(configurations, exclusions);
+   // exclusions 也排除
+   configurations.removeAll(exclusions);
+   // 通过读取 spring.factories 中的 OnBeanCondition\OnClassCondition\OnWebApplicationCondition 进行过滤
+   // 因为 spring.factories 中这么多配置每次启动都不需要全部加载的
+   configurations = getConfigurationClassFilter().filter(configurations);
+   // 这个方法是调用实现了AutoConfigurationImportListener  的bean..  分别把候选的配置名单，和排除的配置名单传进去做扩展
+   fireAutoConfigurationImportEvents(configurations, exclusions);
+   return new AutoConfigurationEntry(configurations, exclusions);
+}
+```
+任何一个 SpringBoot 应用，都会引入 spring-boot-autoconfigure，上面说到的 `META-INF/spring.factories` 文件就是在该包下。不光是这个依赖下的 `META-INF/spring.factories` 被读取到，所有 Spring Boot Starter 下的 `META-INF/spring.factories` 都会被读取到。
+
+`spring.factories` 文件是 Key=Value 形式，多个 Value 时使用 `/` 隔开，该文件中定义了关于初始化，监听器等信息，而真正使自动配置生效的 key 是 `org.springframework.boot.autoconfigure.EnableAutoConfiguration`
+
+**总结：@EnableAutoConfiguration 注解通过 @SpringBootApplication 被间接的标记在了 SpringBoot 的启动类上。在 SpringApplication.run(...) 的内部就会执行 selectImports() 方法，找到所有 JavaConfig 自动配置类的全限定名对应的 class，然后将所有自动配置类加载到 Spring 容器中**
+
+参考: 
+
+[Spring Boot 自动装配原理——JavaGuide](https://javaguide.cn/system-design/framework/spring/spring-boot-auto-assembly-principles.html)
+
+[Spring Boot 自动装配原理——图灵学院](https://note.youdao.com/noteshare?id=8805e97f26dc9661bc2ecdbf5ca22393)
+
+[自动装配流程图](https://www.processon.com/view/link/5fc0abf67d9c082f447ce49b)
+
+
+### SpringBoot 与 SPI
+
+`SPI` ，全称为 `Service Provider Interface`，是 `JDK` 内置一种服务发现机制，实际上是 `基于接口的编程＋策略模式＋配置文件` 组合实现的动态加载机制。
+
+它通过在 `classpath` 路径下的 `META-INF/services` 文件夹查找文件，自动加载文件里所定义的类。这一机制为很多框架的扩展提供了可能，比如 Dubbo、JDBC 中都是用了 SPI 机制。比如 java.sql.Driver 接口，其他不同厂商可以针对同一接口做出不同的实现， MySQL 和 PostgreSQL 都有不同的实现提供给用户，而 Java 的 SPI 机制可以为某个接口寻找服务实现。Java 中 SPI 机制主要思想是将装配的控制权移到程序之外，在模块化设计中这个机制尤其重要，其核心思想就是 `解耦`。如下图
+
+![](https://resource.lzyan.fun/PigGo/20220327183026.png)
+
+#### JDK 中的 SPI
+
+一个接口可以有多个实现，例如定义一个支付接口，这时可以有微信支付、支付宝支付、抖音支付等方式。系统的设计者为了降低耦合，并不会硬编码在里面写死支付的方式，而是会由服务提供者来选择使用哪种方式。
+
+定义一个 Pay 接口
+
+```java
+package main.com.lzyan;
+
+public interface Pay {
+
+    void pay(Integer money);
+
+}
+```
+
+实现 Pay 接口使用微信支付的方式
+
+```java
+package main.com.lzyan;
+
+public class WechatPay implements Pay {
+    @Override
+    public void pay(Integer money) {
+        System.out.println("微信支付:" + money + "元");
+    }
+}
+```
+
+实现 Pay 接口使用支付宝支付的方式
+
+```java
+package main.com.lzyan;
+
+public class ALiPay implements Pay {
+    @Override
+    public void pay(Integer money) {
+        System.out.println("支付宝支付:" + money + "元");
+    }
+}
+
+```
+
+在 `classpath` 下 `src\main\resources` 创建一个目录 `META-INF\services`，并且在该目录下创建一个配置文件 `main.com.lzyan.Pay` （该文件名为 SPI 接口全路径），文件中的内容为 SPI 接口具体的实现类（可以为多个）
+
+```java
+main.com.lzyan.ALiPay
+main.com.lzyan.WechatPay
+```
+
+测试，使用 JDK 的 `ServiceLoader` 来进行读取
+
+```java
+package main.com.lzyan;
+
+import java.util.Iterator;
+import java.util.ServiceLoader;
+
+public class Main {
+    public static void main(String[] args) {
+        ServiceLoader<Pay> load = ServiceLoader.load(Pay.class);
+        Iterator<Pay> iterator = load.iterator();
+        while (iterator.hasNext()) {
+            Pay next = iterator.next();
+            next.pay(100);
+        }
+    }
+}
+```
+
+最熟输出的结果
+
+```java
+支付宝支付:100元
+微信支付:100元
+```
+
+通过该过程可以了解到 SPI 是面向接口编程，不关注接口的具体实现，只需要按照约定在 META-INF/services 目录下面, 以接口的全限定名称为名创建一个文件夹, 文件夹下再放具体的实现类的全限定名称, 系统就能根据这些文件,加载不同的实现类。而这一实现可以看到时通过 JDK 的 ServiceLoader 实现的，所以可以具体了解一下这个东西
+
+首先看 ServiceLoader 类的成员变量
+
+```java
+public final class ServiceLoader<S> implements Iterable<S>{
+
+    private static final String PREFIX = "META-INF/services/";
+
+    // 代表被加载的类或者接口
+    private final Class<S> service;
+
+    // 用于定位，加载和实例化providers的类加载器
+    private final ClassLoader loader;
+
+    // 创建ServiceLoader时采用的访问控制上下文
+    private final AccessControlContext acc;
+
+    // 缓存providers，按实例化的顺序排列
+    private LinkedHashMap<String,S> providers = new LinkedHashMap<>();
+
+    // 懒查找迭代器
+    private LazyIterator lookupIterator;
+  
+    ......
+}
+```
+
+应用程序调用 ServiceLoader.load 方法，方法内先创建一个新的 ServiceLoader，并实例化该类中的成员变量，包括：
+1. loader(ClassLoader类型，类加载器) 
+2. acc(AccessControlContext类型，访问控制器)
+3. providers(LinkedHashMap<String,S>类型，用于缓存加载成功的类)
+4. lookupIterator(实现迭代器功能)
+
+```java
+
+/*
+ *入口, 获取当前类的类加载器,然后调用下一个静态方法
+ */
+ public static <S> ServiceLoader<S> load(Class<S> service) {
+     ClassLoader cl = Thread.currentThread().getContextClassLoader();
+     return ServiceLoader.load(service, cl);
+ }
+ /*
+ * 直接调用构造方法
+ */
+ public static <S> ServiceLoader<S> load(Class<S> service, ClassLoader loader)
+ {
+     return new ServiceLoader<>(service, loader);
+ }
+ /**
+ * 调用reload
+ */
+ private ServiceLoader(Class<S> svc, ClassLoader cl) {
+     service = Objects.requireNonNull(svc, "Service interface cannot be null");
+     loader = (cl == null) ? ClassLoader.getSystemClassLoader() : cl;
+     acc = (System.getSecurityManager() != null) ? AccessController.getContext() : null;
+     reload();
+ }
+ /**
+ * 直接实例化一个懒加载的迭代器
+ */
+ public void reload() {
+     providers.clear();
+     lookupIterator = new LazyIterator(service, loader);
+ }
+```
+
+应用程序通过迭代器获取对象的实例，ServiceLoader 先判断成员变量 providers 对象中 (LinkedHashMap< String,S >类型) 是否有缓存实例对象，如果有缓存，直接返回。如果没有缓存，执行类的装载，实现如下：
+
+1. 读取 META-INF/services/ 下的配置文件，获得所有能被实例化的类的名称，值得注意的是，ServiceLoader可以跨越 jar 包获取 META-INF 下的配置文件，具体加载配置的实现代码如下
+2. 通过反射方法 Class.forName() 加载类对象，并用 instance() 方法将类实例化。
+3. 把实例化后的类缓存到 providers 对象中，(LinkedHashMap< String,S >类型）然后返回实例对象。
+
+```java
+private class LazyIterator
+        implements Iterator<S>
+{
+
+    Class<S> service;
+    ClassLoader loader;
+    Enumeration<URL> configs = null;
+    Iterator<String> pending = null;
+    String nextName = null;
+
+    // 略
+
+    private boolean hasNextService() {
+        if (nextName != null) {
+            // nextName不为空,说明加载过了,而且服务不为空 
+            return true;
+        }
+        // configs就是所有的实现类文件名字
+        if (configs == null) {
+            try {
+                // PREFIX是 /META-INF/services
+                // service.getName() 是接口的全限定名称
+                String fullName = PREFIX + service.getName();
+                // loader == null, 说明是bootstrap类加载器(点进去源码查看可知)
+                if (loader == null)
+                    configs = ClassLoader.getSystemResources(fullName);
+                else
+                    // 加载该目录下的所有文件资源
+                    configs = loader.getResources(fullName);
+                } catch (IOException x) {
+                    fail(service, "Error locating configuration files", x);
+                }
+        }
+        while ((pending == null) || !pending.hasNext()) {
+                if (!configs.hasMoreElements()) {
+                    // 该目录下什么文件都没有
+                    return false;
+                }
+                //就是判断一下configs.nextElement()的格式是不是对的
+                pending = parse(service, configs.nextElement());
+        }
+        nextName = pending.next();
+        return true;
+    }
+
+    private S nextService() {
+     // 校验一下
+     if (!hasNextService())
+             throw new NoSuchElementException();
+     String cn = nextName;
+     nextName = null;
+     Class<?> c = null;
+     try {
+         // 尝试一下是否能加载该类
+         c = Class.forName(cn, false, loader);
+     } catch (ClassNotFoundException x) {
+         fail(service,"Provider " + cn + " not found");
+     }
+     // 是不是service的子类,或者同一个类
+     if (!service.isAssignableFrom(c)) {
+         fail(service,"Provider " + cn  + " not a subtype");
+     }
+     try {
+         // 实例化这个类, 然后向上转一下
+         S p = service.cast(c.newInstance());
+         // providers 缓存起来,避免重复加载
+         providers.put(cn, p);
+         return p;
+     } catch (Throwable x) {
+         fail(service,"Provider " + cn + " could not be instantiated",x);
+     }
+     throw new Error();          // This cannot happen
+    }
+
+    // 略 
+
+}
+```
+
+优点说了这么多，但其实 SPI 也有很多的不足：
+
+1. 虽然 ServiceLoader 也算是使用的延迟加载，但是基本只能通过遍历全部获取，也就是接口的实现类全部加载并实例化一遍，不能按需加载，需要遍历配置文件中所有的实现并实例化。
+2. 获取某个实现类的方式不够灵活，只能通过 Iterator 形式获取，不能根据某个参数来获取对应的实现类。
+3. 多个并发多线程使用 ServiceLoader 类的实例是非线程安全的。
+
+#### SpringBoot 中的 SPI
+
+SpringBoot 中的 SPI 就是体现在 SpringBoot 的自动装配中。当在 SpringBoot 项目中需要使用一个组件的时候，仅需要引入一个组件的依赖，加个配置，这个组件就生效了。比如说要使用 Redis ，首先是在 pom.xml 添加以下依赖
+
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+```
+
+在 application.yml 配置文件进行配置 
+```yaml
+spring:
+  redis:
+    database: 0
+    timeout: 5000ms
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+```
+
+最后在使用的时候注入 RedisTemplate 就可以了
+
+```java
+@Autowired
+private RedisTemplate redistemplate;
+```
+
+这一个过程就是通过 自动装配 来实现的，具体原理看上面说到的，通过原理理解下面自定义一个 SpringBoot 的 starter 来理解 SpringBoot 与 SPI 就很简单了
+
+> 命名规范：
+> 
+> SpringBoot官方命名方式：spring-boot-starter-模块名
+> 
+> 自定义命名方式: 模块名-spring-boot-starter
+
+创建一个普通的 SpringBoot 项目，在 pom.xml 文件引入
+
+```java
+<!--  引入 Spring Boot Starter 基础库   -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter</artifactId>
+</dependency>
+```
+
+编写一个实现类
+
+```java
+package com.lzyan;
+
+public class PayClient {
+    public void wechatPay(Integer money) {
+        System.out.println("微信支付:" + money + "元");
+    }
+
+    public void aLiPay(Integer money) {
+        System.out.println("支付宝支付:" + money + "元");
+    }
+}
+```
+
+编写 configuration 
+
+```java
+package com.lzyan;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AutoBeanConfiguration {
+
+    @Bean
+    public PayClient payClient() {
+        return new PayClient();
+    }
+}
+```
+
+在 resource 下创建 META-INF/spring.factories 文件，添加以下内容内容。至此自定义的 starter 已经封装好，此时最好 install 一下，不然再使用的时候可能会找不到这个 starter 的 jar 包
+
+```xml
+# key 为 org.springframework.boot.autoconfigure.EnableAutoConfiguration
+# val 对应的是自己编写的 Configuration 配置类
+# val 可以是多个，多个最后要加 \ 符号
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.lzyan.AutoBeanConfiguration
+```
+
+创建一个新的 SpringBoot 项目，在 pom.xml 文件引入自定义的 starter 
+
+```xml
+<dependency>
+    <groupId>com.lzyan</groupId>
+    <artifactId>pay-spring-boot-starter</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+</dependency>
+```
+
+然后编写一个类测试
+
+```java
+package com.lzyan;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class PayController {
+
+    @Autowired
+    private PayClient payClient;
+
+    @GetMapping("/pay")
+    public void pay() {
+        payClient.wechatPay(100);
+        payClient.aLiPay(200);
+    }
+}
+
+```
+
+输出的内容，以及目录分布
+
+![](https://resource.lzyan.fun/PigGo/20220328175120.png)
 
 
 ## 参考
@@ -653,3 +1139,5 @@ Spring MVC 的工作流程可以用一幅图来说明：
 - [Spring常见问题总结](https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary/#)
 
 - [Spring生命周期](http://javainterview.gitee.io/luffy/2021/08/19/05-Spring/03.%20SpringBean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/)
+
+- [高级开发必须理解的Java中SPI机制](https://www.jianshu.com/p/46b42f7f593c)

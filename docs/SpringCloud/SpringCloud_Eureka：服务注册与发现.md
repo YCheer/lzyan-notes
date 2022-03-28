@@ -237,7 +237,7 @@ public class Controller {
 
 然后启动该服务，启动该服务之前记得先启动server服务
 
-此时进去http://localhost:8700界面，就可以看到**服务提供者**已经被注册进**服务注册者**
+此时进去 http://localhost:8700 界面，就可以看到**服务提供者**已经被注册进**服务注册者**
 
 ![](https://resource.lzyan.fun/PigGo/20211106101533.png)
 
@@ -304,7 +304,7 @@ eureka:
 从原启动配置中复制出来两个，并配置
 ![](https://resource.lzyan.fun/PigGo/20211112173206.png)
 
-启动两个 `eureka-server` ，然后访问其中一个注册中心http://replica1:8801就会看到另一个已经成为其备份
+启动两个 `eureka-server` ，然后访问其中一个注册中心http://replica1:8801 就会看到另一个已经成为其备份
 
 ![](https://resource.lzyan.fun/PigGo/20211112173427.png)
 
@@ -362,7 +362,7 @@ eureka:
 ```
 配置 `WebSecurityConfig`
 
-注:默认情况下添加 `SpringSecurity` 依赖的应用每个请求都需要添加 `CSRF token` 才能访问，Eureka客户端注册时并不会添加，所以需要配置/eureka/**路径不需要CSRF token。
+注:默认情况下添加 `SpringSecurity` 依赖的应用每个请求都需要添加 `CSRF token` 才能访问，Eureka 客户端注册时并不会添加，所以需要配置 `/eureka/**` 路径不需要 `CSRF token`。
 
 ```java
 @EnableWebSecurity
@@ -378,7 +378,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 注:启动类记得添加 `@EnableEurekaServer` 注解
 
-运行 `eureka-security-server`，访问http://localhost:8813，就会需要进行认证
+运行 `eureka-security-server`，访问 http://localhost:8813 ，就会需要进行认证
 ![](https://resource.lzyan.fun/PigGo/20211112204215.png)
 
 eureka-client注册到有登录认证的注册中心
