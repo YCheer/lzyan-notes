@@ -37,13 +37,13 @@ http + notes + lzyan.fun + 8888 +/hello 组成
 
     `Content-Type` 只限于 `[application/x-www-form-urlencoded 、multipart/form-data、text/plain]` 类型
 
-    对于简单请求，`CORS`的策略是请求时在请求头中增加一个`Origin`字段，服务器收到请求后，根据该字段判断是否允许该请求访问。
+    对于简单请求，`CORS` 的策略是请求时在请求头中增加一个 `Origin` 字段，服务器收到请求后，根据该字段判断是否允许该请求访问。
 
-    也就是每一个页面需要返回一个名为`Access-Control-Allow-Origin`的http请求头来允许外域的站点访问，你可以仅仅暴露有限的资源和有限的外域站点访问
+    也就是每一个页面需要返回一个名为 `Access-Control-Allow-Origin` 的 http 请求头来允许外域的站点访问，你可以仅仅暴露有限的资源和有限的外域站点访问
 
-    可以理解为：如果一个请求需要允许跨域访问，则需要在http头中设置Access-Control-Allow-Origin来决定需要允许哪些站点来访问。即，假如允许`http://notes.lzyan.fun`这个站点的请求跨域，则跨域设置：`Access-Control-Allow-Origin:http://notes.lzyan.fun`。
+    可以理解为：如果一个请求需要允许跨域访问，则需要在http头中设置 `Access-Control-Allow-Origin` 来决定需要允许哪些站点来访问。即，假如允许`http://notes.lzyan.fun`这个站点的请求跨域，则跨域设置：`Access-Control-Allow-Origin:http://notes.lzyan.fun`。
 
-    除了`Access-Control-Allow-Origin`，还有几个字段用于描述`CORS`的返回结果：
+    除了 `Access-Control-Allow-Origin` ，还有几个字段用于描述 `CORS `的返回结果：
 
     `Access-Control-Allow-Credentials`：可选，用户是否可以发送、处理`cookie`
     `Access-Control-Expose-Headers`：可选，可以让用户拿到的字段。
@@ -110,11 +110,11 @@ xhr.onload = function(e) {
 ```javascript
 Access to XMLHttpRequest at 'http://127.0.0.1:8080/normal/hello' from origin 'http://notes.lzyan.fun' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 ```
-结果表明了该请求被CORS阻止了，所以是请求失败的。
+结果表明了该请求被 CORS 阻止了，所以是请求失败的。
 
 ## 跨域请求的解决方案
 
-### 方案一：使用@CrossOrigin注解
+### 方案一：使用 @CrossOrigin 注解
 
 Controller类添加`@CrossOrigin`注解
 ```java
