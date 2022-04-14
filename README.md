@@ -12,8 +12,8 @@
 
 > 🚀 生命不息学习不止，内容持续更新
 
-<!-- * 💻 计算机基础
-  * [计算机网络](./docs/cs/计算机网络.md) -->
+* 💻 计算机基础
+  * [计算机网络](./docs/cs/计算机网络.md)
 * 🍵 Java八股文
   * [基础](./docs/Java/Java基础八股文.md)
   * [容器](./docs/Java/Java容器八股文.md)
@@ -24,7 +24,6 @@
 * ⚙️ 数据库
   * MySQL
     * [MySQL基础](./docs/Mysql/MySQL基础.md)
-    * [MySQL面试题](./docs/Mysql/MySQL概论面试题.md)
   * Redis
     * [Redis常见问题总结](./doc/../docs/Redis/Redis常见问题总结.md)
 
