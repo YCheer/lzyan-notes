@@ -25,7 +25,9 @@
   * MySQL
     * [MySQL基础](./docs/Mysql/MySQL基础.md)
   * Redis
-    * [Redis常见问题总结](./doc/../docs/Redis/Redis常见问题总结.md)
+    * [Redis常见问题总结](./docs/Redis/Redis常见问题总结.md)
+  * ElasticSearch
+    * [基于Docker的ElasticSearch安装](/docs/ElasticSearch/基于Docker的ElasticSearch安装.md)
 
 * 🔥 Spring
   * [Spring家族常见问题总结](./docs/Spring/Spring家族常见问题总结.md)
