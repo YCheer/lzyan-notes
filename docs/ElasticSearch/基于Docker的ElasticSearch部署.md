@@ -1,4 +1,6 @@
-## 1. 什么是 ElasticSearch 
+## 1. 关于 ElasticSearch 
+
+### 1.1 什么是 ElasticSearch
 
 `ElasticSearch` 是一款非常强大的、基于 `Lucene` 的开源搜索及分析引擎；它是一个实时的分布式搜索分析引擎，它能让你以前所未有的速度和规模，去探索你的数据。
 
@@ -13,6 +15,38 @@
 除了搜索，结合 **Kibana、Logstash、Beats** 开源产品，**Elastic Stack（简称ELK）** 还被广泛运用在大数据近实时分析领域，包括：**日志分析、指标监控、信息安全**等。它可以帮助你探索 **海量结构化、非结构化数据，按需创建可视化报表，对监控数据设置报警阈值，通过使用机器学习，自动识别异常状况。**
 
 `ElasticSearch` 是基于 `Restful WebApi`，使用Java语言开发的搜索引擎库类，并作为Apache 许可条款下的开放源码发布，是当前流行的企业级搜索引擎。其客户端在Java、C#、PHP、Python等许多语言中都是可用的。
+
+### 1.2 与关系型数据库的概念对比
+
+es 的一些概念：
+
+- **Near Realtime（NRT） 近实时**：数据提交索引后，立马就可以搜索到。 
+
+- **Cluster 集群**：一个集群由一个唯一的名字标识，默认为“elasticsearch”。集群名称非常重要，具有相同集群名的节点才会组成一个集群。集群名称可以在配置文件中指定。 
+
+- **Node 节点**：存储集群的数据，参与集群的索引和搜索功能。像集群有名字，节点也有自己的名称，默认在启动时会以一个随机的UUID的前七个字符作为节点的名字，你可以为其指定任意的名字。通过集群名在网络中发现同伴组成集群。一个节点也可是集群。
+
+- **Index 索引**: 一个索引是一个文档的集合（等同于solr中的集合）。每个索引有唯一的名字，通过这个名字来操作它。一个集群中可以有任意多个索引。
+
+- **Type 类型**：指在一个索引中，可以索引不同类型的文档，如用户数据、博客数据。从6.0.0 版本起已废弃，一个索引中只存放一类数据。
+ 
+- **Document 文档**：被索引的一条数据，索引的基本信息单元，以JSON格式来表示。 
+
+- **Shard 分片**：在创建一个索引时可以指定分成多少个分片来存储。每个分片本身也是一个功能完善且独立的“索引”，可以被放置在集群的任意节点上。 
+
+- **Replication 备份**: 一个分片可以有多个备份（副本）
+
+与 MySQL 的对比：
+
+| **MySQL** | **Elasticsearch** | **说明**                                                     |
+| --------- | ----------------- | ------------------------------------------------------------ |
+| Table     | Index             | 索引(index)，就是文档的集合，类似数据库的表(table)           |
+| Row       | Document          | 文档（Document），就是一条条的数据，类似数据库中的行（Row），文档都是JSON格式 |
+| Column    | Field             | 字段（Field），就是JSON文档中的字段，类似数据库中的列（Column） |
+| Schema    | Mapping           | Mapping（映射）是索引中文档的约束，例如字段类型约束。类似数据库的表结构（Schema） |
+| SQL       | DSL               | DSL是elasticsearch提供的JSON风格的请求语句，用来操作elasticsearch，实现CRUD |
+
+
 
 ## 2. 单点部署 es
 
@@ -265,6 +299,180 @@ GET /_analyze
 永远滴神
 ```
 
-## 4. ElasticSearch 知识体系
+## 4 集群部署 es
+
+单机的 `elasticsearch` 做数据存储，必然面临两个问题：海量数据存储问题、单点故障问题。集群的解决方案：
+
+- 海量数据存储问题：将索引库从逻辑上拆分为 N 个分片（shard），存储到多个节点
+- 单点故障问题：将分片数据在不同节点备份（replica ）
+
+这里使用的是单机上利用 `docker` 容器运行多个 `es` 实例来模拟集群。直接使用 `docker-compose` 工具来完成，但这要求你的 `Linux` 虚拟机至少有 `4G` 的内存空间。
+
+### 4.1 创建es集群
+
+编写 `docker-compose` 文件如下：
+
+```sh
+version: '2.2'
+services:
+  es01:
+    image: elasticsearch:7.12.1
+    container_name: es01
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es02,es03 //这里其实是另外两个容器的ip地址，但这里是基于docker单机演示集群，所以docker容器之间可相互访问填容器名即可
+      - cluster.initial_master_nodes=es01,es02,es03 // 主从节点 选举
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - elastic
+  es02:
+    image: elasticsearch:7.12.1
+    container_name: es02
+    environment:
+      - node.name=es02
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - data02:/usr/share/elasticsearch/data
+    ports:
+      - 9201:9200
+    networks:
+      - elastic
+  es03:
+    image: elasticsearch:7.12.1
+    container_name: es03
+    environment:
+      - node.name=es03
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02
+      - cluster.initial_master_nodes=es01,es02,es03
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - data03:/usr/share/elasticsearch/data
+    networks:
+      - elastic
+    ports:
+      - 9202:9200
+volumes:
+  data01:
+    driver: local
+  data02:
+    driver: local
+  data03:
+    driver: local
+
+networks:
+  elastic:
+    driver: bridge
+```
+
+启动前建议先清下缓存:
+
+```sh
+sudo echo 3 > /proc/sys/vm/drop_caches
+```
+
+还有 es 运行需要修改一些 linux 系统权限，修改 `/etc/sysctl.conf` 文件
+
+```sh
+vi /etc/sysctl.conf
+```
+
+添加下面的内容（放开虚拟机内存大小）：
+
+```sh
+vm.max_map_count=262144
+```
+
+然后执行命令，让配置生效：
+
+```sh
+sysctl -p
+``` 
+
+通过 `docker-compose` 创建和启动集群，`-d` 守护式进程启动：
+
+```sh
+docker-compose up -d
+```
+
+### 4.2 集群状态监控
+
+`kibana` 可以监控 es 集群，不过新版本需要依赖 es 的x-pack 功能，配置比较复杂。
+
+这里推荐使用 `cerebro` 来监控 es 集群状态。Cerebro 是 Elasticsearch 版本 5.x 以前插件 Elasticsearch Kopf 的演变，可以通过图形界面查看分片分配和执行常见的索引操作，比 Kiban a轻量很多。[官方下载](https://github.com/lmenezes/cerebro)，下载解压后进入 bin 目录，双击打开 cerebro.bat 文件即可启动。
+
+随后访问管理界面：http://localhost:9200
+
+![](https://resource.lzyan.fun/PigGo/20220422145735.png)
+
+输入 elasticsearch 的任意节点的地址和端口，点击 connect ：绿色的条，代表集群处于绿色（健康状态）。
+
+![](https://resource.lzyan.fun/PigGo/20220422145753.png)
+
+### 4.3 ES集群的节点角色
+
+elasticsearch 中集群节点有不同的职责划分：
+
+|    节点类型     |                  配置参数                  | 默认值 |                           节点职责                           |
+| :-------------: | :----------------------------------------: | :----: | :----------------------------------------------------------: |
+| master eligible |                node.master                 |  true  | 备选主节点：主节点可以管理和记录集群状态、决定分片在哪个节点、处理创建和删除索引库的请求 |
+|      data       |                 node.data                  |  true  |             数据节点：存储数据、搜索、聚合、CRUD             |
+|     ingest      |                node.ingest                 |  true  |                     数据存储之前的预处理                     |
+|  coordinating   | 上面3个参数都为false时则为coordinating节点 |   无   |     路由请求到其他节点、合并其他节点处理的结果返回给用户     |
+
+### 4.4 用 cerebor 创建索引库
+
+填写信息并创建索引库：
+
+![](https://resource.lzyan.fun/PigGo/20220422145905.png)
+
+![](https://resource.lzyan.fun/PigGo/20220422150103.png)
+
+回到首页即可查看索引库分片的情况:
+
+![](https://resource.lzyan.fun/PigGo/20220422150445.png)
+
+或使用语法，填写在 setting 处：
+
+```json
+PUT /lzyan_blog
+{
+  "settings": {
+    "number_of_shards": 3, // 分片数量
+    "number_of_replicas": 1 // 副本数量
+  },
+  "mappings": {
+    "properties": {
+      // mapping映射定义 ...
+    }
+  }
+}
+```
+
+### 4.5 ES 集群的故障转移
+
+集群的 master 节点会监控集群中的节点状态，如果发现有节点宕机，会立即将宕机节点的分片数据迁移到其它节点，确保数据安全，这个叫做故障转移。
+
+假设我现在直接把 es03 这台停掉，此时集群状态监控:
+
+![](https://resource.lzyan.fun/PigGo/20220422151132.png)
+
+再过多一会，就会发现 es03 这台的分片数据就会迁移到了其他的节点，且重新选举了 es02 这台为 master 节点：
+
+![](https://resource.lzyan.fun/PigGo/20220422151224.png)
+
+然后现在重新启动 es03 ，分片数据重新选配迁移回来了，es02 依然是 master 节点：
+
+![](https://resource.lzyan.fun/PigGo/20220422151724.png)
+
+## 5. ElasticSearch 知识体系
 
 [ElasticSearch知识体系详解](https://www.pdai.tech/md/db/nosql-es/elasticsearch.html)
