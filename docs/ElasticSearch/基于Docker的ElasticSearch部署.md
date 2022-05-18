@@ -308,11 +308,11 @@ GET /_analyze
 
 这里使用的是单机上利用 `docker` 容器运行多个 `es` 实例来模拟集群。直接使用 `docker-compose` 工具来完成，但这要求你的 `Linux` 虚拟机至少有 `4G` 的内存空间。
 
-### 4.1 创建es集群
+### 4.1 创建 es 集群
 
-编写 `docker-compose` 文件如下：
+编写 `docker-compose.yml` 文件如下：
 
-```sh
+```yml
 version: '2.2'
 services:
   es01:

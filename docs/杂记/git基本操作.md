@@ -1,6 +1,6 @@
 > 以下为观看 [廖雪峰Git教程](https://www.liaoxuefeng.com/wiki/896043488029600) 笔记
 >
-> 更多内容：[Git飞行规则(Flight Rules)](https://github.com/k88hudson/git-flight-rules/blob/master/README_zh-CN.md)、[动画git教程](https://learngitbranching.js.org/?demo=&locale=zh_CN)、[An emoji guide for your commit messages](https://gitmoji.dev/)、[实际项目中如何使用Git做分支管理](https://blog.csdn.net/ShuSheng0007/article/details/80791849)
+> 更多内容：[Git飞行规则(Flight Rules)](https://github.com/k88hudson/git-flight-rules/blob/master/README_zh-CN.md)、[动画git教程](https://learngitbranching.js.org/?demo=&locale=zh_CN)、[An emoji guide for your commit messages](https://gitmoji.dev/)、[实际项目中如何使用Git做分支管理](https://blog.csdn.net/ShuSheng0007/article/details/80791849)、[Git的奇技淫巧](https://github.com/521xueweihan/git-tips)
 
 ## 基本操作
 
@@ -268,7 +268,11 @@ ssh-keygen -t rsa -C "youremail@example.com"
 
 你需要把邮件地址换成你自己的邮件地址，然后一路回车，使用默认值即可，由于这个 `Key` 也不作用其机密事项，所以也无需设置密码。
 
-如果一切顺利的话，可以在用户主目录里找到 `.ssh` 目录，里面有 `id_rsa` 和 `id_rsa.pub` 两个文件，这两个就是 `SSH Key` 的秘钥对，`id_rsa`是私钥，不能泄露出去，`id_rsa.pub`是公钥，可以放心地告诉任何人。
+如果一切顺利的话，可以在用户主目录里找到 `.ssh` 目录，里面有 `id_rsa` 和 `id_rsa.pub` 两个文件，这两个就是 `SSH Key` 的秘钥对，`id_rsa`是私钥，不能泄露出去，`id_rsa.pub`是公钥，可以放心地告诉任何人。也可以使用以下命令查看：
+
+```sh
+cat ~/.ssh/id_rsa.pub
+```
 
 ![image-20200621170147551.png](https://resource.lzyan.fun/lzyan_blog_system/2021_04_17/png/832916598988734464.png)
 

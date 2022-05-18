@@ -61,7 +61,7 @@ public class EurekaConsumerApplication {
 
 controller类编写ribbon实现
 
-```yaml
+```java
 @RestController
 @RequestMapping("/Hello")
 class ConsumerController {
