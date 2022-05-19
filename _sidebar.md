@@ -24,8 +24,10 @@
     * [SpringBoot整合RocketMQ](./docs/SpringBoot/SpringBoot整合RocketMQ.md)
     * [SpringBoot处理跨域请求](./docs/SpringBoot/SpringBoot处理跨域请求.md)
   * Spring Cloud
-    * [SpringCloud的总体架构](./docs/SpringCloud/SpringCloud总体架构.md)
+    * [SpringCloud 总体架构](./docs/SpringCloud/SpringCloud总体架构.md)
     * [SpringCloud Eureka：服务注册与发现](./docs/SpringCloud/SpringCloud_Eureka：服务注册与发现.md)
+    * [SpringCloud Ribbon：负载均衡服务调用](./docs/SpringCloud/SpringCloud_Ribbon：负载均衡服务调用.md)
+    * [SpringCloud Alibaba Nacos：注册中心与配置中心](./docs/SpringCloud/SpringCloud_Alibaba_Nacos：注册中心与配置中心.md)
     
 * 🧲 中间件
   * [消息队列常见问题总结](./docs/中间件/消息队列常见问题总结.md)
