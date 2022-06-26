@@ -1,8 +1,8 @@
 ## 服务远程调用
 
-### 准备项目
+### 项目准备
 
-项目目录结构如下，项目源来自黑马微服务开发框架教程
+项目源来自黑马 微服务开发框架教程，项目目录结构如下，就是一个基本的项目结构:springboot+mybatis，不再赘述构建过程
 
 ![](https://resource.lzyan.fun/PigGo/20220519105117.png)
 
@@ -24,7 +24,7 @@ public class OrderController {
 }
 ```
 
-在 `user-service` 中有一个根据id查询用户的接口：
+在 `user-service` 中有一个根据 id 查询用户的接口：
 
 ```java
 @Slf4j
@@ -101,7 +101,6 @@ public class OrderService {
 
 ![](https://resource.lzyan.fun/PigGo/20220519111514.png)
 
-
 ## Ribbon 负载均衡
 
 ### 负载均衡实现
@@ -114,7 +113,7 @@ public class OrderService {
 
 ![](https://resource.lzyan.fun/PigGo/20220519130048.png)
 
-然后修改一下远程调用的 `url` ，用服务名代替ip、端口。此处我的 `user-service` 这个服务通过集成 `Eureka` 后配置命名为 `userservice`
+然后修改一下远程调用的 `url` ，用服务名代替 ip、端口。此处我的 `user-service` 这个服务通过集成 `Eureka` 后配置命名为 `userservice`
 
 ![](https://resource.lzyan.fun/PigGo/20220519130637.png)
 
@@ -179,7 +178,6 @@ public class OrderService {
 
 ![](https://resource.lzyan.fun/PigGo/20220519213724.png)
 
-
 ## 负载均衡策略
 
 ### IRule 接口
@@ -190,15 +188,15 @@ public class OrderService {
 
 不同规则的含义：
 
-| **内置负载均衡规则类**    | **规则描述**                                                 |
-| ------------------------- | ------------------------------------------------------------ |
-| RoundRobinRule            | 简单轮询服务列表来选择服务器。它是Ribbon默认的负载均衡规则。 |
-| AvailabilityFilteringRule | 对以下两种服务器进行忽略：   （1）在默认情况下，这台服务器如果3次连接失败，这台服务器就会被设置为“短路”状态。短路状态将持续30秒，如果再次连接失败，短路的持续时间就会几何级地增加。  （2）并发数过高的服务器。如果一个服务器的并发连接数过高，配置了AvailabilityFilteringRule规则的客户端也会将其忽略。并发连接数的上限，可以由客户端的<clientName>.<clientConfigNameSpace>.ActiveConnectionsLimit属性进行配置。 |
-| WeightedResponseTimeRule  | 为每一个服务器赋予一个权重值。服务器响应时间越长，这个服务器的权重就越小。这个规则会随机选择服务器，这个权重值会影响服务器的选择。 |
-| **ZoneAvoidanceRule**     | 以区域可用的服务器为基础进行服务器的选择。使用Zone对服务器进行分类，这个Zone可以理解为一个机房、一个机架等。而后再对Zone内的多个服务做轮询。 |
-| BestAvailableRule         | 忽略那些短路的服务器，并选择并发数较低的服务器。             |
-| RandomRule                | 随机选择一个可用的服务器。                                   |
-| RetryRule                 | 重试机制的选择逻辑                                           |
+| **内置负载均衡规则类**    | **规则描述**                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| RoundRobinRule            | 简单轮询服务列表来选择服务器。它是 Ribbon 默认的负载均衡规则。                                                                                                                                                                                                                                                                                                                                                       |
+| AvailabilityFilteringRule | 对以下两种服务器进行忽略： （1）在默认情况下，这台服务器如果 3 次连接失败，这台服务器就会被设置为“短路”状态。短路状态将持续 30 秒，如果再次连接失败，短路的持续时间就会几何级地增加。 （2）并发数过高的服务器。如果一个服务器的并发连接数过高，配置了 AvailabilityFilteringRule 规则的客户端也会将其忽略。并发连接数的上限，可以由客户端的<clientName>.<clientConfigNameSpace>.ActiveConnectionsLimit 属性进行配置。 |
+| WeightedResponseTimeRule  | 为每一个服务器赋予一个权重值。服务器响应时间越长，这个服务器的权重就越小。这个规则会随机选择服务器，这个权重值会影响服务器的选择。                                                                                                                                                                                                                                                                                   |
+| **ZoneAvoidanceRule**     | 以区域可用的服务器为基础进行服务器的选择。使用 Zone 对服务器进行分类，这个 Zone 可以理解为一个机房、一个机架等。而后再对 Zone 内的多个服务做轮询。                                                                                                                                                                                                                                                                   |
+| BestAvailableRule         | 忽略那些短路的服务器，并选择并发数较低的服务器。                                                                                                                                                                                                                                                                                                                                                                     |
+| RandomRule                | 随机选择一个可用的服务器。                                                                                                                                                                                                                                                                                                                                                                                           |
+| RetryRule                 | 重试机制的选择逻辑                                                                                                                                                                                                                                                                                                                                                                                                   |
 
 ### 指定负载均衡规则
 

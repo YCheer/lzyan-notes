@@ -1,3 +1,5 @@
+![](https://resource.lzyan.fun/PigGo/lsawleRSzP5PAc5UBvY3sAQKuCur.png)
+
 ## JVM 内存管理
 
 ### Java 运行时数据区域

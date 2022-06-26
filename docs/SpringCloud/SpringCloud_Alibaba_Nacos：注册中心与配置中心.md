@@ -12,7 +12,7 @@ Nacos 是阿里巴巴的产品，现在是[SpringCloud](https://spring.io/projec
 
 - 先从官网下载 Nacos，这里下载的是 `nacos-server-1.4.1.zip` 文件，下载地址：https://github.com/alibaba/nacos/releases
 
-- 配置 `JAVA_HOME` 环境变量，不然无法运行（作为Javaer，本地的环境变量肯定都有配置好了，所以如果是在Linux下的如果没有配置得记得去配置一下）
+- 配置 `JAVA_HOME` 环境变量，不然无法运行（作为 Javaer，本地的环境变量肯定都有配置好了，所以如果是在 Linux 下的如果没有配置得记得去配置一下）
 
 - 解压安装包，运行脚本在 `bin` 目录下的 `startup.cmd` （windows）
 
@@ -24,7 +24,42 @@ Nacos 是阿里巴巴的产品，现在是[SpringCloud](https://spring.io/projec
 
 - 运行成功后，访问 `http://localhost:8848/nacos` 可以查看 Nacos 的主页，默认账号密码都是 nacos
 
-![](https://resource.lzyan.fun/PigGo/20220519093315.png)
+![](https://resource.lzyan.fun/PigGo/20220523102521.png)
 
-## Nacos 做注册中心
+## Nacos 注册中心
 
+### 项目准备
+
+项目源来自黑马 微服务开发框架教程，项目目录结构如下，就是一个基本的项目结构：springboot+mybatis，不再赘述构建过程
+
+![](https://resource.lzyan.fun/PigGo/20220519105117.png)
+
+在 `cloud-demo` 父工程中的 `pom.xml` 文件中添加 `SpringCloudAlibaba` 的依赖
+
+```xml
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+    <version>2.2.6.RELEASE</version>
+    <type>pom</type>
+    <scope>import</scope>
+</dependency>
+```
+
+在两个服务模块 `user-service` 和 `order-service` 的 `pom.xml` 文件中添加 `nacos-discovery` 依赖
+
+```xml
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+</dependency>
+```
+
+配置 `nacos` 地址，在 `user-service` 和 `order-service` 的 `application.yml` 文件中添加 `nacos` 的地址
+
+```yaml
+spring:
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+```
