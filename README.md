@@ -23,7 +23,7 @@
   * [JVM](./docs/Java/JavaJvm八股文.md)
 
 * 🐭 Golang
-  * [go语言Web后端Restful风格CRUD](./docs/Go/go语言Web后端Restful风格CRUD.md)
+  * [Go语言Web后端Restful风格CRUD](./docs/Go/Go语言Web后端Restful风格CRUD.md)
 
 * ⚙️ 数据库
   * MySQL
