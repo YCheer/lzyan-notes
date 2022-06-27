@@ -12,25 +12,24 @@
   <link rel="icon" type="image/png" sizes="144x144" href="https://resource.lzyan.fun/PigGo/undraw_code_thinking_re_gka2.svg" />
   <!-- sidebar 侧边栏进行多级分类，并且自动折叠 样式 -->
   <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar-folder.min.css" /> -->
-
 </head>
 
 <body>
   <div id="app"></div>
-  <!-- docsify-edit-on-github -->
-  <script src="//unpkg.com/docsify-edit-on-github/index.js"></script>
   <script>
     window.$docsify = {
       name: 'lzyan-notes',
       repo: 'https://github.com/YCheer/lzyan-notes',
+      homepage: 'README.md',
+      loadSidebar: true,
       maxLevel: 5,//最大支持渲染的标题层级
       themeColor: '#2f90b9', // 主题颜色 云山蓝
       subMaxLevel: 3,
-      homepage: 'README.md',
       coverpage: true,
-      loadSidebar: true,
-      onlyCover: true,
-      auto2top: true,//切换页面后是否自动跳转到页面顶部
+      onlyCover: true, // cover单独 不可以下滑
+      auto2top: true,// 切换页面后是否自动跳转到页面顶部
+      sidebarDisplayLevel: 0 , // set sidebar display level 0默认打开页面折叠侧边栏
+
       //全文搜索
       search: {
         //maxAge: 86400000, // 过期时间，单位毫秒，默认一天
@@ -40,17 +39,11 @@
         // 搜索标题的最大程级, 1 - 6
         depth: 3,
       },
-      sidebarDisplayLevel: 2, // set sidebar display level
-
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-  <!-- sidebar 侧边栏进行多级分类，并且自动折叠 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
-
   <!-- emoji  -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
-
   <!-- 代码高亮 -->
   <script src="//unpkg.com/prismjs/components/prism-java.js"></script>
   <script src="//unpkg.com/prismjs/components/prism-go.js"></script>
@@ -58,30 +51,27 @@
   <script src="//unpkg.com/prismjs/components/prism-properties.min.js"></script>
   <script src="//unpkg.com/prismjs/components/prism-yaml.min.js"></script>
 
-
+  <!-- sidebar 侧边栏进行多级分类，并且自动折叠 -->
+  <script src="./pulgins/js/docsify-sidebar-collapse.min.js"></script>
   <!--全文搜索,直接用官方提供的无法生效-->
-  <script src="https://cdn.bootcss.com/docsify/4.5.9/plugins/search.min.js"></script>
-  <!-- 复制到剪贴板 -->
-  <script src="//unpkg.com/docsify-copy-code"></script>
+  <script src=".//pulgins/js/search.min.js"></script>
+  <!-- 代码复制到剪贴板 -->
+  <script src="./pulgins/js/docsify-copy-code.js"></script>  
   <!-- 图片缩放 -->
-  <script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script>
+  <script src="./pulgins/js/zoom-image.js"></script>
   <!-- 字数统计 -->
-  <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
-
-  <!-- 置顶插件 -->
-  <script src="https://cdn.jsdelivr.net/gh/wugenqiang/NoteBook@master/plugin/jquery.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/wugenqiang/NoteBook@master/plugin/jquery.goup.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $.goup({
-        trigger: 100,
-        bottomOffset: 52,
-        locationOffset: 25,
-        //title: 'TOP',
-        titleAsText: true,
-      });
+  <script src="./pulgins/js/countable.js"></script>
+  <!-- 回到顶部功能 -->
+  <script src="./pulgins/js/vanilla-back-to-top.min.js"></script>
+  <script>
+    addBackToTop({
+        diameter: 50,
+        backgroundColor: '#2F90B9',
+        textColor: '#fff',
+        scrollDuration: 888 // 单位ms
     });
   </script>
+
 
   <style>
     /*加重描述strong*/
@@ -110,11 +100,6 @@
 
     #main h3 span {
       color: #2f90b9 !important;
-    }
-
-    /* 回到顶部的颜色 */
-   .goup-container  {
-      background: #2f90b9 !important;
     }
 
     /*代码块背景*/
@@ -329,6 +314,20 @@
       color: #25a46a;
       margin-bottom: 10px;
     }
+
+    .sidebar-nav {
+      
+    }
+
+    .sidebar>h1 a {
+      color: inherit;
+      text-decoration: none;
+      font-weight: 666;
+      font-size: 23px;
+    }
+
+
+
   </style>
 
 </html>
