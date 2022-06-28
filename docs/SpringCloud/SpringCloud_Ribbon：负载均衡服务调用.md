@@ -2,7 +2,7 @@
 
 ### 项目准备
 
-项目源来自黑马 微服务开发框架教程，项目目录结构如下，就是一个基本的项目结构:springboot+mybatis，不再赘述构建过程
+项目源来自黑马 微服务开发框架教程，项目目录结构如下，就是一个基本的项目结构:springboot+mybatis，不再赘述构建过程,[项目地址](https://github.com/YCheer/cloud-demo)
 
 ![](https://resource.lzyan.fun/PigGo/20220519105117.png)
 
