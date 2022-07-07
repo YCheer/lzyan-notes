@@ -76,6 +76,9 @@ Kafka 采用的就是发布/订阅模型，RocketMQ 的消息模型和 Kafka 基
 ### 如何保证 kafka 消息的消费顺序
 ### 如何保证 kafka 消息不丢失
 
+### 核心知识
+
+[kafka核心知识整理](https://www.processon.com/view/link/624d3c2bf346fb57dbebfd1b#map)
 
 ### 动手体验
 
