@@ -1119,7 +1119,7 @@ final Object[] getArray() {
 
 - `unit`： `keepAliveTime` 参数的时间单位。
 
-- `threadFactory`：`executor` 创建新线程的时候会用到。
+- `threadFactory`：`executor` 创建新线程的时候会用到。一般使用默认的 `defaultThreadFactory`，也可以自定义线程池工厂，例如需要自定义线程的前缀名，是否为守护线程时。
 
 - `handler`：饱和策略。
 
@@ -1154,6 +1154,38 @@ final Object[] getArray() {
 如何判断是 `CPU` 密集任务还是 `IO` 密集任务？
 
 `CPU` 密集型简单理解就是利用 `CPU` 计算能力的任务比如你在内存中对大量数据进行排序。但凡涉及到网络读取，文件读取这类都是 `IO` 密集型，这类任务的特点是 `CPU` 计算耗费时间相比于等待 `IO` 操作完成的时间来说很少，大部分时间都花在了等待 `IO` 操作完成上。
+
+## CompletableFuture
+
+### 什么是 CompletableFuture?
+
+`CompletableFuture` 是 Java 8 引入的一个非常有用的用于异步编程的类。异步编程时编写非阻塞的代码，运行的任务在一个单独的线程，与主线程隔离，并且会通知主线程它的进度，成功或者失败。在这种方式中主线程不会被阻塞，不需要一直等到子线程完成，主线程可以并行的执行其他任务。使用这种方式，可以极大的提高程序的性能。
+
+### 如何使用 CompletableFuture?
+
+#### 一个简单的例子
+
+使用无参构造方法函数简单的创建 `CompletableFuture`
+
+```java
+CompletableFuture<String> completableFuture = new CompletableFuture<String>();
+```
+
+想获取 `CompletableFuture` 的结果可以使用 `CompletableFuture.get()` 方法：
+
+```java
+String result = completableFuture.get();
+```
+
+`get()` 方法会一直阻塞直到 `Future` 完成。因此，以上的调用将被永远阻塞，因为该 `Future` 一直不会完成。你可以使用 `CompletableFuture.complete()` 手工完成一个 `Future`:
+
+```java
+completableFuture.complete("complete result!");
+```
+
+所有等待这个 `Future` 的客户端都将得到一个指定的结果，并且 `completableFuture.complete()` 之后的调用都将被忽略。
+
+
 
 ## AQS
 ## Atomic 原子类

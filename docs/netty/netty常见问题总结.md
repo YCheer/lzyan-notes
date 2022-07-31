@@ -157,8 +157,7 @@ public class NIOServer {
     }
 }
 ```
-
-##### Client 端
+#### Client 端
 
 ```java
 import java.io.IOException;
@@ -1153,6 +1152,10 @@ new Bootstrap()
 服务端 pipeline 触发的原始流程，图中数字代表了处理步骤的先后次序
 
 ![](https://resource.lzyan.fun/PigGo/0009.png)
+
+为了提升性能，如果用户实现的 `ChannelHandler` 包含复杂的或者可能导致同步阻塞的业务逻辑，往往需要通过线程池来提升并发能力。
+
+线程池添加有两种策略：用户自定义线程池业务 `ChannelHandler`，以及通过 Netty 的 `EventExecutorGroup` 机制来并行执行 `ChannelHandler`
 
 ### ByteBuf
 
