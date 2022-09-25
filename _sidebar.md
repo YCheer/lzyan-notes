@@ -48,7 +48,7 @@
 * 🤡 杂记
   <!-- * 消息推送平台 austin
     * [环境搭建](./docs/杂记/austin项目学习/环境搭建.md) -->
-  * [记录nuxt使用vuex实现导航栏切换](./docs/杂记/nuxt.js项目使用vuex实现导航栏切换.md)
+  <!-- * [记录nuxt使用vuex实现导航栏切换](./docs/杂记/nuxt.js项目使用vuex实现导航栏切换.md) -->
   * [SpringBoot项目集成阿里云对象存储上传图片](./docs/杂记/SpringBoot项目集成阿里云对象存储上传图片.md)
   * [git的基本操作](./docs/杂记/git基本操作.md)
   * [Nginx配置二级域名与ssl证书](./docs/杂记/Nginx配置二级域名与https.md)
@@ -56,6 +56,8 @@
   * [API鉴权和JWT](./docs/杂记/JWT_Api鉴权.md)
   * [jsoup简单应用之爬取图片](./docs/杂记/jsoup简单应用之爬取图片.md)
   * [push不到代码引发的疑问](./doc/../docs/杂记/push不到代码引发的疑问.md)
+  * [Maven打包事故](./docs/杂记/Maven打包事故.md)
+
 
 
 
