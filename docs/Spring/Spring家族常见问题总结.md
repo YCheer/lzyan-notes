@@ -648,6 +648,130 @@ Spring MVC 的工作流程可以用一幅图来说明：
 
 [Spring事务总结](https://javaguide.cn/system-design/framework/spring/spring-transaction/#_3-2-spring-%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E6%8E%A5%E5%8F%A3%E4%BB%8B%E7%BB%8D)
 
+### Spring 事务失效的场景？
+
+spring开启事务的方式：
+
+```java
+@Service
+public class ServiceImpl implements Service {
+    @Transactional(rollbackFor = Exception.class)
+    public void update(string xxxx) {
+        // update  logic
+    }
+}
+```
+
+以下几种情况会导致开启的事务失效
+
+#### 1. 数据库引擎不支持事务
+
+在 MySQL 数据库中存储引擎除了 innodb，其他都不支持事务。从 MySQL 5.5.5 开始的默认存储引擎是：InnoDB，之前默认的都是：MyISAM。
+
+#### 2.类没有被spring管理
+
+比如上面的代码示例中的ServiceImpl类没有增加 @Service注 解，这个类就不会被加载成一个bean，不会被spring管理，事务也就失效了
+
+#### 3.方法非public修饰
+
+@Transactional只能用在public方法上面，原因是spring要求被代理的方法必须是public，否则事务不会生效。
+
+#### 4.方法中调用同类方法
+
+```java
+@Service
+public class ServiceImpl implements Service {
+    public void test(string xxxx) {
+        update(xxxx);
+    }
+    
+    @Transactional(propagation =  Propagation.REQUIRED)
+    public void update(string xxxx) {
+            // update logic
+    }
+}
+```
+
+因为是 AOP，直接调用内部方法并非是代理类调用，所以会失效。在 springboot 中可以这样解决
+
+```java
+@Service
+public class ServiceImpl implements Service {
+    public void test(string xxxx) {
+        Service proxy = (Service) AopContext.currentProxy();
+        proxy.update(xxxx);
+    }
+    
+    @Transactional(propagation =  Propagation.REQUIRED)
+    public void update(string xxxx) {
+            // update logic
+    }
+}
+```
+
+#### 5.抛出的异常被捕获
+
+```java
+@Service
+public class ServiceImpl implements Service {
+    @Transactional
+    public void update(string xxxx) {
+        try {
+            // update logic
+        } catch {
+        }
+    }
+}
+```
+当业务方法抛出异常，spring 感知到异常的时候，才会做事务回滚的操作，若异常被方法内部 try catch 捕获，外部事务不会捕获异常触发回滚
+
+#### 6.事务的传播机制配置错误
+
+```java
+@Service
+public class ServiceImpl implements Service {
+    @Transactional(propagation =  Propagation.NEVER)
+    public void update(string xxxx) {
+        try {
+            // update logic
+        } catch {
+        }
+    }
+}
+```
+#### 7.rollbackFor属性设置错误
+
+```java
+@Service
+public class ServiceImpl implements Service {
+    @Transactional(rollbackFor = NullPointerException.class)
+    public void update(string xxxx) {
+            // update logic
+    }
+}
+```
+rollbackFor 用于指定能够触发事务回滚的异常类型，可以指定多个异常类型。默认是在RuntimeException和Error上回滚。若异常非配置指定的异常类，则事务失效
+
+#### 8.noRollbackFor属性设置错误
+
+和rollbackFor互补使用，用法相反
+
+#### 9.被final修饰的方法
+
+```java
+@Service
+public class ServiceImpl implements Service {
+    @Transactional(rollbackFor = Exception.class)
+    public final void update(string xxxx) {
+        // update logic
+    }
+}
+```
+final 修饰的方法表明方法不能被子类重写 spring 事务的底层是通过 aop 来创建一个代理类，而代理类无法重写该方法，无法实现事务功能。
+
+参考:[Spring中事务失效的几种情况](https://zhuanlan.zhihu.com/p/514257018)
+
+
 ## Boot
 
 ### SpringBoot 自动装配实现原理简要
